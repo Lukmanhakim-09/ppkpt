@@ -11,6 +11,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 <body>
+    
     <x-nav-bar>
         <x-slot name="Label1">Tentang Kami</x-slot>
         <x-slot name="Label2">Pelapor</x-slot>

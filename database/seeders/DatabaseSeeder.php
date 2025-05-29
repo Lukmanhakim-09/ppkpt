@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'username' => 'admin',
             'password' => 'admin',
-            'role' => 'Admin',
+            'role' => 'admin',
             'fullname' => 'Admin',
             'profile' => 'user.webp',
             'status_verify' => '1', 
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'username' => '221031066',
             'password' => '221031066',
-            'role' => 'Pelapor',
+            'role' => 'pelapor',
             'fullname' => 'Andi Riah Zahirah',
             'profile' => 'user.webp',
             'status_verify' => '1', 
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'username' => '221031003',
             'password' => '221031003',
-            'role' => 'Pelapor',
+            'role' => 'pelapor',
             'fullname' => 'Muhammad Akbar',
             'profile' => 'user.webp',
             'status_verify' => '1', 
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'username' => '221031018',
             'password' => '221031018',
-            'role' => 'Pelapor',
+            'role' => 'pelapor',    
             'fullname' => 'Lukman Hakim',
             'profile' => 'user.webp',
             'status_verify' => '1', 

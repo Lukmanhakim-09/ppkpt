@@ -54,7 +54,7 @@
                 </span>
                 Edit Profil
                 </a>
-                <a href="#" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
+                <a href="/login" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
                 <span class="bg-[#F08619] text-white rounded-full w-9 h-9 flex items-center justify-center">
                     <i class="fa-solid fa-right-from-bracket text-sm"></i>
                 </span>
@@ -92,6 +92,6 @@
                     <h5 class="text-gray-600 text-sm">{{ $Label2 }}</h5>
                 </div>
             </div>
-            <a class="bg-[#F08619] text-white rounded-md px-4 py-2 flex items-center justify-center gap-2 hover:bg-[#3B6BA2] tracking-wider font-roboto" href="#">Keluar <i class="fa-solid fa-right-from-bracket text-sm"></i></a>
+            <a class="bg-[#F08619] text-white rounded-md px-4 py-2 flex items-center justify-center gap-2 hover:bg-[#3B6BA2] tracking-wider font-roboto" href="/login">Keluar <i class="fa-solid fa-right-from-bracket text-sm"></i></a>
         </div>
     </header>
