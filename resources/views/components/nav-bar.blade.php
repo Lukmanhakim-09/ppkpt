@@ -1,4 +1,7 @@
-<header class="z-50 fixed inset-x-0 top-0 bg-white w-full shadow-md" x-data="{ isOpen: false }">
+@php
+    $user = auth()->user();
+@endphp
+    <header class="z-50 fixed inset-x-0 top-0 bg-white w-full shadow-md" x-data="{ isOpen: false }">
         <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div class="flex lg:flex-1">
             <a href="#beranda" class="-m-5 p-3">
@@ -34,7 +37,7 @@
             <div x-data="{ showProfileMenu: false }" class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3 relative">
             <!-- Info Pengguna -->
             <div class="flex flex-col text-right">
-                <h4 class="font-normal text-gray-900 tracking-wider text-lg text-center">Andi Riah Zahirah</h4>
+                <h4 class="font-normal text-gray-900 tracking-wider text-lg text-center">{{ $user->fullname }}</h4>
                 <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ $Label2 }}</h5>
             </div>
             <img
@@ -88,7 +91,7 @@
             <div class="flex items-center gap-3 pt-4">
                 <a href="#"><img class="w-12 h-12 rounded-full object-cover" src="img/user.webp" alt="Foto Pengguna"></a>
                 <div>
-                    <h4 class="text-gray-900 font-semibold text-base">Andi Riah Zahirah</h4>
+                    <h4 class="text-gray-900 font-semibold text-base">{{ $user->fullname }}</h4>
                     <h5 class="text-gray-600 text-sm">{{ $Label2 }}</h5>
                 </div>
             </div>
