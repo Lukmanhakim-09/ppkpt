@@ -26,16 +26,23 @@
               </svg>
             </button>
           </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1">Beranda</a>
-            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1">Berita</a>
-            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1">Tentang Kami</a>
-            <button @click="isOpen = !isOpen" type="button" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1">Dokumen</button>
-            <div x-show="isOpen" x-transition class="absolute bg-white shadow-2xl ml-90 mt-7 p-3 flex flex-col gap-1 text-justify">
-              <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1 w-50">Permendikbudristek No. 55 Tahun 2024</a>
-              <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto pb-1 w-50">Permendikbudristek No. 30 Tahun 2021</a>
+          <div class="hidden lg:flex lg:items-center lg:gap-x-8 relative">
+            <!-- Link Navigasi -->
+            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Beranda</a>
+            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Berita</a>
+            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Tentang Kami</a>
+
+            <!-- Dropdown Dokumen -->
+            <div class="relative" x-data="{ isOpen: false }">
+                <button @click="isOpen = !isOpen" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">
+                Dokumen
+                </button>
+                <div x-show="isOpen" @click.outside="isOpen = false" x-transition class="absolute left-0 top-full mt-2 bg-white shadow-lg rounded-md p-4 w-[200px] z-50">
+                <a href="#" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">Permendikbudristek No. 55 Tahun 2024</a>
+                <a href="#" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">Permendikbudristek No. 30 Tahun 2021</a>
+                </div>
             </div>
-          </div>
+            </div>
           <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="/login" class="text-base font-semibold tracking-wide text-gray-50 bg-[#F08619] hover:bg-[#3B6BA2] flex items-center gap-1 font-roboto px-7 py-2 rounded-xl">
               Masuk <i class="fa-solid fa-right-to-bracket"></i>
@@ -44,16 +51,25 @@
         </nav>
 
         <!-- Mobile Dropdown Menu -->
-        <div x-show="isOpen" x-transition class="lg:hidden px-6 py-4 bg-white shadow-md space-y-2" x-data="{ showDocuments: false }">
-          <a @click="isOpen = false" href="#" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg text-center">Beranda</a>
-          <a @click="isOpen = false" href="#berita" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg text-center">Berita</a>
-          <a @click="isOpen = false" href="#tentang" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg text-center">Tentang Kami</a>
-          <button @click="showDocuments = !showDocuments" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg w-full">Dokumen</button>
-          <div x-show="showDocuments" x-transition>
-            <a href="#" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg text-center">Permendikbudristek No. 55 Tahun 2024</a>
-            <a href="#" class="block text-base font-normal text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg text-center">Permendikbudristek No. 30 Tahun 2021</a>
-          </div>
-          <a @click="isOpen = false" href="/login" class="block text-base font-semibold tracking-wide text-white bg-[#F08619] hover:bg-[#3B6BA2] px-4 py-2 rounded-lg mt-2 text-center">
+        <div x-show="isOpen" x-transition class="lg:hidden px-6 py-4 bg-white shadow-md space-y-2 rounded-lg" x-data="{ showDocuments: false }">
+        <!-- Navigasi Utama -->
+        <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Beranda</a>
+        <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Berita</a>
+        <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Tentang Kami</a>
+        
+        <!-- Dropdown Dokumen -->
+        <button @click="showDocuments = !showDocuments" class="w-full text-left text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md flex items-center justify-between">
+            Dokumen
+            <svg :class="{ 'rotate-180': showDocuments }" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
+        <div x-show="showDocuments" x-transition class="pl-6 space-y-1">
+            <a href="#" class="block text-base text-gray-800 hover:text-blue-600 hover:underline">Permendikbudristek No. 55 Tahun 2024</a>
+            <a href="#" class="block text-base text-gray-800 hover:text-blue-600 hover:underline">Permendikbudristek No. 30 Tahun 2021</a>
+        </div>
+
+        <a @click="isOpen = false" href="/login" class="block text-base font-semibold tracking-wide text-white bg-[#F08619] hover:bg-[#3B6BA2] px-4 py-2 rounded-lg mt-2 text-center">
             Masuk <i class="fa-solid fa-right-to-bracket"></i>
           </a>
         </div>
