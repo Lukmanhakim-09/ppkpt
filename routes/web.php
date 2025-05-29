@@ -1,19 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [loginController::class, 'index']);
+Route::post('/login', [loginController::class, 'auth']);
 
-Route::get('/user', function () {
-    return view('user.home');
-}); 
+Route::get('/user', [UserController::class, 'index']);
 
-Route::get('/admin', function () {
-    return view('admin.home');
-});
+
+Route::get('/admin', [AdminController::class, 'index']);

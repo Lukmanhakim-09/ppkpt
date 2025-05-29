@@ -20,7 +20,7 @@
         <x-slot name="href1">/login</x-slot>
         <x-slot name="href2">#</x-slot>
     </x-body-user>
-
+    
     <x-faq></x-faq>
 </body>
 </html>
