@@ -15,5 +15,12 @@
         <x-slot name="Label1">Tentang Kami</x-slot>
         <x-slot name="Label2">Pelapor</x-slot>
     </x-nav-bar>
+
+    <x-body-user>
+        <x-slot name="href1">/login</x-slot>
+        <x-slot name="href2">#</x-slot>
+    </x-body-user>
+
+    <x-faq></x-faq>
 </body>
 </html>

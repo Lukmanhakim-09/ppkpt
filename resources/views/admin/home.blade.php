@@ -15,5 +15,6 @@
         <x-slot name="Label1">Statistik</x-slot>
         <x-slot name="Label2">Admin</x-slot>
     </x-nav-bar>
+    
 </body>
 </html>
