@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('role', ['Admin', 'Pelapor', 'Satgas']);
             $table->string('fullname');
             $table->string('profile');
-            $table->enum('status_verify', ['1', '2'])->nullable();
+            $table->enum('status_verify', ['1', '0'])->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('nim_nidn')->unique()->nullable();
             $table->enum('status', ['Pimpinan','Dosen','Tenaga Pendidik','Satpam', 'OB','Mahasiswa'])->nullable();
