@@ -18,7 +18,8 @@
         </div>
 
         <!-- Form Login -->
-        <form class="space-y-4" action="#" method="POST">
+        <form class="space-y-4" action="/login" method="POST">
+        @csrf
         <!-- Username -->
         <div class="group">
             <i class="fa-regular fa-user absolute py-3 px-4"></i>

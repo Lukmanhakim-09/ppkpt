@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('role');
+            $table->enum('role', ['Admin', 'Pelapor', 'Satgas']);
             $table->string('fullname');
             $table->string('profile');
-            $table->string('status_verify');
+            $table->enum('status_verify', ['1', '2'])->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('nim_nidn')->unique()->nullable();
+            $table->enum('status', ['Pimpinan','Dosen','Tenaga Pendidik','Satpam', 'OB','Mahasiswa'])->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 
