@@ -34,7 +34,7 @@ return new class extends Migration
             $table->enum('terlapor',['Iya', 'Tidak']);
             $table->text('warning');
             $table->string('tanggal');
-            $table->string('category');
+            $table->enum('category',['Fisik', 'Verbal', 'Seksual', 'Psikologis']);
             $table->text('chronology');
             $table->string('file_proof');
             $table->string('location');
