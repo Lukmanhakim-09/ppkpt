@@ -32,12 +32,6 @@
             <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required
             class="block w-full rounded-full bg-white pl-10 py-2 pr-5 text-base text-gray-900 border border-gray-300 placeholder:text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#F08619] sm:text-sm">
         </div>
-        
-        @if(session('error'))
-            <div class="text-red-700 text-center">
-                <span class="block sm:inline">{{ session('error') }}</span>
-            </div>
-        @endif
 
         <!-- Error Message -->
         @if(session('error'))
