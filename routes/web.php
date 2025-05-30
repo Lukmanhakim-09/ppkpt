@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
     return view('home');
@@ -16,3 +17,5 @@ Route::get('/user', [UserController::class, 'index']);
 
 
 Route::get('/admin', [AdminController::class, 'index']);
+
+Route::get('/berita', [BeritaController::class, 'index']);

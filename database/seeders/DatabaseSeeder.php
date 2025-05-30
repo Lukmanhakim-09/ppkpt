@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Berita;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -66,6 +67,51 @@ class DatabaseSeeder extends Seeder
             'nim_nidn' => '221031018',
             'status' => 'Mahasiswa',
             'remember_token' => Str::random(10),
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan',
+            'isi' => 'FJPI Lampung mengkritik pemberitaan kekerasan seksual yang mencampurkan opini pribadi 
+                        dengan fakta. Mereka menekankan pentingnya media menjaga objektivitas dan menghindari 
+                        bias dalam laporan agar masyarakat bisa memperoleh informasi yang jelas dan tepat. FJPI 
+                        juga meminta agar media lebih bertanggung jawab dalam memberikan informasi terkait isu 
+                        kekerasan seksual, terutama dalam membedakan antara fakta dan opini yang dapat mempengaruhi 
+                        persepsi publik. Organisasi ini mendorong adanya peningkatan edukasi media untuk mempublikasikan 
+                        berita dengan mempertimbangkan hak-hak korban serta meminimalisir kesalahan informasi yang bisa 
+                        memperburuk situasi.',
+            'gambar' => 'berita1.jpg',
+            'tanggal' => '2025-05-29',
+            'penulis' => 'Admin', 
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Komnas Perempuan paparkan penggunaan istilah kasus kekerasan seksual',
+            'isi' => 'Satgas PPKS telah mengangkat 11 mahasiswa sebagai duta pencegahan kekerasan seksual 
+                        di Universitas Hasanuddin (Unhas). Pelantikan ini bertujuan untuk meningkatkan kesadaran 
+                        dan peran aktif mahasiswa dalam memerangi kekerasan seksual di lingkungan kampus. Mereka 
+                        diharapkan dapat menyebarkan informasi dan menjadi penggerak perubahan di kalangan mahasiswa 
+                        dalam upaya menciptakan lingkungan yang lebih aman. Selain itu, kegiatan ini juga melibatkan 
+                        pelatihan terkait pencegahan kekerasan seksual, serta upaya memperkuat partisipasi komunitas 
+                        kampus dalam membangun budaya yang menanggulangi kekerasan seksual secara lebih sistematis.',
+            'gambar' => 'berita2.png',
+            'tanggal' => '2025-05-10',
+            'penulis' => 'Admin', 
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Komnas Perempuan paparkan penggunaan istilah kasus kekerasan seksual',
+            'isi' => 'Andy Yentriyani, Ketua Komnas Perempuan, mengingatkan pentingnya menggunakan 
+                        istilah "peristiwa kekerasan seksual" ketika kasusnya belum jelas atau belum ada 
+                        keputusan dari pihak kepolisian. Hal ini dilakukan untuk menghindari kesalahan penafsiran 
+                        sebelum pihak berwenang menentukan jenis tindakannya. Andy menjelaskan bahwa istilah tersebut 
+                        mencakup berbagai bentuk kekerasan seksual sesuai dengan Undang-Undang Tindak Pidana Kekerasan 
+                        Seksual (UU TPKS). Sebagai contoh, Andy menegaskan bahwa dalam kasus anak yang diperkosa, istilah 
+                        yang lebih tepat adalah "perbudakan seksual" karena korban sepenuhnya dikuasai oleh pelaku. 
+                        Ia menambahkan bahwa penggunaan istilah yang tepat sangat penting dalam konteks pemberitaan agar 
+                        tidak mereduksi beratnya kasus yang dihadapi korban.',
+            'gambar' => 'berita3.webp',
+            'tanggal' => '2025-05-10',
+            'penulis' => 'Admin', 
         ]);
         
     }
