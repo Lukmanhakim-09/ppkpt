@@ -16,74 +16,57 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        User::create([
+        $user = User::create([
             'username' => 'admin',
-            'password' => 'adminppkpt',
+            'password' => 'admin',
             'role' => 'admin',
             'fullname' => 'Admin',
             'profile' => 'user.webp',
-            'status_verify' => null,
-            'remember_token' => null,
+            'status_verify' => '1', 
             'email' => null,
             'nim_nidn' => null,
-            'status' => null
+            'status' => null,
+            'remember_token' => Str::random(10),
         ]);
 
-        User::create([
-            'username' => 'admin1',
-            'password' => 'adminppkpt',
-            'role' => 'admin',
-            'fullname' => 'Admin',
-            'profile' => 'user.webp',
-            'status_verify' => null,
-            'remember_token' => null,
-            'email' => null,
-            'nim_nidn' => null,
-            'status' => null
-        ]);
-
-        User::create([
+        $user = User::create([
             'username' => '221031066',
             'password' => '221031066',
             'role' => 'pelapor',
             'fullname' => 'Andi Riah Zahirah',
             'profile' => 'user.webp',
-            'status_verify' => '1',
-            'remember_token' => Str::random(10),
+            'status_verify' => '1', 
             'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031066',
-            'status' => 'Mahasiswa'
+            'status' => 'Mahasiswa',
+            'remember_token' => Str::random(10),
         ]);
 
-        User::create([
+        $user = User::create([
             'username' => '221031003',
             'password' => '221031003',
             'role' => 'pelapor',
             'fullname' => 'Muhammad Akbar',
             'profile' => 'user.webp',
-            'status_verify' => '1',
-            'remember_token' => Str::random(10),
+            'status_verify' => '1', 
             'email' => 'muhammadakbar.221031003@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031003',
-            'status' => 'Mahasiswa'
+            'status' => 'Mahasiswa',
+            'remember_token' => Str::random(10),
         ]);
 
-        User::create([
+        $user = User::create([
             'username' => '221031018',
             'password' => '221031018',
-            'role' => 'pelapor',
-            'fullname' => 'Lukman Hakim',   
+            'role' => 'pelapor',    
+            'fullname' => 'Lukman Hakim',
             'profile' => 'user.webp',
-            'status_verify' => '1',
-            'remember_token' => Str::random(10),
+            'status_verify' => '1', 
             'email' => 'lukmanhakim.221031018@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031018',
-            'status' => 'Mahasiswa'
+            'status' => 'Mahasiswa',
+            'remember_token' => Str::random(10),
         ]);
+        
     }
 }
