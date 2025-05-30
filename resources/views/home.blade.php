@@ -35,8 +35,7 @@
                 </div>
             </div>
     </section>  
-    <x-body-user>
-    </x-body-user>
+    <x-body-user :beritas="$beritas"></x-body-user>
     <x-faq></x-faq>
 </body>
 </html>

@@ -5,47 +5,77 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Berita Utama -->
             <div class="relative group">
-                <img class="w-full h-[400px] object-cover rounded-lg" src="img/berita1.jpg" alt="Berita Utama">
-                <div class="absolute bottom-0 left-0 right-0 bg-[#232323]/80 rounded-lg lg:h-[200px]">
-                    <div class="p-6">
-                        <a href="#" class="text-white font-bold text-xl mb-2">Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan</a>
-                        <p class="text-[#00F0FF] text-base">FJPI Lampung mengkritik pemberitaan kekerasan seksual yang mencampurkan opini pribadi dengan fakta. Mereka menekankan pentingnya media menjaga objektivitas...</p>
+            @props(['beritas'])
+            @if($beritas->isNotEmpty())
+                <div class="relative" id="main-news-section">
+                    <img class="w-full h-[400px] object-cover rounded-lg" 
+                         id="slider-image" 
+                         src="{{ asset('storage/' . $beritas->first()->gambar) }}" 
+                         alt="{{ $beritas->first()->judul }}">
+                    <div class="absolute bottom-0 left-0 right-0 bg-[#232323]/80 rounded-lg lg:h-[200px]">
+                        <div class="p-6">
+                            <a href="#" class="text-white font-bold text-xl mb-2" id="slider-title">{{ $beritas->first()->judul }}</a>
+                            <p class="text-[#00F0FF] text-base" id="slider-content">{{ Str::limit($beritas->first()->isi, 200) }}</p>
+                        </div>
                     </div>
                 </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        let currentSlide = 0;
+                        const slides = @json($beritas->take(3));
+                        let interval;
+                        let isPaused = false;
+                        
+                        function updateSlide() {
+                            currentSlide = (currentSlide + 1) % slides.length;
+                            const current = slides[currentSlide];
+                            
+                            document.getElementById('slider-image').src = 'storage/' + current.gambar;
+                            document.getElementById('slider-title').textContent = current.judul;
+                            document.getElementById('slider-content').textContent = current.isi.substring(0, 200) + '...';
+                        }
+
+                        function startSlider() {
+                            if (!isPaused) {
+                                interval = setInterval(updateSlide, 3000);
+                            }
+                        }
+
+                        function stopSlider() {
+                            clearInterval(interval);
+                            isPaused = true;
+                        }
+
+                        const mainSection = document.getElementById('main-news-section');
+                        mainSection.addEventListener('mouseenter', stopSlider);
+                        mainSection.addEventListener('mouseleave', () => {
+                            isPaused = false;
+                            startSlider();
+                        });
+
+                        // Start the slider initially
+                        startSlider();
+                    });
+                </script>
+            @endif
             </div>
 
             <!-- Berita Lainnya -->
             <div class="space-y-4">
                 <div class="h-[400px] overflow-y-auto pr-2">
-                    <!-- Berita 1 -->
-                    <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                        <a  href="#" class="text-gray-50 font-bold text-lg mb-2">FJPI Lampung: Media Harus Jaga Objektivitas dalam Pemberitaan Kekerasan Seksual</a>
-                        <p class="text-[#00F0FF] text-sm">FJPI Lampung mengkritik pemberitaan kekerasan seksual yang mencampurkan opini pribadi dengan fakta...</p>
+                @foreach($beritas->skip(3) as $berita)  
+                    <div class="flex flex-row">
+                        <img class="w-1/3 h-auto object-cover rounded-lg mb-2" src="{{ asset('storage/' . $berita->gambar) }}" alt="Berita Lainnya">
+                        <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
+                            <a  href="#" class="text-gray-50 font-bold text-lg mb-2">{{ $berita->judul }}</a>
+                            @php
+                                $isilainya = Str::limit($berita->isi, 200);
+                            @endphp
+                            <p class="text-[#00F0FF] text-sm">{{ $isilainya }}</p>
+                        </div>
                     </div>
+                @endforeach
 
-                    <!-- Berita 2 -->
-                    <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                        <a href="#" class="text-gray-50 font-bold text-lg mb-2">Pentingnya Media dalam Mencegah Kekerasan Seksual</a>
-                        <p class="text-[#00F0FF] text-sm">Media memiliki peran penting dalam mencegah kekerasan seksual melalui pemberitaan yang objektif...</p>
-                    </div>
-
-                    <!-- Berita 3 -->
-                    <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                        <a href="#" class="text-gray-50 font-bold text-lg mb-2">FJPI Lampung: Penyebab Kekerasan Seksual di Media</a>
-                        <p class="text-[#00F0FF] text-sm">FJPI Lampung mengidentifikasi beberapa penyebab kekerasan seksual yang sering dilaporkan di media...</p>
-                    </div>
-
-                    <!-- Berita 4 -->
-                    <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                        <a href="#" class="text-gray-50 font-bold text-lg mb-2">Solusi untuk Mencegah Kekerasan Seksual di Media</a>
-                        <p class="text-[#00F0FF] text-sm">FJPI Lampung menawarkan beberapa solusi untuk mencegah kekerasan seksual di media...</p>
-                    </div>
-
-                    <!-- Berita 5 -->
-                    <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                        <a href="#" class="text-gray-50 font-bold text-lg mb-2">FJPI Lampung: Media Harus Edukasi Masyarakat Tentang Kekerasan Seksual</a>
-                        <p class="text-[#00F0FF] text-sm">FJPI Lampung menekankan pentingnya media dalam mendidik masyarakat tentang kekerasan seksual...</p>
-                    </div>
                 </div>
             </div>
         </div>

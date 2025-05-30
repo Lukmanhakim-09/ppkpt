@@ -113,6 +113,67 @@ class DatabaseSeeder extends Seeder
             'tanggal' => '2025-05-10',
             'penulis' => 'Admin', 
         ]);
+
+        $berita = Berita::create([
+            'judul' => 'Dikbud Parepare Bentuk TPPK Tangani Kasus Bully, Anggotanya Guru-Polisi',
+            'isi' => 'Dinas Pendidikan dan Kebudayaan (Dikbud) Parepare, Sulawesi Selatan (Sulsel) akan membentuk 
+            Tim Pencegahan dan Penanganan Kekerasan (TPPK) di tingkat sekolah usai maraknya kasus kekerasan dan bully 
+            antara pelajar. Tim ini nantinya akan beranggotakan guru dan polisi. 
+            Berdasarkan Peraturan Menteri Pendidikan Kebudayaan Riset dan Teknologi (Mendikbudristek) 
+            Nomor 46 Tahun 2023 tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan, 
+            serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
+            Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
+            kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
+            'gambar' => 'berita4.jpeg',
+            'tanggal' => '2023-10-05',
+            'penulis' => 'Admin', 
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Dikbud Parepare Bentuk TPPK Tangani Kasus Bully, Anggotanya Guru-Polisi',
+            'isi' => 'Dinas Pendidikan dan Kebudayaan (Dikbud) Parepare, Sulawesi Selatan (Sulsel) akan membentuk 
+            Tim Pencegahan dan Penanganan Kekerasan (TPPK) di tingkat sekolah usai maraknya kasus kekerasan dan bully 
+            antara pelajar. Tim ini nantinya akan beranggotakan guru dan polisi. 
+            Berdasarkan Peraturan Menteri Pendidikan Kebudayaan Riset dan Teknologi (Mendikbudristek) 
+            Nomor 46 Tahun 2023 tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan, 
+            serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
+            Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
+            kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
+            'gambar' => 'berita4.jpeg',
+            'tanggal' => '2024-05-29',
+            'penulis' => 'Admin', 
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Dikbud Parepare Bentuk TPPK Tangani Kasus Bully, Anggotanya Guru-Polisi',
+            'isi' => 'Dinas Pendidikan dan Kebudayaan (Dikbud) Parepare, Sulawesi Selatan (Sulsel) akan membentuk 
+            Tim Pencegahan dan Penanganan Kekerasan (TPPK) di tingkat sekolah usai maraknya kasus kekerasan dan bully 
+            antara pelajar. Tim ini nantinya akan beranggotakan guru dan polisi. 
+            Berdasarkan Peraturan Menteri Pendidikan Kebudayaan Riset dan Teknologi (Mendikbudristek) 
+            Nomor 46 Tahun 2023 tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan, 
+            serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
+            Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
+            kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
+            'gambar' => 'berita4.jpeg',
+            'tanggal' => '2024-07-29',
+            'penulis' => 'Admin', 
+        ]);
+
+        $berita = Berita::create([
+            'judul' => 'Komnas Perempuan paparkan penggunaan istilah kasus kekerasan seksual',
+            'isi' => 'Andy Yentriyani, Ketua Komnas Perempuan, mengingatkan pentingnya menggunakan 
+                        istilah "peristiwa kekerasan seksual" ketika kasusnya belum jelas atau belum ada 
+                        keputusan dari pihak kepolisian. Hal ini dilakukan untuk menghindari kesalahan penafsiran 
+                        sebelum pihak berwenang menentukan jenis tindakannya. Andy menjelaskan bahwa istilah tersebut 
+                        mencakup berbagai bentuk kekerasan seksual sesuai dengan Undang-Undang Tindak Pidana Kekerasan 
+                        Seksual (UU TPKS). Sebagai contoh, Andy menegaskan bahwa dalam kasus anak yang diperkosa, istilah 
+                        yang lebih tepat adalah "perbudakan seksual" karena korban sepenuhnya dikuasai oleh pelaku. 
+                        Ia menambahkan bahwa penggunaan istilah yang tepat sangat penting dalam konteks pemberitaan agar 
+                        tidak mereduksi beratnya kasus yang dihadapi korban.',
+            'gambar' => 'berita3.webp',
+            'tanggal' => '2025-05-10',
+            'penulis' => 'Admin', 
+        ]);
         
     }
 }
