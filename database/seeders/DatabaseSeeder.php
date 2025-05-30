@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'fullname' => 'Admin',
             'profile' => 'user.webp',
-            'status_verify' => '1', 
+            'status_verify' => null, 
             'email' => null,
             'nim_nidn' => null,
             'status' => null,
