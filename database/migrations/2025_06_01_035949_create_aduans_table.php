@@ -32,6 +32,7 @@ return new class extends Migration
             $table->enum('status_terlapor', ['Pimpinan','Dosen','Tenaga Pendidik','Satpam', 'OB','Mahasiswa']);
             $table->text('karakteristik_terlapor');
             $table->enum('terlapor',['Iya', 'Tidak']);
+            $table->enum('warning',['Iya', 'Tidak']);
             $table->text('warning_detail')->nullable();
             $table->string('tanggal_peristiwa');
             $table->enum('category',['Fisik', 'Verbal', 'Seksual', 'Psikologis']);

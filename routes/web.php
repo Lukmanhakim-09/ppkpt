@@ -1,19 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\loginController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AdminController;
-
-Route::get('/', [HomeController::class, 'index']);
-
+use App\Http\Controllers\AduanController;
 
 Route::get('/login', [loginController::class, 'index']);
 Route::post('/login', [loginController::class, 'auth']);
 
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/', [BeritaController::class, 'indexhome']);
+Route::get('/user', [BeritaController::class, 'indexuser']);
+
+Route::post('/user', [AduanController::class, 'store'])->name('aduan.store');
 
 Route::get('/admin', [AdminController::class, 'index']);
-
-

@@ -27,6 +27,7 @@ class Aduan extends Model
         'status_terlapor',
         'karakteristik_terlapor',
         'terlapor',
+        'warning',
         'warning_detail',
         'tanggal_peristiwa',
         'category',
