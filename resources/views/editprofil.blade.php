@@ -15,7 +15,16 @@
         <img class="h-18 w-auto" src="img/ppkpt.png" alt="">
     </div>
     <div class="mt-36 px-4 lg:px-15">
-        <a href="/user" class="flex items-center gap-2 text-[#F08619] font-roboto font-semibold tracking-wider hover:text-[#3B6BA2] transition-colors">
+    @php
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            $url = route('admin.home');
+        } elseif ($user->role === 'pelapor') {
+            $url = route('user.home');
+        }
+    @endphp
+        <a href="{{ $url }}" class="flex items-center gap-2 text-[#F08619] font-roboto font-semibold tracking-wider hover:text-[#3B6BA2] transition-colors">
             <i class="fa-solid fa-arrow-left"></i>
             Kembali ke Beranda
         </a>

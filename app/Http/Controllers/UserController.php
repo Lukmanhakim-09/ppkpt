@@ -10,44 +10,52 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('user.editprofil');
+        return view('editprofil');
     }
 
     public function update(Request $request)
     {
-        $request->validate([
-            'fullname' => 'required',
-            'email' => 'required|email',
-            'password' => 'nullable|min:8|confirmed',
-            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ], [
-            'email.required'=>'Email tidak boleh kosong',
-            'password.confirmed' => 'Password tidak cocok.',
-            'password.min' => 'Password minimal harus 8 karakter.',
-        ]);
+            $user = Auth::user();
 
-        $user = Auth::user();
+            // Validasi dasar
+            $rules = [
+                'fullname' => 'required',
+                'password' => 'nullable|min:8|confirmed',
+                'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            ];
 
-        $user->fullname = $request->fullname;
-        $user->email = $request->email;
-
-        // Update password hanya jika diisi
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
-
-        if ($request->hasFile('profile')) {
-            // Hapus gambar lama jika ada
-            if ($user->profile && Storage::disk('public')->exists($user->profile)) {
-                Storage::disk('public')->delete($user->profile);
+            // Jika role user adalah 'user', email wajib
+            if ($user->role === 'pelapor') {
+                $rules['email'] = 'required|email';
+            } else if ($user->role === 'admin') {
+                // Kalau admin, email boleh kosong, tapi kalau diisi harus valid format email
+                $rules['email'] = 'nullable|email';
             }
 
-            $imagePath = $request->file('profile')->store('profiluser', 'public');
-            $user->profile = $imagePath;
-        }
+            $request->validate($rules, [
+                'email.required' => 'Email tidak boleh kosong',
+                'password.confirmed' => 'Password tidak cocok.',
+                'password.min' => 'Password minimal harus 8 karakter.',
+            ]);
 
-        $user->save();
+            // Update data user
+            $user->fullname = $request->fullname;
+            $user->email = $request->email;
 
-        return redirect()->route('editprofil.update')->with('success', 'Profil berhasil diperbarui');
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->password);
+            }
+
+            if ($request->hasFile('profile')) {
+                if ($user->profile && Storage::disk('public')->exists($user->profile)) {
+                    Storage::disk('public')->delete($user->profile);
+                }
+                $imagePath = $request->file('profile')->store('profiluser', 'public');
+                $user->profile = $imagePath;
+            }
+
+            $user->save();
+
+            return redirect()->route('editprofil.update')->with('success', 'Profil berhasil diperbarui');
     }
 }
