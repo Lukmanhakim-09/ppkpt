@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Berita;
+use App\Models\Aduan;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -174,6 +175,6 @@ class DatabaseSeeder extends Seeder
             'tanggal' => '2025-05-10',
             'penulis' => 'Admin', 
         ]);
-        
+
     }
 }

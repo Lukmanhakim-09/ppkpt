@@ -14,7 +14,6 @@ Route::post('/login', [loginController::class, 'auth']);
 
 Route::get('/user', [UserController::class, 'index']);
 
-
 Route::get('/admin', [AdminController::class, 'index']);
 
 

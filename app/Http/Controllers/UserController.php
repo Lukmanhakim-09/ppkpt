@@ -12,4 +12,5 @@ class UserController extends Controller
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('user.home', compact('beritas'));
     }
+
 }
