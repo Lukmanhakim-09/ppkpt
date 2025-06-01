@@ -42,8 +42,8 @@
             </div>
             <img
                 @click="showProfileMenu = !showProfileMenu"
-                class="w-12 h-12 rounded-full object-cover border-2 border-gray-300 cursor-pointer"
-                src="img/user.webp" alt="">
+                class="w-12 h-12 rounded-full object-cover border-2 border-[#F08619] cursor-pointer"
+                src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="">
 
             <!-- Dropdown Menu -->
             <div
@@ -51,7 +51,7 @@
                 @click.outside="showProfileMenu = false"
                 x-transition
                 class="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-                <a href="#" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
+                <a href="/editprofil" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
                 <span class="bg-[#F08619] text-white rounded-full w-9 h-9 flex items-center justify-center">
                     <i class="fa-solid fa-user text-sm"></i>
                 </span>
@@ -89,7 +89,7 @@
         <!-- Info User -->
         <div class="flex justify-between items-center mt-4 border-t-2 border-[#F08619]">
             <div class="flex items-center gap-3 pt-4">
-                <a href="#"><img class="w-12 h-12 rounded-full object-cover" src="img/user.webp" alt="Foto Pengguna"></a>
+                <a href="/editprofil"><img class="w-12 h-12 rounded-full object-cover border-2 border-[#F08619]" src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="Foto Pengguna"></a>
                 <div>
                     <h4 class="text-gray-900 font-semibold text-base">{{ $user->fullname }}</h4>
                     <h5 class="text-gray-600 text-sm">{{ $Label2 }}</h5>

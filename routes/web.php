@@ -5,6 +5,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AduanController;
+use App\Http\Controllers\UserController;
 
 Route::get('/login', [loginController::class, 'index']);
 Route::post('/login', [loginController::class, 'auth']);
@@ -13,5 +14,8 @@ Route::get('/', [BeritaController::class, 'indexhome']);
 Route::get('/user', [BeritaController::class, 'indexuser']);
 
 Route::post('/user', [AduanController::class, 'store'])->name('aduan.store');
+
+Route::get('/editprofil', [UserController::class, 'index']);
+Route::post('/editprofil', [UserController::class, 'update'])->name('editprofil.update');
 
 Route::get('/admin', [AdminController::class, 'index']);

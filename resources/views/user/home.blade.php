@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+            @endif
             
             <div class="mx-auto max-w-2xl py-16 sm:py-12 lg:max-w-none lg:py-32">
                 <div class="lg:mt-6 space-y-12 lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
