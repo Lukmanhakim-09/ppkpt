@@ -344,7 +344,7 @@
                                                 @enderror
 
                                                 <!-- Input tambahan muncul jika memilih "Ya" -->
-                                                <div x-show="warning === 'Ya'" x-transition>
+                                                <div x-show="warning === 'Iya'" x-transition>
                                                     <input type="text" name="warning_detail" placeholder="Jelaskan tindakan atau peringatan sebelumnya" value="{{ old('warning_detail') }}"
                                                         class="mt-2 rounded-lg bg-white px-5 py-2 text-base border @error('warning_detail') border-red-500 @else border-gray-300 @enderror focus:outline-none focus:ring-2 focus:ring-[#F08619] w-full lg:w-[500px]">
                                                     @error('warning_detail')
@@ -699,7 +699,7 @@
                                                 </div>
                                                 </div>
                                             </div>
-                                            <div x-show="tab === 'tambahan'" class="flex justify-center mt-4 gap-2">
+                                            <div x-show="tab === 'tambahan'" class="flex flex-col sm:flex-row justify-center mt-4 gap-2">
                                                 <button type="submit" class="bg-[#F08619] text-white px-6 py-2 rounded-lg hover:bg-[#3B6BA2]">
                                                     <i class="fa-solid fa-paper-plane mr-2"></i>
                                                     Kirim Aduan
@@ -708,7 +708,7 @@
                                                     <i class="fa-solid fa-rotate mr-2"></i>
                                                     Hapus Semua
                                                 </button>
-                                                <a @click="tampil = false" href="#" class="bg-[#F08619] text-white px-6 py-2 rounded-lg hover:bg-[#3B6BA2]">
+                                                <a @click="tampil = false" href="#" class="bg-[#F08619] text-white px-6 py-2 text-center rounded-lg hover:bg-[#3B6BA2]">
                                                     <i class="fa-solid fa-xmark mr-2"></i>
                                                     Tutup
                                                 </a>
