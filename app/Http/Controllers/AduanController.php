@@ -65,12 +65,21 @@ class AduanController extends Controller
             'lokasi.required' => 'Lokasi wajib diisi.',
         ]);
 
-        // Simpan file
-        $validatedData['pernyataan_pelapor'] = $request->file('pernyataan_pelapor')->store('public/pernyataan_pelapor');
+        try {
+            // Simpan file pernyataan
+            if ($request->hasFile('pernyataan_pelapor')) {
+                $pernyataanPath = $request->file('pernyataan_pelapor')->store('aduan/pernyataan', 'public');
+                $validatedData['pernyataan_pelapor'] = $pernyataanPath;
+            }
 
-        // Kalau ada file bukti pelaporan (opsional)
-        if ($request->hasFile('bukti_pelaporan')) {
-            $validatedData['bukti_pelaporan'] = $request->file('bukti_pelaporan')->store('public/bukti_pelaporan');
+            // Simpan file bukti pelaporan
+            if ($request->hasFile('bukti_pelaporan')) {
+                $buktiPath = $request->file('bukti_pelaporan')->store('aduan/bukti', 'public');
+                $validatedData['bukti_pelaporan'] = $buktiPath;
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
         }
         $userId = Auth::id();
         $validatedData['user_id'] = $userId;
@@ -78,6 +87,6 @@ class AduanController extends Controller
         // Simpan ke database
         Aduan::create($validatedData);
 
-        return redirect()->route('aduan.store');
+        return redirect()->route('aduan.store')->with('success', 'Aduan berhasil dikirim');
    }    
 }
