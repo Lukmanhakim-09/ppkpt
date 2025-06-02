@@ -21,5 +21,5 @@ Route::post('/user', [AduanController::class, 'store'])->name('aduan.store');
 Route::get('/editprofil', [UserController::class, 'index']);
 Route::post('/editprofil', [UserController::class, 'update'])->name('editprofil.update');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.home');
+Route::get('/admin', [BeritaController::class, 'indexadmin'])->name('admin.home');
 
