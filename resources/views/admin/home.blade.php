@@ -12,8 +12,10 @@
   </head>
 <body class="bg-[#E0DEDE]">
     <x-nav-bar>
-        <x-slot name="Label1">Statistik</x-slot>
-        <x-slot name="Label2">Admin</x-slot>
+        <x-slot name="label1">Beranda</x-slot>
+        <x-slot name="label2">Berita</x-slot>
+        <x-slot name="label3">Statistik</x-slot>
+        <x-slot name="label5">Admin</x-slot>
     </x-nav-bar>
     <div class="mt-36">
         <section id="beranda">
@@ -27,7 +29,7 @@
                 <div class="flex flex-col gap-4 items-center justify-center">
                   <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-envelope"></i>Kelola Formilir</a>
                   <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-file"></i>Kelola Dokumen</a>
-                  <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-users"></i>Kelola Pengguna</a>
+                  <a href="/admin/kelolapengguna" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-users"></i>Kelola Pengguna</a>
                   <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-square-check"></i>Hasil Aduan</a>
                 </div>
               </div>

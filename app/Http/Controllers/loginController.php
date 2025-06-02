@@ -35,4 +35,10 @@ class LoginController extends Controller
 
     return redirect('/login')->with('error', 'Username atau password yang Anda masukkan salah.');
     }   
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
 }

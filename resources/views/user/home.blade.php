@@ -13,8 +13,10 @@
 <body>
     
     <x-nav-bar>
-        <x-slot name="Label1">Tentang Kami</x-slot>
-        <x-slot name="Label2">Pelapor</x-slot>
+        <x-slot name="label1">Beranda</x-slot>
+        <x-slot name="label2">Berita</x-slot>
+        <x-slot name="label3">Tentang</x-slot>
+        <x-slot name="label5">Pelapor</x-slot>
     </x-nav-bar>
 
     <!-- Bagian Beranda -->

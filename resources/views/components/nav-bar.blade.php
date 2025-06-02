@@ -5,7 +5,7 @@
         <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div class="flex lg:flex-1">
             <a href="#beranda" class="-m-5 p-3">
-              <img class="h-18 w-auto" src="img/ppkpt.png" alt="">
+              <img class="h-18 w-auto" src="{{ asset('img/ppkpt.png') }}" alt="">
             </a>
           </div>
           <div class="flex lg:hidden">
@@ -17,10 +17,10 @@
           </div>
             <div class="hidden lg:flex lg:items-center lg:gap-x-8 relative">
             <!-- Link Navigasi -->
-            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Beranda
+            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1}}
             </a>
-            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Berita</a>
-            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $Label1 }}</a>
+            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2}}</a>
+            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
 
             <!-- Dropdown Dokumen -->
             <div class="relative" x-data="{ isOpen: false }">
@@ -38,7 +38,7 @@
             <!-- Info Pengguna -->
             <div class="flex flex-col text-right">
                 <h4 class="font-normal text-gray-900 tracking-wider text-lg text-center">{{ $user->fullname }}</h4>
-                <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ $Label2 }}</h5>
+                <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ $label5 }}</h5>
             </div>
             <img
                 @click="showProfileMenu = !showProfileMenu"
@@ -57,7 +57,7 @@
                 </span>
                 Edit Profil
                 </a>
-                <a href="/login" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
+                <a href="/logout" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
                 <span class="bg-[#F08619] text-white rounded-full w-9 h-9 flex items-center justify-center">
                     <i class="fa-solid fa-right-from-bracket text-sm"></i>
                 </span>
@@ -70,13 +70,13 @@
         <!-- Mobile Dropdown Menu -->
         <div x-show="isOpen" x-transition class="lg:hidden px-6 py-4 bg-white shadow-md space-y-2 rounded-lg" x-data="{ showDocuments: false }">
           <!-- Navigasi Utama -->
-          <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Beranda</a>
-          <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Berita</a>
-          <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $Label1}}</a>
+          <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1}}</a>
+          <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2}}</a>
+          <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3}}</a>
           
           <!-- Dropdown Dokumen -->
           <button @click="showDocuments = !showDocuments" class="w-full text-left text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md flex items-center justify-between">
-              Dokumen 
+              Dokumen
               <svg :class="{ 'rotate-180': showDocuments }" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -92,9 +92,9 @@
                 <a href="/editprofil"><img class="w-12 h-12 rounded-full object-cover border-2 border-[#F08619]" src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="Foto Pengguna"></a>
                 <div>
                     <h4 class="text-gray-900 font-semibold text-base">{{ $user->fullname }}</h4>
-                    <h5 class="text-gray-600 text-sm">{{ $Label2 }}</h5>
+                    <h5 class="text-gray-600 text-sm">{{ $label5 }}</h5>
                 </div>
             </div>
-            <a class="bg-[#F08619] text-white rounded-md px-4 py-2 flex items-center justify-center gap-2 hover:bg-[#3B6BA2] tracking-wider font-roboto" href="/login">Keluar <i class="fa-solid fa-right-from-bracket text-sm"></i></a>
+            <a class="bg-[#F08619] text-white rounded-md px-4 py-2 flex items-center justify-center gap-2 hover:bg-[#3B6BA2] tracking-wider font-roboto" href="/logout">Keluar <i class="fa-solid fa-right-from-bracket text-sm"></i></a>
         </div>
     </header>

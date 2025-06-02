@@ -10,6 +10,7 @@ use App\Http\Controllers\AduanController;
 
 Route::get('/login', [loginController::class, 'index']);
 Route::post('/login', [loginController::class, 'auth']);
+Route::get('/logout', [loginController::class, 'logout']);
 
 Route::get('/', [BeritaController::class, 'indexhome']);
 
@@ -23,3 +24,4 @@ Route::post('/editprofil', [UserController::class, 'update'])->name('editprofil.
 
 Route::get('/admin', [BeritaController::class, 'indexadmin'])->name('admin.home');
 
+Route::get('/admin/kelolapengguna', [AdminController::class, 'index'])->name('admin.kelolapengguna');
