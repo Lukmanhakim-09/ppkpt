@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Admin',
             'profile' => 'profiluser/user.webp',
             'status_verify' => null, 
-            'email' => null,
+            'email' => 'admin@ith.ac.id',
             'nim_nidn' => null,
             'status' => null,
             'remember_token' => Str::random(10),

@@ -26,14 +26,15 @@ class UserController extends Controller
 
             // Jika role user adalah 'user', email wajib
             if ($user->role === 'pelapor') {
-                $rules['email'] = 'required|email';
+                $rules['email'] = 'required|email|unique:users,email,' . $user->id;
             } else if ($user->role === 'admin') {
                 // Kalau admin, email boleh kosong, tapi kalau diisi harus valid format email
-                $rules['email'] = 'nullable|email';
+                $rules['email'] = 'nullable|email|unique:users,email,' . $user->id;
             }
 
             $request->validate($rules, [
                 'email.required' => 'Email tidak boleh kosong',
+                'email.unique' => 'Email sudah digunakan oleh pengguna lain.',
                 'password.confirmed' => 'Password tidak cocok.',
                 'password.min' => 'Password minimal harus 8 karakter.',
             ]);

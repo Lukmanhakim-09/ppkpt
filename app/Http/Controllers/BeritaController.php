@@ -11,7 +11,7 @@ class BeritaController extends Controller
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('home', compact('beritas'));
     }
-    public function indexuser()
+    public function indexuser() 
     {
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('user.home', compact('beritas'));
