@@ -12,9 +12,4 @@ class BeritaController extends Controller
         return view('home', compact('beritas'));
     }
 
-    public function indexadmin()
-    {
-        $beritas = Berita::orderBy('tanggal', 'desc')->get();
-        return view('admin.home', compact('beritas'));
-    }
 }

@@ -2,7 +2,7 @@
         <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div class="flex lg:flex-1">
             <a href="#beranda" class="-m-5 p-3">
-              <img class="h-18 w-auto" src="img/ppkpt.png" alt="">
+              <img class="h-18 w-auto" src="{{ asset('img/ppkpt.png') }}" alt="">
             </a>
           </div>
           <div class="flex lg:hidden">
