@@ -33,6 +33,7 @@
             $user = Auth::user();
             @endphp
             @auth
+            @if (request()->routeIs('admin.home') || request()->routeIs('user.home'))
             <div x-data="{ showProfileMenu: false }" class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3 relative">
               <!-- Info Pengguna -->
               <div class="flex flex-col text-right">
@@ -64,12 +65,14 @@
                   </a>
               </div>
             </div>
+           
             @else
           <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="/login" class="text-base font-semibold tracking-wide text-gray-50 bg-[#F08619] hover:bg-[#3B6BA2] flex items-center gap-1 font-roboto px-7 py-2 rounded-xl">
               Masuk <i class="fa-solid fa-right-to-bracket"></i>
             </a>
           </div>
+          @endif
           @endauth
         </nav>
 
