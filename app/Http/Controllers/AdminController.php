@@ -9,8 +9,12 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::where('email', '!=', 'admin@ith.ac.id')->orderBy('fullname', 'asc')->get();
+        $users = User::where('username', '!=', 'admin')->orderBy('fullname', 'asc')->get();
         return view('admin.kelolapengguna', compact('users'));
     }
 
+    public function tambahpengguna()
+    {
+        return view('admin.tambahpengguna');
+    }
 }

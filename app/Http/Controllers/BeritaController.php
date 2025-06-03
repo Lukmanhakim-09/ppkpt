@@ -6,15 +6,10 @@ use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
-    public function indexhome()
+    public function index()
     {
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('home', compact('beritas'));
-    }
-    public function indexuser() 
-    {
-        $beritas = Berita::orderBy('tanggal', 'desc')->get();
-        return view('user.home', compact('beritas'));
     }
 
     public function indexadmin()

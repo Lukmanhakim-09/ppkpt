@@ -14,9 +14,9 @@
           </div>
           <div class="hidden lg:flex lg:items-center lg:gap-x-8 relative">
             <!-- Link Navigasi -->
-            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Beranda</a>
-            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Berita</a>
-            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">Tentang Kami</a>
+            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
 
             <!-- Dropdown Dokumen -->
             <div class="relative" x-data="{ isOpen: false }">
@@ -29,19 +29,56 @@
                 </div>
             </div>
             </div>
+            @php
+            $user = Auth::user();
+            @endphp
+            @auth
+            <div x-data="{ showProfileMenu: false }" class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3 relative">
+              <!-- Info Pengguna -->
+              <div class="flex flex-col text-right">
+                  <h4 class="font-normal text-gray-900 tracking-wider text-lg text-center">{{ $user->fullname }}</h4>
+                  <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ ucfirst($user->role) }}</h5>
+              </div>
+              <img
+                  @click="showProfileMenu = !showProfileMenu"
+                  class="w-12 h-12 rounded-full object-cover border-2 border-[#F08619] cursor-pointer"
+                  src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="">
+
+              <!-- Dropdown Menu -->
+              <div
+                  x-show="showProfileMenu"
+                  @click.outside="showProfileMenu = false"
+                  x-transition
+                  class="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
+                  <a href="/editprofil" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
+                  <span class="bg-[#F08619] text-white rounded-full w-9 h-9 flex items-center justify-center">
+                      <i class="fa-solid fa-user text-sm"></i>
+                  </span>
+                  Edit Profil
+                  </a>
+                  <a href="/logout" class="flex items-center gap-3 px-5 py-3 text-gray-900 hover:bg-[#F08619] hover:text-white font-roboto text-sm rounded-md tracking-wider">
+                  <span class="bg-[#F08619] text-white rounded-full w-9 h-9 flex items-center justify-center">
+                      <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                  </span>
+                  Keluar
+                  </a>
+              </div>
+            </div>
+            @else
           <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="/login" class="text-base font-semibold tracking-wide text-gray-50 bg-[#F08619] hover:bg-[#3B6BA2] flex items-center gap-1 font-roboto px-7 py-2 rounded-xl">
               Masuk <i class="fa-solid fa-right-to-bracket"></i>
             </a>
           </div>
+          @endauth
         </nav>
 
         <!-- Mobile Dropdown Menu -->
         <div x-show="isOpen" x-transition class="lg:hidden px-6 py-4 bg-white shadow-md space-y-2 rounded-lg" x-data="{ showDocuments: false }">
           <!-- Navigasi Utama -->
-          <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Beranda</a>
-          <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Berita</a>
-          <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">Tentang Kami</a>
+          <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
+          <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
+          <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
         
           <!-- Dropdown Dokumen -->
           <button @click="showDocuments = !showDocuments" class="w-full text-left text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md flex items-center justify-between">
@@ -55,8 +92,22 @@
               <a href="#" class="block text-base text-gray-800 hover:text-blue-600 hover:underline">Permendikbudristek No. 30 Tahun 2021</a>
           </div>
 
+          @auth
+          <!-- Info User -->
+        <div class="flex justify-between items-center mt-4 border-t-2 border-[#F08619]">
+            <div class="flex items-center gap-3 pt-4">
+                <a href="/editprofil"><img class="w-12 h-12 rounded-full object-cover border-2 border-[#F08619]" src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="Foto Pengguna"></a>
+                <div>
+                    <h4 class="text-gray-900 font-semibold text-base">{{ $user->fullname }}</h4>
+                    <h5 class="text-gray-600 text-sm">{{ ucfirst($user->role) }}</h5>
+                </div>
+            </div>
+            <a class="bg-[#F08619] text-white rounded-md px-4 py-2 flex items-center justify-center gap-2 hover:bg-[#3B6BA2] tracking-wider font-roboto" href="/logout">Keluar <i class="fa-solid fa-right-from-bracket text-sm"></i></a>
+        </div>
+          @else
           <a @click="isOpen = false" href="/login" class="block text-base font-semibold tracking-wide text-white bg-[#F08619] hover:bg-[#3B6BA2] px-4 py-2 rounded-lg mt-2 text-center">
             Masuk <i class="fa-solid fa-right-to-bracket"></i>
           </a>
+          @endauth
         </div>
     </header>

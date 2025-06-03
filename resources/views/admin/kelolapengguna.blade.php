@@ -11,19 +11,13 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 <body>
-    <x-nav-baar>
-        <x-slot name="label1"></x-slot>
-        <x-slot name="label2"></x-slot>
-        <x-slot name="label3"></x-slot>
-        <x-slot name="label4"></x-slot>
-        <x-slot name="label5">Admin</x-slot>
-    </x-nav-bar>
+    <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
         <!-- Sidebar -->
         <div class="h-[520px] w-[300px] bg-[#F08619] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
             <x-sidebar :active="'pengguna'"></x-sidebar>
-            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%]">
-                <div class="px-6 py-6">
+            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] lg:h-[520px] h-screen p-2 overflow-y-auto">
+                <div class="px-6 py-4">
                     <!-- Judul -->
                     <h5 class="font-bold tracking-widest bg-[#3B6BA2] text-gray-50 text-center rounded-xl w-full py-3 text-xl flex items-center justify-center shadow-md">
                         DAFTAR PENGGUNA
@@ -57,6 +51,11 @@
                             <li 
                             @click="selected = 'Admin'; open = false"
                             class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Semua
+                            </li>
+                            <li 
+                            @click="selected = 'Admin'; open = false"
+                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                             Admin
                             </li>
                             <li 
@@ -74,14 +73,14 @@
  
 
                         <!-- Tombol Tambah -->
-                        <button
+                        <a href="{{ route('admin.tambahpengguna') }}" 
                             class="flex items-center gap-2 bg-green-600 text-gray-50 px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
                             <i class="fa-solid fa-plus"></i>
                             Tambah Pengguna
-                        </button>
+                        </a>
                     </div>
                 </div>
-                <div class="overflow-x-auto rounded-lg shadow-md m-4 mx-6">
+                <div class="overflow-x-auto rounded-lg shadow-md mx-6">
                 <table class="min-w-full bg-white border border-gray-300 text-sm">
                     <thead class="bg-[#CCCACA] font-bold text-base">
                     <tr>
@@ -98,7 +97,7 @@
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $index + 1 }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->fullname }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->email }}</td>
-                        <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->role }}</td>
+                        <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ ucfirst($user->role) }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">
                         <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Edit</button>
                         <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">Hapus</button>
@@ -108,10 +107,9 @@
                     </tbody>
                 </table>
                 </div>
-
             </div>
         </div>
-
     </div>
+    
 </body>
 </html>

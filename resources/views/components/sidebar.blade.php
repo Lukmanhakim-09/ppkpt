@@ -2,31 +2,31 @@
     $user = Auth::user();
 @endphp
 @props(['active'])
-            <a href="/admin" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'beranda' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="/admin" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'beranda' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-house"></i>
                 <h5 class="font-semibold">Beranda</h5>
             </a>
-            <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'formulir' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'formulir' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-envelope"></i>
                 <h5 class="font-semibold">Kelola Formulir</h5>
             </a>
-            <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'dokumen' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'dokumen' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-file"></i>
                 <h5 class="font-semibold">Kelola Dokumen</h5>
             </a>
-            <a href="/admin/kelolapengguna" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'pengguna' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="/admin/kelolapengguna" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'pengguna' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-users"></i>
                 <h5 class="font-semibold">Kelola Pengguna</h5>
             </a>
-            <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-square-check"></i>
                 <h5 class="font-semibold">Hasil Aduan</h5>
             </a>
-            <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Kelola Berita</h5>
             </a>
-            <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'gudang' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'gudang' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-warehouse"></i>
                 <h5 class="font-semibold">Gudang PPKPT</h5>
             </a>

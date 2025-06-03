@@ -26,7 +26,7 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect('/admin');
         } elseif ($user->role === 'pelapor') {
-            return redirect('/user');
+            return redirect('/');
         } else {
             // Jika role tidak dikenal, arahkan ke halaman default
             return redirect('/');

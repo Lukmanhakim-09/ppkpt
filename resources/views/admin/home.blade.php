@@ -11,12 +11,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 <body class="bg-[#E0DEDE]">
-    <x-nav-bar>
+    <x-nav-barr>
         <x-slot name="label1">Beranda</x-slot>
         <x-slot name="label2">Berita</x-slot>
         <x-slot name="label3">Statistik</x-slot>
-        <x-slot name="label5">Admin</x-slot>
-    </x-nav-bar>
+    </x-nav-barr>
     <div class="mt-36">
         <section id="beranda">
             <div class="lg:mt-6 space-y-12 lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
@@ -35,7 +34,7 @@
               </div>
               <div class="flex flex-col items-center gap-4">
                 <div class="shadow-lg rounded-3xl bg-gray-50 flex p-4 lg:w-[500px] gap-4">
-                    <img class="w-16 h-16 rounded-full" src="img/user.webp" alt="">
+                    <img class="w-16 h-16 rounded-full" src="{{ asset('img/user.webp') }}" alt="">
                     <div class="flex flex-col lg:w-[400px] md:w-[200px] ">
                         <h5 class="font-semibold break-all">
                             andiriahzahirah.221031066@mahasiswa.ith.ac.id
@@ -45,7 +44,7 @@
                 </div>
 
                 <div class="shadow-lg rounded-3xl bg-gray-50 flex p-4 lg:w-[500px] gap-4">
-                    <img class="w-16 h-16 rounded-full" src="img/user.webp" alt="">
+                    <img class="w-16 h-16 rounded-full" src="{{ asset('img/user.webp') }}" alt="">
                     <div class="flex flex-col lg:w-[400px] md:w-[200px]">
                         <h5 class="font-semibold break-all">
                             andiriahzahirah.221031066@mahasiswa.ith.ac.id

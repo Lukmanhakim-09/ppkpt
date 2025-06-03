@@ -12,7 +12,7 @@
             <!-- Info Pengguna -->
             <div class="flex flex-col text-right">
                 <h4 class="font-normal text-gray-900 tracking-wider text-lg text-center">{{ $user->fullname }}</h4>
-                <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ $label5 }}</h5>
+                <h5 class="font-medium text-gray-900 tracking-wider text-base text-center">{{ucfirst($user->role)}}</h5>
             </div>
             <img
                 @click="showProfileMenu = !showProfileMenu"
