@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PPKPT ITH</title>
+    <title>{{config('app.name')}}</title>
     @vite('resources/css/app.css')
     <link
       rel="stylesheet"  
@@ -21,34 +21,6 @@
     <section id="beranda"
         class="m-3 mt-28 bg-cover bg-center bg-no-repeat rounded-lg px-4 sm:px-6 md:px-10 py-10"
         style="background-image: url('img/section1.png')">
-        <!-- Flash Message -->
-        @if(session('success'))
-                <div 
-                    x-data="{ show: true }" 
-                    x-init="setTimeout(() => show = false, 5000)" 
-                    x-show="show" 
-                    x-transition 
-                    class="fixed top-28 right-4 z-50"
-                >
-                    <div class="flex items-center px-6 py-4 rounded-lg shadow-lg bg-green-500 text-white">
-                        <i class="fas fa-check-circle mr-3"></i>
-                        <div class="text-md font-semibold">
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if ($errors->any())
-            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" 
-                class="fixed top-28 right-4 z-50">
-                <div class="flex items-center px-6 py-4 rounded-lg shadow-lg bg-red-500 text-white">
-                    <i class="fas fa-exclamation-circle mr-3"></i>
-                    <div class="text-md font-semibold">
-                        Lengkapi Aduan Anda terlebih dahulu.
-                    </div>
-                </div>
-            </div>
-            @endif  
             <div class="mx-auto max-w-2xl py-16 sm:py-12 lg:max-w-none lg:py-32">
                 <div class="lg:mt-6 space-y-12 lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
                     <div>

@@ -65,15 +65,21 @@
                   </a>
               </div>
             </div>
-           
             @else
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="/login" class="text-base font-semibold tracking-wide text-gray-50 bg-[#F08619] hover:bg-[#3B6BA2] flex items-center gap-1 font-roboto px-7 py-2 rounded-xl">
               Masuk <i class="fa-solid fa-right-to-bracket"></i>
             </a>
           </div>
           @endif
           @endauth
+          @guest
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="/login" class="text-base font-semibold tracking-wide text-gray-50 bg-[#F08619] hover:bg-[#3B6BA2] flex items-center gap-1 font-roboto px-7 py-2 rounded-xl">
+              Masuk <i class="fa-solid fa-right-to-bracket"></i>
+            </a>
+          </div>
+          @endguest
         </nav>
 
         <!-- Mobile Dropdown Menu -->

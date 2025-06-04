@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Verify;
+use App\Mail\OtpMail;
 use App\Models\Berita;
 use App\Models\Aduan;
 
@@ -97,4 +100,114 @@ class UserController extends Controller
         $beritas = Berita::orderBy('tanggal', 'desc')->get();
         return view('user.home', compact('beritas'));
     }
+
+    private function maskEmail($email)
+    {
+        $atPos = strpos($email, '@');
+        $username = substr($email, 0, $atPos);
+        $domain = substr($email, $atPos);
+
+        // Pisahkan: 3 huruf awal + masking + 1 huruf terakhir
+        if (strlen($username) > 4) {
+            $first1 = substr($username, 0, 1);
+            $last2 = substr($username, -2);
+            $maskedMiddle = str_repeat('*', strlen($username) - 3);
+            $maskedEmail = $first1 . $maskedMiddle . $last2 . $domain;
+        } else {
+            // Kalau username terlalu pendek (<=4), tampilkan apa adanya
+            $maskedEmail = $username . $domain;
+        }
+
+        return $maskedEmail;
+    }
+
+    // Tampilkan halaman verifikasi (TIDAK mengirim OTP di sini)
+    public function verify()
+    {
+        $user = auth()->user();
+        $maskedEmail = $this->maskEmail($user->email);
+        return view('user.verify', compact('maskedEmail'));
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        try {
+            // Validasi input OTP (harus 4 digit)
+            $request->validate([
+                'kode' => ['required', 'string', 'size:4']
+            ]);
+
+            $user = Auth::user();
+            
+            if (!$user) {
+                return back()->withErrors(['kode' => 'User tidak ditemukan.']);
+            }
+
+            $verify = Verify::where('user_id', $user->id)
+            ->where('otp', md5($request->kode))
+            ->where('expired_at', '>', now())
+            ->first();
+
+        if (!$verify) {
+            // Cari OTP expired tapi masih sama OTP-nya
+            $expiredOtp = Verify::where('user_id', $user->id)
+                ->where('otp', md5($request->kode))
+                ->where('expired_at', '<=', now())
+                ->first();
+
+            if ($expiredOtp) {
+                $expiredOtp->delete(); // hapus OTP expired
+                return back()->withErrors(['kode' => 'Kode OTP telah kadaluarsa. Silakan minta kode baru.']);
+            }
+
+            return back()->withErrors(['kode' => 'Kode OTP tidak valid.']);
+        }
+
+            // Tandai akun sudah diverifikasi
+            $user->status_verify = '1';
+            $user->save();
+
+            // Redirect ke halaman beranda user
+            return redirect()->route('user.home')
+                ->with('success', 'Email berhasil diverifikasi!');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['kode' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
+
+    // Kirim OTP saat user klik "Kirim Ulang"
+    public function resendOtp(Request $request)
+    {
+        $user = auth()->user();
+        $otp = rand(1000, 9999);
+
+        // Update existing OTP record (kalau ada)
+        $verify = Verify::where('user_id', $user->id)->first();
+
+        if ($verify) {
+            // Kalau record sudah ada, update OTP dan expired_at
+            $verify->update([
+                'otp' => md5($otp),
+                'expired_at' => now()->addMinutes(2)
+            ]);
+        } else {
+            // Kalau record belum ada, buat baru
+            Verify::create([
+                'user_id' => $user->id,
+                'otp' => md5($otp),
+                'expired_at' => now()->addMinutes(2)
+            ]);
+        }
+
+        // Send email OTP
+        Mail::to($user->email)->send(new OtpMail($otp));
+
+        // Simpan expired timestamp ke session (milidetik)
+        session(['otpTargetTime' => now()->addMinutes(2)->timestamp * 1000]);
+
+        return back()->with('success', 'Kode OTP telah dikirim ulang ke email Anda.', ['otpTargetTime' => now()->addMinutes(2)->timestamp * 1000]);
+    }
+
+
 }

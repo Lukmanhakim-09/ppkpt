@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@ith.ac.id',
             'nim_nidn' => null,
             'status' => null,
-            'remember_token' => Str::random(10),
         ]);
 
         $user = User::create([
@@ -37,11 +36,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'pelapor',
             'fullname' => 'Andi Riah Zahirah',
             'profile' => 'profiluser/user.webp',
-            'status_verify' => '1', 
+            'status_verify' => '0', 
             'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031066',
             'status' => 'Mahasiswa',
-            'remember_token' => Str::random(10),
         ]);
 
         $user = User::create([
@@ -54,7 +52,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'muhammadakbar.221031003@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031003',
             'status' => 'Mahasiswa',
-            'remember_token' => Str::random(10),
         ]);
 
         $user = User::create([
@@ -67,7 +64,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'lukmanhakim.221031018@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031018',
             'status' => 'Mahasiswa',
-            'remember_token' => Str::random(10),
         ]);
 
         $berita = Berita::create([

@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('nim_nidn')->unique()->nullable();
             $table->enum('status', ['Pimpinan','Dosen','Tenaga Pendidik','Satpam', 'OB','Mahasiswa'])->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }
