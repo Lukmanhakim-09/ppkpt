@@ -13,6 +13,22 @@
 <body>
     <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
+    @if(session('success'))
+                <div 
+                    x-data="{ show: true }" 
+                    x-init="setTimeout(() => show = false, 5000)" 
+                    x-show="show" 
+                    x-transition 
+                    class="fixed top-28 right-4 z-50"
+                >
+                    <div class="flex items-center px-6 py-4 rounded-lg shadow-lg bg-green-500 text-white">
+                        <i class="fas fa-check-circle mr-3"></i>
+                        <div class="text-md font-semibold">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
         <!-- Sidebar -->
         <div class="h-[520px] w-[300px] bg-[#F08619] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
             <x-sidebar :active="'pengguna'"></x-sidebar>

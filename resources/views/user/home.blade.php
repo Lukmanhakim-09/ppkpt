@@ -22,7 +22,7 @@
         class="m-3 mt-28 bg-cover bg-center bg-no-repeat rounded-lg px-4 sm:px-6 md:px-10 py-10"
         style="background-image: url('img/section1.png')">
         <!-- Flash Message -->
-        @if(session('success'))
+            @if(session('success'))
                 <div 
                     x-data="{ show: true }" 
                     x-init="setTimeout(() => show = false, 5000)" 

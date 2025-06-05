@@ -30,92 +30,154 @@
             </h5>
         </div>
         <div class="mx-10">
-            <form action="#" method="POST">
+            <!-- Tambahkan x-data di form wrapper -->
+            <form action="{{ route('admin.tambahpengguna') }}" method="POST" x-data="{ selectedRole: '{{ old('role') }}' }">
                 @csrf
+
                 <div class="flex flex-col gap-4 w-full">
-                    <!-- Nama Lengkap -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="fullname" class="md:w-40 font-medium">Nama Lengkap</label>
-                        <input
-                            type="text"
-                            name="fullname"
-                            id="fullname"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                    </div>
-                    <!-- Username -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="username" class="md:w-40 font-medium">Username</label>
-                        <input
-                            type="text"
-                            name="username"
-                            id="username"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                    </div>
-                    <!-- NIM/NIDN -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="nim_nidn" class="md:w-40 font-medium">NIM/NIDN</label>
-                        <input
-                            type="text"
-                            name="nim_nidn"
-                            id="nim_nidn"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                    </div>
-                    <!-- Email -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="email" class="md:w-40 font-medium">Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                    </div>
-                    <!-- Password -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="password" class="md:w-40 font-medium">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                    </div>
-                    <!-- Status -->
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
-                        <label for="status" class="md:w-40 font-medium">Status</label>
-                        <select
-                            name="status"
-                            id="status"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                            <option value="" disabled selected>Pilih Status</option>
-                            <option value="Pimpinan">Pimpinan</option>
-                            <option value="Dosen">Dosen</option>
-                            <option value="Tenaga Pendidik">Tenaga Pendidik</option>
-                            <option value="Satpam">Satpam</option>
-                            <option value="OB">OB</option>
-                            <option value="Mahasiswa">Mahasiswa</option>
-                        </select>
-                    </div>
+
                     <!-- Role -->
                     <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
                         <label for="role" class="md:w-40 font-medium">Role</label>
-                        <select
-                            name="role"
-                            id="role"
-                            class="flex-1 bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619]"
-                        >
-                            <option value="" disabled selected>Pilih Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="satgas">Satgas</option>
-                            <option value="pelapor">Pelapor</option>
-                        </select>
+                        <div class="flex-1">
+                            <select
+                                name="role"
+                                id="role"
+                                x-model="selectedRole"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('role') border border-red-500 @enderror"
+                            >
+                                <option value="" selected disabled>Pilih Role</option>
+                                <option value="pelapor" {{ old('role') == 'pelapor' ? 'selected' : '' }}>Pelapor</option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="satgas" {{ old('role') == 'satgas' ? 'selected' : '' }}>Satgas</option>
+                            </select>
+                            @error('role')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Nama Lengkap -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" x-show="selectedRole">
+                        <label for="fullname" class="md:w-40 font-medium">Nama Lengkap</label>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                name="fullname"
+                                id="fullname"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('fullname') border border-red-500 @enderror"
+                                value="{{ old('fullname') }}"
+                            >
+                            @error('fullname')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" x-show="selectedRole">
+                        <label for="username" class="md:w-40 font-medium">Username</label>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('username') border border-red-500 @enderror"
+                                value="{{ old('username') }}"
+                            >
+                            @error('username')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- NIM/NIDN -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" 
+                        x-show="selectedRole === 'pelapor'">
+                        <label for="nim_nidn" class="md:w-40 font-medium">NIM/NIDN</label>
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                name="nim_nidn"
+                                id="nim_nidn"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('nim_nidn') border border-red-500 @enderror"
+                                value="{{ old('nim_nidn') }}"
+                            >
+                            @error('nim_nidn')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" x-show="selectedRole">
+                        <label for="email" class="md:w-40 font-medium">Email</label>
+                        <div class="flex-1">
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('email') border border-red-500 @enderror"
+                                value="{{ old('email') }}"
+                            >
+                            @error('email')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" x-show="selectedRole">
+                        <label for="password" class="md:w-40 font-medium">Password</label>
+                        <div class="flex-1">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('password') border border-red-500 @enderror">
+                            @error('password')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" x-show="selectedRole">
+                        <label for="password_confirmation" class="md:w-40 font-medium">Konfirmasi Password</label>
+                        <div class="flex-1">
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                id="password_confirmation"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('password_confirmation') border border-red-500 @enderror">
+                            @error('password_confirmation')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full" 
+                        x-show="selectedRole === 'pelapor'">
+                        <label for="status" class="md:w-40 font-medium">Status</label>
+                        <div class="flex-1">
+                            <select
+                                name="status"
+                                id="status"
+                                class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('status') border border-red-500 @enderror"
+                            >
+                                <option value="">Pilih Status</option>
+                                <option value="Mahasiswa" {{ old('status') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                                <option value="Dosen" {{ old('status') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
+                                <option value="Staff" {{ old('status') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                            </select>
+                            @error('status')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
-                <!-- Tombol -->
+
                 <div class="flex mt-4 items-center gap-2">
                     <button
                         type="submit"
@@ -124,12 +186,12 @@
                     </button>
                     <a
                         href="{{ route('admin.kelolapengguna') }}"
-                        class="bg-gray-50 text-gray-900 font-semibold tracking-wider py-2 px-6 mt-2 rounded-md hover:bg-gray-200 transition-colors"
-                    >
+                        class="bg-gray-300 text-gray-700 font-semibold tracking-wider py-2 px-6 mt-2 rounded-md hover:bg-gray-400 transition-colors">
                         Batal
                     </a>
                 </div>
             </form>
+
         </div>
     </div>
         </div>

@@ -30,24 +30,24 @@ class DatabaseSeeder extends Seeder
             'status' => null,
         ]);
 
-        $user = User::create([
-            'username' => '221031066',
-            'password' => '221031066',
-            'role' => 'pelapor',
-            'fullname' => 'Andi Riah Zahirah',
-            'profile' => 'profiluser/user.webp',
-            'status_verify' => '0', 
-            'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
-            'nim_nidn' => '221031066',
-            'status' => 'Mahasiswa',
-        ]);
+        // $user = User::create([
+        //     'username' => '221031066',
+        //     'password' => '221031066',
+        //     'role' => 'pelapor',
+        //     'fullname' => 'Andi Riah Zahirah',
+        //     'profile' => 'profiluser/user.webp',
+        //     'status_verify' => '0', 
+        //     'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
+        //     'nim_nidn' => '221031066',
+        //     'status' => 'Mahasiswa',
+        // ]);
 
         $user = User::create([
             'username' => '221031003',
             'password' => '221031003',
             'role' => 'pelapor',
             'fullname' => 'Muhammad Akbar',
-            'profile' => 'profiluser/user.webp',
+            'profile' => 'img/user.webp',
             'status_verify' => '1', 
             'email' => 'muhammadakbar.221031003@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031003',
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
             'password' => '221031018',
             'role' => 'pelapor',    
             'fullname' => 'Lukman Hakim',
-            'profile' => 'profiluser/user.webp',
+            'profile' => 'img/user.webp',
             'status_verify' => '1', 
             'email' => 'lukmanhakim.221031018@mahasiswa.ith.ac.id',
             'nim_nidn' => '221031018',
