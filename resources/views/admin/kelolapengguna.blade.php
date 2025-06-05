@@ -9,6 +9,53 @@
       rel="stylesheet"  
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const filterSelect = document.getElementById('filterSelect');
+            const tableRows = document.querySelectorAll('table tbody tr');
+            
+            // Search functionality
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                tableRows.forEach(row => {
+                    // Get the fullname from the second column
+                    const fullname = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    // Get the username from the third column
+                    const username = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                    
+                    // Search only through fullname and username
+                    const matchesSearch = fullname.includes(searchTerm) || 
+                                        username.includes(searchTerm);
+                    
+                    // Only show if it matches search AND filter
+                    const showRow = matchesSearch && 
+                                   (filterSelect.value === '' || 
+                                    row.querySelector('td:nth-child(5)').textContent.toLowerCase() === filterSelect.value.toLowerCase());
+                    
+                    row.style.display = showRow ? '' : 'none';
+                });
+            });
+
+            // Filter functionality
+            filterSelect.addEventListener('change', function() {
+                const selectedFilter = this.value.toLowerCase();
+                
+                tableRows.forEach(row => {
+                    const role = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+                    
+                    // Only show if it matches filter AND search
+                    const showRow = (selectedFilter === '' || role === selectedFilter) &&
+                                   (searchInput.value === '' || 
+                                    row.querySelector('td:nth-child(2)').textContent.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                                    row.querySelector('td:nth-child(3)').textContent.toLowerCase().includes(searchInput.value.toLowerCase()));
+                    
+                    row.style.display = showRow ? '' : 'none';
+                });
+            });
+        });
+    </script>
   </head>
 <body>
     <x-nav-baar></x-nav-baar>
@@ -48,45 +95,20 @@
                                 type="text"
                                 placeholder="Cari pengguna..."
                                 class="outline-none w-full"
+                                id="searchInput"
                             >
                         </div>
 
-                        <div x-data="{ open: false, selected: 'Filter' }" class="relative">
-                        <button 
-                            @click="open = !open"
-                            class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm w-full md:w-auto">
+                        <!-- Filter -->
+                        <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm w-full md:w-auto">
                             <i class="fa-solid fa-filter text-gray-500"></i>
-                            <span x-text="selected"></span>
-                            <i class="fa-solid fa-caret-down ml-auto"></i>
-                        </button>
-                        
-                        <ul 
-                            x-show="open"
-                            @click.outside="open = false"
-                            class="absolute z-10 mt-1 w-full md:w-auto bg-white rounded-lg shadow-lg border border-gray-200">
-                            <li 
-                            @click="selected = 'Admin'; open = false"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            Semua
-                            </li>
-                            <li 
-                            @click="selected = 'Admin'; open = false"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            Admin
-                            </li>
-                            <li 
-                            @click="selected = 'Satgas'; open = false"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            Satgas
-                            </li>
-                            <li 
-                            @click="selected = 'User'; open = false"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            User
-                            </li>
-                        </ul>
+                            <select id="filterSelect" class="outline-none w-full">
+                                <option value="">Semua</option>
+                                <option value="admin">Admin</option>
+                                <option value="satgas">Satgas</option>
+                                <option value="pelapor">Pelapor</option>
+                            </select>
                         </div>
- 
 
                         <!-- Tombol Tambah -->
                         <a href="{{ route('admin.tambahpengguna') }}" 
@@ -102,6 +124,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left font-semibold font-roboto">No</th>
                         <th class="px-6 py-3 text-left font-semibold font-roboto">Nama</th>
+                        <th class="px-6 py-3 text-left font-semibold font-roboto">Username</th>
                         <th class="px-6 py-3 text-left font-semibold font-roboto">Email</th>
                         <th class="px-6 py-3 text-left font-semibold font-roboto">Role</th>
                         <th class="px-6 py-3 text-left font-semibold font-roboto">Aksi</th>
@@ -112,11 +135,12 @@
                     <tr class="border-b hover:bg-gray-100">
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $index + 1 }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->fullname }}</td>
+                        <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->username }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->email }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ ucfirst($user->role) }}</td>
-                        <td class="px-6 py-3 font-roboto tracking-wide text-base">
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Edit</button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">Hapus</button>
+                        <td class="px-6 py-3 font-roboto tracking-wide text-base flex items-center">
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                     @endforeach
