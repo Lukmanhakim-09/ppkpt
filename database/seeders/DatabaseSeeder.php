@@ -175,12 +175,12 @@ class DatabaseSeeder extends Seeder
 
         $document = Document::create([
             'judul' => 'Permendikbudristek No. 30 Tahun 2021',
-            'file' => '/documents/Permendikbudristek Nomor 30 Tahun 2021.pdf',
+            'file' => 'dokumen/Permendikbudristek Nomor 30 Tahun 2021.pdf',
         ]);
 
         $document = Document::create([
             'judul' => 'Permendikbudristek No. 55 Tahun 2024',
-            'file' => '/documents/Salinan-Permendikbudristek-Nomor-55-Tahun-2024-PPKPT.pdf',
+            'file' => 'dokumen/Salinan-Permendikbudristek-Nomor-55-Tahun-2024-PPKPT.pdf',
         ]);
 
     }

@@ -20,12 +20,17 @@
 
             <!-- Dropdown Dokumen -->
             <div class="relative" x-data="{ isOpen: false }">
+              @php
+              use App\Models\Document;
+                $documents = Document::orderBy('id', 'desc')->get();
+              @endphp
                 <button @click="isOpen = !isOpen" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">
                 Dokumen
                 </button>
                 <div x-show="isOpen" @click.outside="isOpen = false" x-transition class="absolute left-0 top-full mt-2 bg-white shadow-lg rounded-md p-4 w-[200px] z-50">
-                <a href="#" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">Permendikbudristek No. 55 Tahun 2024</a>
-                <a href="#" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">Permendikbudristek No. 30 Tahun 2021</a>
+                @foreach ($documents as $document)
+                <a href="{{ asset('storage/' . $document->file) }}" target="_blank" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">{{ $document->judul }}</a>
+                @endforeach
                 </div>
             </div>
             </div>
@@ -97,8 +102,9 @@
               </svg>
           </button>
           <div x-show="showDocuments" x-transition class="pl-6 space-y-1">
-              <a href="#" class="block text-base text-gray-800 hover:text-blue-600 hover:underline">Permendikbudristek No. 55 Tahun 2024</a>
-              <a href="#" class="block text-base text-gray-800 hover:text-blue-600 hover:underline">Permendikbudristek No. 30 Tahun 2021</a>
+              @foreach ($documents as $document)
+              <a href="{{ asset('storage/' . $document->file) }}" target="_blank" class="block text-base text-gray-900 hover:text-[#F08619] font-roboto py-1">{{ $document->judul }}</a>
+              @endforeach
           </div>
 
           @auth
