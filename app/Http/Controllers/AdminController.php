@@ -21,9 +21,33 @@ class AdminController extends Controller
         return view('admin.keloladokumen', compact('documents'));
     }
 
+    public function showTambahDokumenForm()
+    {
+        return view('admin.tambahdokumen');
+    }
+
+    // public function storeDokumen(Request $request)
+    // {
+    //     $request->validate([
+    //         'judul' => 'required',
+    //         'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+    //     ]);
+
+    //     $file = $request->file('file');
+    //     $fileName = time() . '_' . $file->getClientOriginalName();
+    //     $file->storeAs('documents', $fileName);
+
+    //     Document::create([
+    //         'judul' => $request->judul,
+    //         'file' => $fileName,
+    //     ]);
+
+    //     return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil ditambahkan.');
+    // }
+
     public function kelolapengguna()
     {
-        $users = User::where('username', '!=', 'admin')->orderBy('fullname', 'asc')->get();
+        $users = User::orderBy('fullname', 'asc')->get();
         return view('admin.kelolapengguna', compact('users'));
     }
 
@@ -32,7 +56,7 @@ class AdminController extends Controller
         return view('admin.tambahpengguna');
     }
 
-    public function tambahpengguna(Request $request)
+    public function storePengguna(Request $request)
     {
         // Validasi awal
         $rules = [

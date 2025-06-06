@@ -22,9 +22,11 @@ Route::post('/verify/resend', [UserController::class, 'resendOtp'])->name('verif
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'berita'])->name('admin.home');
     Route::get('/admin/keloladokumen', [AdminController::class, 'keloladokumen'])->name('admin.keloladokumen');
+    Route::get('/admin/tambahdokumen', [AdminController::class, 'showTambahDokumenForm'])->name('admin.tambahdokumen');
+    // Route::post('/admin/tambahdokumen', [AdminController::class, 'storeDokumen'])->name('admin.keloladokumen.store');
     Route::get('/admin/kelolapengguna', [AdminController::class, 'kelolapengguna'])->name('admin.kelolapengguna');
     Route::get('/admin/tambahpengguna', [AdminController::class, 'showTambahPenggunaForm']);
-    Route::post('/admin/tambahpengguna', [AdminController::class, 'tambahpengguna'])->name('admin.tambahpengguna');
+    Route::post('/admin/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
 
 });
 

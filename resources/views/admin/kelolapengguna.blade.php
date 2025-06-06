@@ -91,8 +91,14 @@
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->email }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ ucfirst($user->role) }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base flex items-center">
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2"><i class="fa-solid fa-trash"></i></button>
+                        @if($user->username !== 'admin')
+                            <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        @endif
                         </td>
                     </tr>
                     @endforeach

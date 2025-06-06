@@ -37,7 +37,7 @@
                         </div>
 
                         <!-- Tombol Tambah -->
-                        <a href="#" 
+                        <a href="{{ route('admin.tambahdokumen') }}" 
                             class="flex items-center gap-2 bg-green-600 text-gray-50 px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition">
                             <i class="fa-solid fa-plus"></i>
                             Tambah Dokumen

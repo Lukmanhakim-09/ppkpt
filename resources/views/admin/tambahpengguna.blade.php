@@ -31,7 +31,7 @@
         </div>
         <div class="mx-10">
             <!-- Tambahkan x-data di form wrapper -->
-            <form action="{{ route('admin.tambahpengguna') }}" method="POST" x-data="{ selectedRole: '{{ old('role') }}' }">
+            <form action="{{ route('admin.kelolapengguna.store') }}" method="POST" x-data="{ selectedRole: '{{ old('role') }}' }">
                 @csrf
 
                 <div class="flex flex-col gap-4 w-full">
