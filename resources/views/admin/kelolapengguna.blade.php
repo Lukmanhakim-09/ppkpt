@@ -60,7 +60,7 @@
 <body>
     <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
-    @if(session('success'))
+            @if(session('success'))
                 <div 
                     x-data="{ show: true }" 
                     x-init="setTimeout(() => show = false, 5000)" 

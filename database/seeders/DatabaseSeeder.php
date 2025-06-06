@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Berita;
 use App\Models\Aduan;
+use App\Models\Document;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -170,6 +171,16 @@ class DatabaseSeeder extends Seeder
             'gambar' => 'berita3.webp',
             'tanggal' => '2025-05-10',
             'penulis' => 'Admin', 
+        ]);
+
+        $document = Document::create([
+            'judul' => 'Permendikbudristek No. 30 Tahun 2021',
+            'file' => '/documents/Permendikbudristek Nomor 30 Tahun 2021.pdf',
+        ]);
+
+        $document = Document::create([
+            'judul' => 'Permendikbudristek No. 55 Tahun 2024',
+            'file' => '/documents/Salinan-Permendikbudristek-Nomor-55-Tahun-2024-PPKPT.pdf',
         ]);
 
     }
