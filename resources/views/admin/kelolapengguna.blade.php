@@ -9,53 +9,6 @@
       rel="stylesheet"  
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const filterSelect = document.getElementById('filterSelect');
-            const tableRows = document.querySelectorAll('table tbody tr');
-            
-            // Search functionality
-            searchInput.addEventListener('input', function(e) {
-                const searchTerm = e.target.value.toLowerCase();
-                
-                tableRows.forEach(row => {
-                    // Get the fullname from the second column
-                    const fullname = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                    // Get the username from the third column
-                    const username = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-                    
-                    // Search only through fullname and username
-                    const matchesSearch = fullname.includes(searchTerm) || 
-                                        username.includes(searchTerm);
-                    
-                    // Only show if it matches search AND filter
-                    const showRow = matchesSearch && 
-                                   (filterSelect.value === '' || 
-                                    row.querySelector('td:nth-child(5)').textContent.toLowerCase() === filterSelect.value.toLowerCase());
-                    
-                    row.style.display = showRow ? '' : 'none';
-                });
-            });
-
-            // Filter functionality
-            filterSelect.addEventListener('change', function() {
-                const selectedFilter = this.value.toLowerCase();
-                
-                tableRows.forEach(row => {
-                    const role = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
-                    
-                    // Only show if it matches filter AND search
-                    const showRow = (selectedFilter === '' || role === selectedFilter) &&
-                                   (searchInput.value === '' || 
-                                    row.querySelector('td:nth-child(2)').textContent.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-                                    row.querySelector('td:nth-child(3)').textContent.toLowerCase().includes(searchInput.value.toLowerCase()));
-                    
-                    row.style.display = showRow ? '' : 'none';
-                });
-            });
-        });
-    </script>
   </head>
 <body>
     <x-nav-baar></x-nav-baar>
@@ -95,8 +48,7 @@
                                 type="text"
                                 placeholder="Cari pengguna..."
                                 class="outline-none w-full"
-                                id="searchInput"
-                            >
+                                id="searchInput">
                         </div>
 
                         <!-- Filter -->
@@ -132,7 +84,7 @@
                     </thead>
                     <tbody>
                     @foreach($users as $index => $user)
-                    <tr class="border-b hover:bg-gray-100">
+                    <tr id="userRow" class="user-row border-b hover:bg-gray-100">
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $index + 1 }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->fullname }}</td>
                         <td class="px-6 py-3 font-roboto tracking-wide text-base">{{ $user->username }}</td>
@@ -144,12 +96,56 @@
                         </td>
                     </tr>
                     @endforeach
+                    <tr id="noResultsRow" style="display: none;">
+                        <td colspan="6" class="px-6 py-3 font-roboto tracking-wide text-base text-center">
+                            Pengguna tidak ditemukan
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 </div>
             </div>
         </div>
     </div>
-    
+    <script>
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filterSelect');
+    const rows = document.querySelectorAll('#userRow');
+    const noResultsRow = document.getElementById('noResultsRow');
+
+    function filterUsers() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedRole = filterSelect.value.toLowerCase();
+        let found = false;
+
+        rows.forEach(row => {
+            const fullname = row.children[1].textContent.toLowerCase();
+            const username = row.children[2].textContent.toLowerCase();
+            const role = row.children[4].textContent.toLowerCase();
+            
+            // Check if user matches search term
+            const matchesSearch = (searchTerm === '' || 
+                fullname.includes(searchTerm) || 
+                username.includes(searchTerm));
+
+            // Check if user matches filter
+            const matchesFilter = (selectedRole === '' || role === selectedRole);
+
+            if (matchesSearch && matchesFilter) {
+                row.style.display = '';
+                found = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        noResultsRow.style.display = found ? 'none' : '';
+    }
+
+    // Add event listeners
+    searchInput.addEventListener('input', filterUsers);
+    filterSelect.addEventListener('change', filterUsers);
+</script>
+
 </body>
 </html>
