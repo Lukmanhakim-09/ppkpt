@@ -169,6 +169,56 @@ class AdminController extends Controller
         return view('admin.pengguna.editpengguna', compact('user'));
     }   
 
+    public function updatePengguna(Request $request, $id) {
+        $user = User::findOrFail($id);
+
+        $rules = [
+            'fullname' => 'required',
+            'username' => 'required|unique:users,username,' . $user->id,
+            'password' => 'nullable|confirmed',
+        ];
+
+        // Email hanya wajib jika bukan admin
+        if ($user->role !== 'admin' && $user->role !== 'satgas') {
+            $rules['email'] = 'required|email|unique:users,email,' . $user->id;
+            $rules['nim_nidn'] = 'required';
+            $rules['status'] = 'required';
+        } else {
+            // Email opsional untuk admin dan satgas
+            $rules['email'] = 'nullable|email|unique:users,email,' . $user->id;
+            $rules['nim_nidn'] = 'nullable';
+            $rules['status'] = 'nullable';
+        }
+
+
+        $request->validate($rules, [
+            'fullname.required' => 'Nama Lengkap wajib diisi',
+            'username.required' => 'Username wajib diisi',
+            'username.unique' => 'Username sudah digunakan',
+            'password.confirmed' => 'Password tidak cocok',
+            'email.required' => 'Email wajib diisi',
+            'email.unique' => 'Email sudah digunakan',
+            'nim_nidn.required' => 'NIM/NIDN wajib diisi',
+            'status.required' => 'Pilih salah satu status',
+        ]);
+
+        $data = [
+            'fullname' => $request->fullname,
+            'username' => $request->username,
+            'email' => $request->email,
+            'nim_nidn' => $request->nim_nidn,
+            'status' => $request->status,
+        ];
+
+        if ($request->password) {
+            $data['password'] = $request->password;
+        }
+
+        $user->update($data);
+
+        return redirect()->route('admin.kelolapengguna')->with('success', 'Pengguna berhasil diperbarui.');
+    }
+
 
     
 }

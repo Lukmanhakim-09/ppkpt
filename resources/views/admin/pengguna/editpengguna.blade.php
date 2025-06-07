@@ -31,8 +31,9 @@
         </div>
         <div class="mx-10">
             <!-- Tambahkan x-data di form wrapper -->
-            <form action="{{ route('admin.kelolapengguna.store') }}" method="POST">
+            <form action="{{ route('admin.editpengguna.update', $user->id) }}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="flex flex-col gap-4 w-full">
 
