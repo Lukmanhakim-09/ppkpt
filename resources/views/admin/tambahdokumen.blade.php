@@ -31,7 +31,7 @@
         </div>
         <div class="mx-10">
             <!-- Tambahkan x-data di form wrapper -->
-            <form action="#" method="POST">
+            <form action="{{ route('admin.keloladokumen.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col gap-4 w-full">
                     <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">

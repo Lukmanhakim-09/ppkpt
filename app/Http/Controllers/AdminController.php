@@ -26,24 +26,27 @@ class AdminController extends Controller
         return view('admin.tambahdokumen');
     }
 
-    // public function storeDokumen(Request $request)
-    // {
-    //     $request->validate([
-    //         'judul' => 'required',
-    //         'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
-    //     ]);
+    public function storeDokumen(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-    //     $file = $request->file('file');
-    //     $fileName = time() . '_' . $file->getClientOriginalName();
-    //     $file->storeAs('documents', $fileName);
+        try {
+            $filedokumen = $request->file('file')->store('dokumen', 'public');
+            $fileName = $filedokumen;
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
+        }
 
-    //     Document::create([
-    //         'judul' => $request->judul,
-    //         'file' => $fileName,
-    //     ]);
+        Document::create([
+            'judul' => $request->judul,
+            'file' => $fileName,
+        ]);
 
-    //     return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil ditambahkan.');
-    // }
+        return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil ditambahkan.');
+    }
 
     public function kelolapengguna()
     {

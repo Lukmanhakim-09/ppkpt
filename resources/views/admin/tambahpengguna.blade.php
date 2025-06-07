@@ -167,9 +167,12 @@
                                 class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('status') border border-red-500 @enderror"
                             >
                                 <option value="">Pilih Status</option>
-                                <option value="Mahasiswa" {{ old('status') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                                <option value="Pimpinan" {{ old('status') == 'Pimpinan' ? 'selected' : '' }}>Pimpinan</option>
                                 <option value="Dosen" {{ old('status') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                                <option value="Staff" {{ old('status') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                                <option value="Tenaga Pendidik" {{ old('status') == 'Tenaga Pendidik' ? 'selected' : '' }}>Tenaga Pendidik</option>
+                                <option value="Satpam" {{ old('status') == 'Satpam' ? 'selected' : '' }}>Satpam</option>
+                                <option value="OB" {{ old('status') == 'OB' ? 'selected' : '' }}>OB</option>
+                                <option value="Mahasiswa" {{ old('status') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
                             </select>
                             @error('status')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
