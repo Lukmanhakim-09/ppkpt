@@ -63,7 +63,7 @@
                                 <a class="text-[#008CFF] hover:underline" href="{{ asset('storage/' . $document->file) }}" target="_blank">{{ ($document->judul) }}</a>
                             </td>
                             <td class="px-6 py-3 font-roboto tracking-wide text-base flex items-center">
-                            <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <a href="{{ route('admin.editdokumen', $document->id) }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-pen-to-square"></i></a>
                             <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>

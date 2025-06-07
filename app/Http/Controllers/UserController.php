@@ -47,6 +47,7 @@ class UserController extends Controller
                 'nama_pelapor.required' => 'Nama Pelapor wajib diisi.',
                 'alamat_pelapor.required' => 'Alamat wajib diisi.',
                 'pernyataan_pelapor.required'=> 'File Pernyataan wajib diisi',
+                'pernyataan_pelapor.max' => 'File Pernyataan tidak boleh lebih dari 2MB',
                 'email_pelapor.required' => 'Email wajib diisi.',
                 'phone_pelapor.required' => 'No Hp wajib diisi.',
                 'hubungi.required' => 'Harap pilih salah satu metode kontak.',
@@ -67,6 +68,7 @@ class UserController extends Controller
                 'tanggal_peristiwa.required' => 'Tanggal Peristiwa wajib diisi.',
                 'category.required' => 'Kategori wajib diisi.',
                 'chronology.required' => 'Kronologi wajib diisi.',
+                'bukti_pelaporan.max' => 'File Bukti Pelaporan tidak boleh lebih dari 2MB',
                 'lokasi.required' => 'Lokasi wajib diisi.',
             ]);
 

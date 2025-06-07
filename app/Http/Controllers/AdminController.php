@@ -17,13 +17,13 @@ class AdminController extends Controller
 
     public function keloladokumen()
     {       
-        $documents = Document::orderBy('id', 'desc')->get();
-        return view('admin.keloladokumen', compact('documents'));
+        $documents = Document::orderBy('id', 'asc')->get();
+        return view('admin.dokumen.keloladokumen', compact('documents'));
     }
 
     public function showTambahDokumenForm()
     {
-        return view('admin.tambahdokumen');
+        return view('admin.dokumen.tambahdokumen');
     }
 
     public function storeDokumen(Request $request)
@@ -31,11 +31,17 @@ class AdminController extends Controller
         $request->validate([
             'judul' => 'required',
             'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi',
+            'file.required' => 'File wajib diisi',
+            'file.max' => 'File tidak boleh lebih dari 2MB',
         ]);
 
         try {
-            $filedokumen = $request->file('file')->store('dokumen', 'public');
-            $fileName = $filedokumen;
+            if ($request->hasFile('file')) {
+                $filedokumen = $request->file('file')->store('dokumen', 'public');
+                $fileName = $filedokumen;
+            }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
         }
@@ -48,15 +54,52 @@ class AdminController extends Controller
         return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil ditambahkan.');
     }
 
+    public function showEditDokumenForm($id)
+    {
+        $document = Document::findOrFail($id);
+        return view('admin.dokumen.editdokumen', compact('document'));
+    }
+
+    public function updateDokumen(Request $request, $id)
+    {
+        $document = Document::findOrFail($id);
+
+        $request->validate([
+            'judul' => 'required',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi',
+            'file.max' => 'File tidak boleh lebih dari 2MB',
+        ]);
+
+        try {
+            if ($request->hasFile('file')) {
+                $filedokumen = $request->file('file')->store('dokumen', 'public');
+                $fileName = $filedokumen;
+            } else {
+                $fileName = $document->file;
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
+        }
+
+        $document->update([
+            'judul' => $request->judul,
+            'file' => $fileName,
+        ]);
+
+        return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil diperbarui.');
+    }
+
     public function kelolapengguna()
     {
         $users = User::orderBy('fullname', 'asc')->get();
-        return view('admin.kelolapengguna', compact('users'));
+        return view('admin.pengguna.kelolapengguna', compact('users'));
     }
 
-    public function showTambahPenggunaForm()
+    public function showTambahPenggunaForm()    
     {
-        return view('admin.tambahpengguna');
+        return view('admin.pengguna.tambahpengguna');
     }
 
     public function storePengguna(Request $request)

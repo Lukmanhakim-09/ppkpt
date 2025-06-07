@@ -21,12 +21,16 @@ Route::post('/verify/resend', [UserController::class, 'resendOtp'])->name('verif
 
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'berita'])->name('admin.home');
-    Route::get('/admin/keloladokumen', [AdminController::class, 'keloladokumen'])->name('admin.keloladokumen');
-    Route::get('/admin/tambahdokumen', [AdminController::class, 'showTambahDokumenForm'])->name('admin.tambahdokumen');
-    Route::post('/admin/tambahdokumen', [AdminController::class, 'storeDokumen'])->name('admin.keloladokumen.store');
-    Route::get('/admin/kelolapengguna', [AdminController::class, 'kelolapengguna'])->name('admin.kelolapengguna');
-    Route::get('/admin/tambahpengguna', [AdminController::class, 'showTambahPenggunaForm'])->name('admin.tambahpengguna');
-    Route::post('/admin/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
+    
+    Route::get('/admin/dokumen/keloladokumen', [AdminController::class, 'keloladokumen'])->name('admin.keloladokumen');
+    Route::get('/admin/dokumen/tambahdokumen', [AdminController::class, 'showTambahDokumenForm'])->name('admin.tambahdokumen');
+    Route::get('/admin/dokumen/editdokumen/{id}', [AdminController::class, 'showEditDokumenForm'])->name('admin.editdokumen');
+    Route::put('/admin/dokumen/editdokumen/{id}', [AdminController::class, 'updateDokumen'])->name('admin.editdokumen.update');
+    Route::post('/admin/dokumen/tambahdokumen', [AdminController::class, 'storeDokumen'])->name('admin.keloladokumen.store');
+
+    Route::get('/admin/pengguna/kelolapengguna', [AdminController::class, 'kelolapengguna'])->name('admin.kelolapengguna');
+    Route::get('/admin/pengguna/tambahpengguna', [AdminController::class, 'showTambahPenggunaForm'])->name('admin.tambahpengguna');
+    Route::post('/admin/pengguna/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
 
 });
 
