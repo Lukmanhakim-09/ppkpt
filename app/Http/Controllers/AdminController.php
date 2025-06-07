@@ -161,7 +161,13 @@ class AdminController extends Controller
 
         // Kembalikan response (misalnya redirect atau json)
         return redirect()->route('admin.kelolapengguna')->with('success', 'Pengguna berhasil ditambahkan.');
-}
+    }
+
+    public function showEditPenggunaForm($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.pengguna.editpengguna', compact('user'));
+    }   
 
 
     

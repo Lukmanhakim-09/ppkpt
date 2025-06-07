@@ -30,6 +30,8 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     Route::get('/admin/pengguna/kelolapengguna', [AdminController::class, 'kelolapengguna'])->name('admin.kelolapengguna');
     Route::get('/admin/pengguna/tambahpengguna', [AdminController::class, 'showTambahPenggunaForm'])->name('admin.tambahpengguna');
+    Route::get('/admin/pengguna/editpengguna/{id}', [AdminController::class, 'showEditPenggunaForm'])->name('admin.editpengguna');
+    Route::put('/admin/pengguna/editpengguna/{id}', [AdminController::class, 'updatePengguna'])->name('admin.editpengguna.update');
     Route::post('/admin/pengguna/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
 
 });
