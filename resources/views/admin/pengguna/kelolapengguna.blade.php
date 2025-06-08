@@ -9,6 +9,8 @@
       rel="stylesheet"  
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
 <body>
     <x-nav-baar></x-nav-baar>
@@ -95,9 +97,13 @@
                             <a href="{{ Route('admin.editpengguna', $user->id) }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            <form id="delete-form-{{ $user->id }}" action="{{ route('admin.kelolapengguna.delete', $user->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="confirmDelete('{{ $user->id }}', '{{ $user->fullname }}', '{{ $user->username }}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         @endif
                         </td>
                     </tr>
@@ -151,6 +157,22 @@
     // Add event listeners
     searchInput.addEventListener('input', filterUsers);
     filterSelect.addEventListener('change', filterUsers);
+
+    function confirmDelete(id, fullname, username) {
+        Swal.fire({
+            text: `Yakin ingin menghapus pengguna "${fullname} (${username})"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${id}`).submit();
+            }
+        });
+    }
 </script>
 
 </body>

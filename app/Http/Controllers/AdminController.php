@@ -91,6 +91,14 @@ class AdminController extends Controller
         return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil diperbarui.');
     }
 
+    public function deleteDokumen($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->delete();
+
+        return redirect()->route('admin.keloladokumen')->with('success', 'Dokumen berhasil dihapus.');
+    }   
+
     public function kelolapengguna()
     {
         $users = User::orderBy('fullname', 'asc')->get();
@@ -219,6 +227,11 @@ class AdminController extends Controller
         return redirect()->route('admin.kelolapengguna')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
+    public function deletePengguna($id) {
+        $user = User::findOrFail($id);
+        $user->delete();
 
+        return redirect()->route('admin.kelolapengguna')->with('success', 'Pengguna berhasil dihapus.');
+    }
     
 }

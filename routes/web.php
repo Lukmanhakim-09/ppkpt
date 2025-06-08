@@ -26,12 +26,14 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/admin/dokumen/tambahdokumen', [AdminController::class, 'showTambahDokumenForm'])->name('admin.tambahdokumen');
     Route::get('/admin/dokumen/editdokumen/{id}', [AdminController::class, 'showEditDokumenForm'])->name('admin.editdokumen');
     Route::put('/admin/dokumen/editdokumen/{id}', [AdminController::class, 'updateDokumen'])->name('admin.editdokumen.update');
+    Route::delete('/admin/dokumen/keloladokumen/{id}', [AdminController::class, 'deleteDokumen'])->name('admin.keloladokumen.delete');
     Route::post('/admin/dokumen/tambahdokumen', [AdminController::class, 'storeDokumen'])->name('admin.keloladokumen.store');
 
     Route::get('/admin/pengguna/kelolapengguna', [AdminController::class, 'kelolapengguna'])->name('admin.kelolapengguna');
     Route::get('/admin/pengguna/tambahpengguna', [AdminController::class, 'showTambahPenggunaForm'])->name('admin.tambahpengguna');
     Route::get('/admin/pengguna/editpengguna/{id}', [AdminController::class, 'showEditPenggunaForm'])->name('admin.editpengguna');
     Route::put('/admin/pengguna/editpengguna/{id}', [AdminController::class, 'updatePengguna'])->name('admin.editpengguna.update');
+    Route::delete('/admin/pengguna/kelolapengguna/{id}', [AdminController::class, 'deletePengguna'])->name('admin.kelolapengguna.delete');
     Route::post('/admin/pengguna/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
 
 });

@@ -9,10 +9,27 @@
       rel="stylesheet"  
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
+            @if(session('success'))
+                <div 
+                    x-data="{ show: true }" 
+                    x-init="setTimeout(() => show = false, 5000)" 
+                    x-show="show" 
+                    x-transition 
+                    class="fixed top-28 right-4 z-50"
+                >
+                    <div class="flex items-center px-6 py-4 rounded-lg shadow-lg bg-green-500 text-white">
+                        <i class="fas fa-check-circle mr-3"></i>
+                        <div class="text-md font-semibold">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
          <!-- Sidebar -->
          <div class="h-[520px] w-[300px] bg-[#F08619] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
             <x-sidebar :active="'dokumen'"></x-sidebar>
@@ -64,7 +81,13 @@
                             </td>
                             <td class="px-6 py-3 font-roboto tracking-wide text-base flex items-center">
                             <a href="{{ route('admin.editdokumen', $document->id) }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2"><i class="fa-solid fa-trash"></i></button>
+                            <form id="delete-form-{{ $document->id }}" action="{{ route('admin.keloladokumen.delete', $document->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="confirmDelete('{{ $document->id }}', '{{ $document->judul }}', '{{ $document->file }}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded ml-2">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                             </td>
                         </tr>
                         @endforeach
@@ -102,6 +125,22 @@
 
         noResultsRow.style.display = found ? 'none' : '';
     });
+
+    function confirmDelete(id, judul, file) {
+        Swal.fire({
+            text: `Yakin ingin menghapus dokumen "${judul}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${id}`).submit();
+            }
+        });
+    }
 </script>
 </body>
 </html>
