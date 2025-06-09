@@ -11,14 +11,23 @@
                     <div class="absolute bottom-0 left-0 right-0 bg-[#232323]/80 rounded-lg lg:h-[200px]">
                         <div class="p-6">
                             <a href="#" class="text-white font-bold text-xl mb-2" id="slider-title">{{ $beritas->first()->judul }}</a>
-                            <p class="text-[#00F0FF] text-base" id="slider-content">{{ Str::limit($beritas->first()->isi, 200) }}</p>
-                        </div>
+                            <p class="text-[#00F0FF] text-base" id="slider-content">{{ Str::limit(strip_tags($beritas->first()->isi), 200) }}...</p>
+                        </div> 
                     </div>
                 </div>
+                @php
+                $slides = $beritas->take(3)->map(function($b) {
+                    return [
+                        'judul' => $b->judul,
+                        'gambar' => $b->gambar,
+                        'isi' => strip_tags($b->isi)
+                    ];
+                });
+                @endphp
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         let currentSlide = 0;
-                        const slides = @json($beritas->take(3));
+                        const slides = @json($slides);
                         let interval;
                         let isPaused = false;
                         
@@ -28,7 +37,7 @@
                             
                             document.getElementById('slider-image').src = 'storage/' + current.gambar;
                             document.getElementById('slider-title').textContent = current.judul;
-                            document.getElementById('slider-content').textContent = current.isi.substring(0, 200) + '...';
+                            document.getElementById('slider-content').innerHTML = current.isi.substring(0, 200) + '...';
                         }
 
                         function startSlider() {
@@ -67,7 +76,7 @@
                             @php
                                 $isilainya = Str::limit($berita->isi, 200);
                             @endphp
-                            <p class="text-[#00F0FF] text-sm">{{ $isilainya }}</p>
+                            <p class="text-[#00F0FF] text-sm">{!! strip_tags($isilainya, '<strong><p><em><ul>') !!}</p>
                         </div>
                     </div>
                 @endforeach

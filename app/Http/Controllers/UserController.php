@@ -99,7 +99,7 @@ class UserController extends Controller
 
     public function berita()
     {
-        $beritas = Berita::orderBy('tanggal', 'desc')->get();
+        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
         return view('user.home', compact('beritas'));
     }
 

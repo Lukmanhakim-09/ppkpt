@@ -36,6 +36,11 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::delete('/admin/pengguna/kelolapengguna/{id}', [AdminController::class, 'deletePengguna'])->name('admin.kelolapengguna.delete');
     Route::post('/admin/pengguna/tambahpengguna', [AdminController::class, 'storePengguna'])->name('admin.kelolapengguna.store');
 
+    Route::get('/admin/berita/kelolaberita', [AdminController::class, 'kelolaberita'])->name('admin.kelolaberita');
+    Route::get('/admin/berita/tambahberita', [AdminController::class, 'showTambahBeritaForm'])->name('admin.tambahberita');
+    Route::post('/admin/berita/tambahberita', [AdminController::class, 'storeBerita'])->name('admin.kelolaberita.store');
+    
+
 });
 
 Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () { 

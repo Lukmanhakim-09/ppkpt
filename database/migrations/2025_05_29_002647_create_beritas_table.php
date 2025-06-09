@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('isi');
             $table->string('gambar');
             $table->date('tanggal'); 
+            $table->enum('status', ['draft', 'publish']);
             $table->string('penulis');
             $table->timestamps();
         });

@@ -8,7 +8,7 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        $beritas = Berita::orderBy('tanggal', 'desc')->get();
+        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
         return view('home', compact('beritas'));
     }
 

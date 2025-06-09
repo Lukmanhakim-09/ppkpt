@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function berita()
     {
-        $beritas = Berita::orderBy('tanggal', 'desc')->get();
+        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
         return view('admin.home', compact('beritas'));
     }
 
@@ -233,5 +233,61 @@ class AdminController extends Controller
 
         return redirect()->route('admin.kelolapengguna')->with('success', 'Pengguna berhasil dihapus.');
     }
+
+    public function kelolaberita()
+    {
+        $beritas = Berita::orderBy('judul', 'desc')->get();
+        return view('admin.berita.kelolaberita', compact('beritas'));
+    }
     
+    public function showTambahBeritaForm()
+    {   
+        return view('admin.berita.tambahberita');
+    }
+
+    public function storeBerita(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'deskripsi' => [
+            'required',
+            function ($attribute, $value, $fail) {
+                if (trim(strip_tags($value)) === '') {
+                    $fail('Deskripsi wajib diisi.');
+                }
+            },
+
+        ],
+            'tanggal' => 'required',
+            'penulis' => 'required',
+            'gambar' => 'required|file|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi',
+            'deskripsi.required' => 'Deskripsi wajib diisi',
+            'tanggal.required' => 'Tanggal wajib diisi',
+            'penulis.required' => 'Penulis wajib diisi',
+            'gambar.required' => 'Gambar wajib diisi',
+            'gambar.max' => 'Gambar tidak boleh lebih dari 2MB',
+        ]);
+
+        try {
+            if ($request->hasFile('gambar')) {
+                $fileberita = $request->file('gambar')->store('berita','public');
+                $fileName = $fileberita;
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
+        }
+
+        Berita::create([
+            'judul' => $request->judul,
+            'isi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+            'penulis' => $request->penulis,
+            'gambar' => $fileName,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.kelolaberita')->with('success', 'Berita berhasil ditambahkan.');
+    }
 }

@@ -77,8 +77,9 @@ class DatabaseSeeder extends Seeder
                         persepsi publik. Organisasi ini mendorong adanya peningkatan edukasi media untuk mempublikasikan 
                         berita dengan mempertimbangkan hak-hak korban serta meminimalisir kesalahan informasi yang bisa 
                         memperburuk situasi.',
-            'gambar' => 'berita1.jpg',
+            'gambar' => 'berita/berita1.jpg',
             'tanggal' => '2025-05-29',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
@@ -91,8 +92,9 @@ class DatabaseSeeder extends Seeder
                         dalam upaya menciptakan lingkungan yang lebih aman. Selain itu, kegiatan ini juga melibatkan 
                         pelatihan terkait pencegahan kekerasan seksual, serta upaya memperkuat partisipasi komunitas 
                         kampus dalam membangun budaya yang menanggulangi kekerasan seksual secara lebih sistematis.',
-            'gambar' => 'berita2.png',
+            'gambar' => 'berita/berita2.png',
             'tanggal' => '2025-05-10',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
@@ -107,8 +109,9 @@ class DatabaseSeeder extends Seeder
                         yang lebih tepat adalah "perbudakan seksual" karena korban sepenuhnya dikuasai oleh pelaku. 
                         Ia menambahkan bahwa penggunaan istilah yang tepat sangat penting dalam konteks pemberitaan agar 
                         tidak mereduksi beratnya kasus yang dihadapi korban.',
-            'gambar' => 'berita3.webp',
+            'gambar' => 'berita/berita3.webp',
             'tanggal' => '2025-05-10',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
@@ -122,8 +125,9 @@ class DatabaseSeeder extends Seeder
             serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
             Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
             kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
-            'gambar' => 'berita4.jpeg',
+            'gambar' => 'berita/berita4.jpeg',
             'tanggal' => '2023-10-05',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
@@ -137,8 +141,9 @@ class DatabaseSeeder extends Seeder
             serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
             Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
             kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
-            'gambar' => 'berita4.jpeg',
+            'gambar' => 'berita/berita4.jpeg', 
             'tanggal' => '2024-05-29',
+            'status' => 'draft',
             'penulis' => 'Admin', 
         ]);
 
@@ -152,8 +157,9 @@ class DatabaseSeeder extends Seeder
             serta surat edaran Kemendikbudristek tentang Pembentukan Satuan Tugas dan Tim Pencegahan dan Penanganan 
             Kekerasan (TPPK) di Lingkungan Satuan Pendidikan. Dengan regulasi tersebut maka di tingkat kabupaten dan 
             kota membentuk adanya Satgas dan di sekolah dibentuk tim TPPK',
-            'gambar' => 'berita4.jpeg',
+            'gambar' => 'berita/berita4.jpeg',
             'tanggal' => '2024-07-29',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
@@ -168,8 +174,9 @@ class DatabaseSeeder extends Seeder
                         yang lebih tepat adalah "perbudakan seksual" karena korban sepenuhnya dikuasai oleh pelaku. 
                         Ia menambahkan bahwa penggunaan istilah yang tepat sangat penting dalam konteks pemberitaan agar 
                         tidak mereduksi beratnya kasus yang dihadapi korban.',
-            'gambar' => 'berita3.webp',
+            'gambar' => 'berita/berita3.webp',
             'tanggal' => '2025-05-10',
+            'status' => 'publish',
             'penulis' => 'Admin', 
         ]);
 
