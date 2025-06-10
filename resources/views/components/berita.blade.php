@@ -10,7 +10,7 @@
                          alt="{{ $beritas->first()->judul }}">
                     <div class="absolute bottom-0 left-0 right-0 bg-[#232323]/80 rounded-lg lg:h-[200px]">
                         <div class="p-6">
-                            <a href="#" class="text-white font-bold text-xl mb-2" id="slider-title">{{ $beritas->first()->judul }}</a>
+                            <a href="{{ route('berita', $beritas->first()->id) }}" class="text-white font-bold text-xl mb-2" id="slider-title">{{ $beritas->first()->judul }}</a>
                             <p class="text-[#00F0FF] text-base" id="slider-content">{{ Str::limit(strip_tags($beritas->first()->isi), 200) }}...</p>
                         </div> 
                     </div>
@@ -20,7 +20,8 @@
                     return [
                         'judul' => $b->judul,
                         'gambar' => $b->gambar,
-                        'isi' => strip_tags($b->isi)
+                        'isi' => strip_tags($b->isi),
+                        'url' => route('berita', $b->id) // pastikan rute-nya sesuai
                     ];
                 });
                 @endphp
@@ -36,7 +37,9 @@
                             const current = slides[currentSlide];
                             
                             document.getElementById('slider-image').src = 'storage/' + current.gambar;
-                            document.getElementById('slider-title').textContent = current.judul;
+                            const sliderTitle = document.getElementById('slider-title');
+                            sliderTitle.textContent = current.judul;
+                            sliderTitle.href = current.url;
                             document.getElementById('slider-content').innerHTML = current.isi.substring(0, 200) + '...';
                         }
 
@@ -72,7 +75,7 @@
                     <div class="flex flex-row">
                         <img class="w-1/3 h-auto object-cover rounded-lg mb-2" src="{{ asset('storage/' . $berita->gambar) }}" alt="Berita Lainnya">
                         <div class="bg-[#232323] rounded-lg p-4 mb-2 shadow-sm">
-                            <a  href="#" class="text-gray-50 font-bold text-lg mb-2">{{ $berita->judul }}</a>
+                            <a  href="{{ route('berita', $berita->id) }}" class="text-gray-50 font-bold text-lg mb-2">{{ $berita->judul }}</a>
                             @php
                                 $isilainya = Str::limit($berita->isi, 200);
                             @endphp

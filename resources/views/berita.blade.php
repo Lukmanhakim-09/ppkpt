@@ -11,13 +11,17 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 <body>
-    <x-nav-barr></x-nav-barr>
+<x-nav-barr>
+        <x-slot name="label1">Beranda</x-slot>
+        <x-slot name="label2">Berita</x-slot>
+        <x-slot name="label3">Tentang Kami</x-slot>
+    </x-nav-barr>
     <div class="flex flex-col lg:flex-row mt-35 gap-10 px-5 sm:px-25 lg:px-25 max-w-7xl mx-auto">
     <!-- Bagian Kiri (Konten Utama) -->
     <div class="w-full lg:w-2/3">
-        <img class="w-full h-auto max-h-[400px] object-cover rounded-lg mx-auto" src="img/berita2.png" alt="">
+        <img class="w-full h-auto max-h-[400px] object-cover rounded-lg mx-auto" src="{{ asset('storage/' . $berita->gambar) }}" alt="">
         <h1 class="text-2xl font-bold mt-4">
-        Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan
+        {{ $berita->judul }}
         </h1>
         <div class="flex gap-4 mt-2 flex-wrap text-sm font-semibold">
         <h6 class="flex items-center gap-1">
@@ -28,12 +32,7 @@
         </h6>
         </div>
         <p class="text-justify mt-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat rerum placeat, 
-        corporis molestias harum qui repellat eos facere voluptas earum. Odit nulla at 
-        quidem, voluptatem deleniti modi maxime cumque sit. Lorem ipsum dolor sit amet 
-        consectetur adipisicing elit. Quaerat rerum placeat, corporis molestias harum 
-        qui repellat eos facere voluptas earum. Odit nulla at quidem, voluptatem deleniti 
-        modi maxime cumque sit.
+        {{ $berita->isi }}
         </p>
     </div>
 
@@ -42,9 +41,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5 p-5 ">
             <!-- Card 1 -->
             <div class="flex flex-col">
-                <img class="w-full h-36 object-cover rounded-lg" src="img/berita2.png" alt="">
-                <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="#">
-                Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan
+            @foreach ($beritas->shuffle()->take(4) as $berita)
+                <img class="w-full h-36 object-cover rounded-lg" src="{{ asset('storage/' . $berita->gambar) }}" alt="">
+                <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="{{ route('berita', $berita->id) }}">
+                {{ $berita->judul }}
                 </a>
                 <div class="flex gap-2 mt-2 flex-wrap text-xs font-semibold">
                 <h6 class="flex items-center gap-1">
@@ -54,54 +54,7 @@
                     <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
                 </h6>
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="flex flex-col">
-                <img class="w-full h-36 object-cover rounded-lg" src="img/berita2.png" alt="">
-                <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="#">
-                Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan
-                </a>
-                <div class="flex gap-2 mt-2 flex-wrap text-xs font-semibold">
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-user-tag text-[#F08619]"></i> Admin
-                </h6>
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
-                </h6>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="hidden lg:flex sm:flex flex-col">
-                <img class="w-full h-36 object-cover rounded-lg" src="img/berita2.png" alt="">
-                <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="#">
-                Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan
-                </a>
-                <div class="flex gap-2 mt-2 flex-wrap text-xs font-semibold">
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-user-tag text-[#F08619]"></i> Admin
-                </h6>
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
-                </h6>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="hidden lg:flex sm:flex flex-col">
-                <img class="w-full h-36 object-cover rounded-lg" src="img/berita2.png" alt="">
-                <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="#">
-                Isu Kekerasan Seksual, FJP Lampung: Masih Ada Media yang Mencampurkan
-                </a>
-                <div class="flex gap-2 mt-2 flex-wrap text-xs font-semibold">
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-user-tag text-[#F08619]"></i> Admin
-                </h6>
-                <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
-                </h6>
-                </div>
+            @endforeach
             </div>
         </div>
         <!-- Link lainnya -->

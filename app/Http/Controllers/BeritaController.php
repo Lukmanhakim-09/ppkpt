@@ -12,4 +12,10 @@ class BeritaController extends Controller
         return view('home', compact('beritas'));
     }
 
+    public function show($id)
+    {
+        $berita = Berita::findOrFail($id);
+        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
+        return view('berita', compact('berita', 'beritas'));
+    }
 }

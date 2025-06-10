@@ -60,7 +60,9 @@
                 <i class="fa-solid fa-xmark"></i>
                 </button>
                 <div class="flex flex-col items-center justify-center">
+                    <a href="/editprofil">
                     <img class="w-12 h-12 rounded-full object-cover border-2 border-white cursor-pointer" src="{{ file_exists(public_path('storage/' . $user->profile)) ? asset('storage/' . $user->profile) : asset('img/user.webp') }}" alt="">
+                    </a>
                     <h5 class="font-bold text-gray-50">{{ $user->fullname }}</h5>
                     <h5 class="font-semibold text-sm text-gray-50">Admin</h5>
                 </div>   

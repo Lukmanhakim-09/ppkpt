@@ -14,9 +14,9 @@
           </div>
           <div class="hidden lg:flex lg:items-center lg:gap-x-8 relative">
             <!-- Link Navigasi -->
-            <a href="#" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
-            <a href="#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
-            <a href="#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+            <a href="@auth /user# @else /# @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+            <a href="@auth /user#berita @else /#berita @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+            <a href="@auth /user#tentang @else /#tentang @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
 
             <!-- Dropdown Dokumen -->
             <div class="relative" x-data="{ isOpen: false }">
@@ -38,7 +38,7 @@
             $user = Auth::user();
             @endphp
             @auth
-            @if (request()->routeIs('admin.home') || request()->routeIs('user.home'))
+            @if (request()->routeIs('admin.home') || request()->routeIs('user.home') || request()->routeIs('berita'))
             <div x-data="{ showProfileMenu: false }" class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3 relative">
               <!-- Info Pengguna -->
               <div class="flex flex-col text-right">
