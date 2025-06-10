@@ -124,5 +124,41 @@
             </div>
         </div>
     </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('filterSelect');
+        const rows = document.querySelectorAll('#beritaRow');
+        const noResultsRow = document.getElementById('noResultsRow');
+        function filterBerita() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedStatus = filterSelect.value.toLowerCase();
+            let found = false;
+
+            rows.forEach(row => {
+                const judul = row.children[2].textContent.toLowerCase();
+                const status = row.children[5].textContent.toLowerCase();
+                
+                // Check if user matches search term
+                const matchesSearch = (searchTerm === '' || 
+                    judul.includes(searchTerm));
+
+                // Check if user matches filter
+                const matchesFilter = (selectedStatus === '' || status === selectedStatus);
+
+                if (matchesSearch && matchesFilter) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            noResultsRow.style.display = found ? 'none' : '';
+        }
+
+    // Add event listeners
+    searchInput.addEventListener('input', filterBerita);
+    filterSelect.addEventListener('change', filterBerita);
+    </script>
 </body>
 </html>

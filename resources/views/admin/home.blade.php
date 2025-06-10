@@ -60,7 +60,7 @@
         <section id="berita" class="m-12 scroll-mt-35">
           <x-berita :beritas="$beritas"></x-berita>
           <div class="flex justify-end">
-            <a href="#" class="bg-[#F08619] mt-5 text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md gap-2"><i class="fa-regular fa-newspaper"></i>Kelola Berita</a>
+            <a href="/admin/berita/kelolaberita" class="bg-[#F08619] mt-5 text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md gap-2"><i class="fa-regular fa-newspaper"></i>Kelola Berita</a>
           </div>
         </section>
         <section id="tentang" class="m-12 scroll-mt-35">
