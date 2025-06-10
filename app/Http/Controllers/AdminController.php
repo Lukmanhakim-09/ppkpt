@@ -248,7 +248,7 @@ class AdminController extends Controller
     public function storeBerita(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|string|max:80',
             'deskripsi' => [
             'required',
             function ($attribute, $value, $fail) {
@@ -263,6 +263,7 @@ class AdminController extends Controller
             'gambar' => 'required|file|max:2048',
         ], [
             'judul.required' => 'Judul wajib diisi',
+            'judul.max' => 'Judul tidak boleh lebih dari 80 karakter',
             'deskripsi.required' => 'Deskripsi wajib diisi',
             'tanggal.required' => 'Tanggal wajib diisi',
             'penulis.required' => 'Penulis wajib diisi',
@@ -290,4 +291,67 @@ class AdminController extends Controller
 
         return redirect()->route('admin.kelolaberita')->with('success', 'Berita berhasil ditambahkan.');
     }
+
+    public function showEditBeritaForm($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('admin.berita.editberita', compact('berita'));
+    }
+
+    public function updateBerita(Request $request, $id) {
+        $berita = Berita::findOrFail($id);
+        $rules = [
+            'judul' => 'required|string|max:80',
+            'deskripsi' => [
+            'required',
+            function ($attribute, $value, $fail) {
+                if (trim(strip_tags($value)) === '') {
+                    $fail('Deskripsi wajib diisi.');
+                }
+            },
+
+        ],
+            'tanggal' => 'required',
+            'penulis' => 'required',
+            'gambar' => 'nullable|file|max:2048',
+        ];
+
+        $request->validate($rules, [
+            'judul.required' => 'Judul wajib diisi',
+            'judul.max' => 'Judul tidak boleh lebih dari 80 karakter',
+            'deskripsi.required' => 'Deskripsi wajib diisi',
+            'tanggal.required' => 'Tanggal wajib diisi',
+            'penulis.required' => 'Penulis wajib diisi',
+            'gambar.max' => 'Gambar tidak boleh lebih dari 2MB',
+        ]);
+
+        try {
+            if ($request->hasFile('gambar')) {
+                $fileberita = $request->file('gambar')->store('berita','public');
+                $fileName = $fileberita;
+            } else {
+                $fileName = $berita->gambar;
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
+        }
+
+        $berita->update([
+            'judul' => $request->judul,
+            'isi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+            'penulis' => $request->penulis,
+            'gambar' => $fileName,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.kelolaberita')->with('success', 'Berita berhasil diperbarui.');
+    }
+
+    public function deleteBerita($id) {
+        $berita = Berita::findOrFail($id);
+        $berita->delete();
+
+        return redirect()->route('admin.kelolaberita')->with('success', 'Berita berhasil dihapus.');
+    }       
 }

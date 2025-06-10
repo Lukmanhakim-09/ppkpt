@@ -99,7 +99,7 @@
                         <td class="px-4 py-3 font-roboto tracking-wide text-base">{{ $berita->penulis }}</td>
                         <td class="px-4 py-3 font-roboto tracking-wide text-base text-center">
                             <div class="flex justify-center items-center gap-2 w-full">
-                                <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                                <a href="/admin/berita/editberita/{{ $berita->id }}" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 <form id="delete-form-{{ $berita->id }}" action="#" method="POST" class="inline-block">
@@ -159,6 +159,22 @@
     // Add event listeners
     searchInput.addEventListener('input', filterBerita);
     filterSelect.addEventListener('change', filterBerita);
+
+    function confirmDelete(id, judul) {
+        Swal.fire({
+            text: `Yakin ingin menghapus berita "${judul}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${id}`).submit();
+            }
+        });
+    }
     </script>
 </body>
 </html>

@@ -38,6 +38,9 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     Route::get('/admin/berita/kelolaberita', [AdminController::class, 'kelolaberita'])->name('admin.kelolaberita');
     Route::get('/admin/berita/tambahberita', [AdminController::class, 'showTambahBeritaForm'])->name('admin.tambahberita');
+    Route::get('/admin/berita/editberita/{id}', [AdminController::class, 'showEditBeritaForm'])->name('admin.editberita');
+    Route::put('/admin/berita/editberita/{id}', [AdminController::class, 'updateBerita'])->name('admin.editberita.update');
+    Route::delete('/admin/berita/kelolaberita/{id}', [AdminController::class, 'deleteBerita'])->name('admin.kelolaberita.delete');
     Route::post('/admin/berita/tambahberita', [AdminController::class, 'storeBerita'])->name('admin.kelolaberita.store');
     
 

@@ -28,13 +28,14 @@
         <div class="px-6 pb-4">
             <!-- Judul -->
             <h5 class="font-bold tracking-widest bg-[#3B6BA2] text-gray-50 text-center rounded-xl w-full py-3 text-xl flex items-center justify-center shadow-md">
-                Tambah Berita
+                Edit Berita
             </h5>
         </div>
         <div class="mx-10">
             <!-- Tambahkan x-data di form wrapper -->
-            <form action="{{ route('admin.kelolaberita.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.editberita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="flex flex-col gap-4 w-full">
                     <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
                         <label for="judul" class="md:w-15 font-medium">Judul</label>
@@ -44,7 +45,7 @@
                                 name="judul"
                                 id="judul"
                                 class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('judul') border border-red-500 @enderror"
-                                value="{{ old('judul') }}"
+                                value="{{ old('judul', $berita->judul) }}"
                             >
                             @error('judul')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -73,6 +74,7 @@
                                 name="tanggal"
                                 id="tanggal" 
                                 class="w-full bg-gray-50 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] @error('tanggal') border border-red-500 @enderror"
+                                value="{{ old('tanggal', $berita->tanggal) }}"
                             >
                             @error('tanggal')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -105,7 +107,13 @@
 
                                 {{-- Preview Gambar --}}
                                 <div class="mt-2">
-                                    <img id="gambar-preview" class="w-full h-40 object-contain rounded-md border border-gray-300 shadow-sm" src="#" alt="Preview" style="display: none;">
+                                    <img 
+                                        id="gambar-preview" 
+                                        class="w-full h-40 object-contain rounded-md border border-gray-300 shadow-sm" 
+                                        src="{{ isset($berita) && $berita->gambar ? asset('storage/' . $berita->gambar) : '#' }}" 
+                                        alt="Preview"
+                                        style="{{ isset($berita) && $berita->gambar ? '' : 'display: none;' }}"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -124,7 +132,7 @@
                                 name="deskripsi"
                                 id="deskripsi"
                                 class="hidden"
-                            >{{ old('deskripsi') }}</textarea>
+                            >{{ old('deskripsi', $berita->isi) }}</textarea>
                         </div>
                     </div>
                     
@@ -187,7 +195,7 @@
 });
 
 // Set isi awal Quill dari old value Laravel
-const deskripsiContent = @json(old('deskripsi'));
+const deskripsiContent = @json(old('deskripsi', $berita->isi));
 if (deskripsiContent) {
   quill.root.innerHTML = deskripsiContent;
 }
