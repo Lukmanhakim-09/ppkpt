@@ -15,6 +15,8 @@ Route::get('/', [BeritaController::class, 'index']);
 Route::get('/editprofil', [ProfilController::class, 'index']);
 Route::post('/editprofil', [ProfilController::class, 'update'])->name('editprofil.update');
 
+Route::post('/', [UserController::class, 'store'])->name('messages.store');
+
 Route::get('/verify', [UserController::class, 'verify'])->name('verify');
 Route::post('/verify', [UserController::class, 'verifyOtp'])->name('verify.otp');
 Route::post('/verify/resend', [UserController::class, 'resendOtp'])->name('verify.resend');

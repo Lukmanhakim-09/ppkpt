@@ -10,6 +10,8 @@ use App\Models\Verify;
 use App\Mail\OtpMail;
 use App\Models\Berita;
 use App\Models\Aduan;
+use App\Models\Message;
+use Illuminate\Validation\ValidationException;
 
 
 class UserController extends Controller
@@ -209,6 +211,34 @@ class UserController extends Controller
         session(['otpTargetTime' => now()->addMinutes(2)->timestamp * 1000]);
 
         return back()->with('success', 'Kode OTP telah dikirim ulang ke email Anda.', ['otpTargetTime' => now()->addMinutes(2)->timestamp * 1000]);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'nama' => 'required',
+                'email' => 'required|email',
+                'pesan' => 'required',
+            ], [
+                'nama.required' => 'Nama wajib diisi.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Email tidak valid.',
+                'pesan.required' => 'Pesan wajib diisi.',
+            ]);
+    
+            Message::create($validatedData);
+    
+            if (auth()->check()) {
+                return redirect()->route('user.home')->with('success', 'Pesan berhasil dikirim!');
+            } else {
+                return redirect()->route('home')->with('success', 'Pesan berhasil dikirim!');
+            }
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator, 'message')
+                ->withInput();
+        }
     }
 
 
