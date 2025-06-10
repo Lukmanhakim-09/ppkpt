@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Berita;
 use App\Models\Document;
+use App\Models\Message;
 
 class AdminController extends Controller
 {
     public function berita()
     {
         $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
-        return view('admin.home', compact('beritas'));
+        $messages = Message::orderBy('id', 'desc')->get();
+        return view('admin.home', compact('beritas', 'messages'));
     }
 
     public function keloladokumen()

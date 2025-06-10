@@ -33,25 +33,21 @@
                 </div>
               </div>
               <div class="flex flex-col items-center gap-4">
-                <div class="shadow-lg rounded-3xl bg-gray-50 flex p-4 lg:w-[500px] gap-4">
-                    <img class="w-16 h-16 rounded-full" src="{{ asset('img/user.webp') }}" alt="">
-                    <div class="flex flex-col lg:w-[400px] md:w-[200px] ">
-                        <h5 class="font-semibold break-all">
-                            andiriahzahirah.221031066@mahasiswa.ith.ac.id
-                        </h5>
-                        <p>Ini pesan</p>
-                    </div>
-                </div>
-
-                <div class="shadow-lg rounded-3xl bg-gray-50 flex p-4 lg:w-[500px] gap-4">
-                    <img class="w-16 h-16 rounded-full" src="{{ asset('img/user.webp') }}" alt="">
-                    <div class="flex flex-col lg:w-[400px] md:w-[200px]">
-                        <h5 class="font-semibold break-all">
-                            andiriahzahirah.221031066@mahasiswa.ith.ac.id
-                        </h5>
-                        <p>Ini pesan</p>
-                    </div>
-                </div>
+              @forelse ($messages->take(3) as $message)
+                  <div class="shadow-lg rounded-3xl bg-gray-50 flex p-4 lg:w-[500px] gap-4">
+                      <img class="w-16 h-16 rounded-full" src="{{ asset('img/user.webp') }}" alt="">
+                      <div class="flex flex-col lg:w-[400px] md:w-[200px]">
+                          <h5 class="font-semibold break-all">
+                              {{ $message->email }}
+                          </h5>
+                          <p>{{ $message->pesan }}</p>
+                      </div>
+                  </div>
+              @empty
+                  <div class="text-center text-gray-500">
+                      Tidak ada pesan.
+                  </div>
+              @endforelse
 
                 <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md">Selengkapnya</a>
               </div>

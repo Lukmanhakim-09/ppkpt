@@ -11,7 +11,7 @@ Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'auth']);
 Route::get('/logout', [loginController::class, 'logout']);
 
-Route::get('/', [BeritaController::class, 'index']);
+Route::get('/', [BeritaController::class, 'index'])->name('home');
 Route::get('/editprofil', [ProfilController::class, 'index']);
 Route::post('/editprofil', [ProfilController::class, 'update'])->name('editprofil.update');
 
