@@ -14,7 +14,15 @@
 <x-nav-barr>
         <x-slot name="label1">Beranda</x-slot>
         <x-slot name="label2">Berita</x-slot>
-        <x-slot name="label3">Tentang Kami</x-slot>
+        <x-slot name="label3"> @auth
+        @if (auth()->user()->role == 'admin')
+            Statistik
+        @else
+            Tentang Kami
+        @endif
+    @else
+        Tentang Kami
+    @endauth</x-slot>
     </x-nav-barr>
     <div class="flex flex-col lg:flex-row mt-35 gap-10 px-5 sm:px-25 lg:px-25 max-w-7xl mx-auto">
     <!-- Bagian Kiri (Konten Utama) -->
