@@ -35,4 +35,9 @@ class Aduan extends Model
         'bukti_pelaporan',
         'lokasi',
     ];
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class)->orderBy('created_at', 'asc');
+    }
 }

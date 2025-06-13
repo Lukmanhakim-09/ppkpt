@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('aduans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_aduan')->unique()->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nama_pelapor');
             $table->string('alamat_pelapor');
@@ -37,7 +38,7 @@ return new class extends Migration
             $table->string('tanggal_peristiwa');
             $table->enum('category',['Fisik', 'Verbal', 'Seksual', 'Psikologis']);
             $table->text('chronology');
-            $table->string('bukti_pelaporan');
+            $table->string('bukti_pelaporan')->nullable();
             $table->string('lokasi');
             $table->timestamps();
         });

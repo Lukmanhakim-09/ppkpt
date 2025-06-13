@@ -93,7 +93,7 @@
                             <img src="{{ asset('storage/' . $berita->gambar) }}"  class="w-20 h-20 object-cover">
                         </td>
                         <td class="px-4 py-3 font-roboto tracking-wide text-base max-w-xs">{{ $berita->judul }}</td>
-                        <td class="px-4 py-3 font-roboto tracking-wide text-base">{!! strip_tags(Str::limit($berita->isi, 100), '<strong><p><em><ul>') !!}</td>
+                        <td class="px-4 py-3 font-roboto tracking-wide text-base">{!! Str::limit($berita->isi, 100) !!}</td>
                         <td class="px-4 py-3 font-roboto tracking-wide text-base">{{ $berita->tanggal }}</td>
                         <td class="px-4 py-3 font-roboto tracking-wide text-base">{{ ucfirst($berita->status) }}</td>
                         <td class="px-4 py-3 font-roboto tracking-wide text-base">{{ $berita->penulis }}</td>

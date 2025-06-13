@@ -33,14 +33,14 @@
         </h1>
         <div class="flex gap-4 mt-2 flex-wrap text-sm font-semibold">
         <h6 class="flex items-center gap-1">
-            <i class="fa-solid fa-user-tag text-[#F08619]"></i> Admin
+            <i class="fa-solid fa-user-tag text-[#F08619]"></i> {{ $berita->penulis }}
         </h6>
         <h6 class="flex items-center gap-1">
-            <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
+            <i class="fa-solid fa-calendar-day text-[#F08619]"></i> {{ $berita->tanggal }}
         </h6>
         </div>
         <p class="text-justify mt-4">
-        {{ $berita->isi }}
+        {!! $berita->isi !!}
         </p>
     </div>
 
@@ -54,12 +54,12 @@
                 <a class="font-semibold text-justify tracking-tight mt-2 hover:text-[#F08619]" href="{{ route('berita', $berita->id) }}">
                 {{ $berita->judul }}
                 </a>
-                <div class="flex gap-2 mt-2 flex-wrap text-xs font-semibold">
+                <div class="flex gap-2 my-2 flex-wrap text-xs font-semibold">
                 <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-user-tag text-[#F08619]"></i> Admin
+                    <i class="fa-solid fa-user-tag text-[#F08619]"></i> {{ $berita->penulis }}
                 </h6>
                 <h6 class="flex items-center gap-1">
-                    <i class="fa-solid fa-calendar-day text-[#F08619]"></i> 2025-05-30
+                    <i class="fa-solid fa-calendar-day text-[#F08619]"></i> {{ $berita->tanggal }}
                 </h6>
                 </div>
             @endforeach

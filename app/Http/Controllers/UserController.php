@@ -94,15 +94,24 @@ class UserController extends Controller
             $validatedData['user_id'] = $userId;
             
             // Simpan ke database
-            Aduan::create($validatedData);
+            $aduan = Aduan::create($validatedData);
+            $aduan->kode_aduan = 'ADUAN-' . str_pad($aduan->id, 4, '0', STR_PAD_LEFT);
+            $aduan->save();
 
             return redirect()->route('aduan.store')->with('success', 'Aduan berhasil dikirim');
     }    
 
     public function berita()
-    {
+    {   
+        \Carbon\Carbon::setLocale('id');
+
+        $aduans = Aduan::with('statuses')
+        ->where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
-        return view('user.home', compact('beritas'));
+        return view('user.home', compact('beritas', 'aduans'));
     }
 
     private function maskEmail($email)
