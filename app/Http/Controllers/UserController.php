@@ -100,7 +100,11 @@ class UserController extends Controller
             
             // Simpan ke database
             $aduan = Aduan::create($validatedData);
-            $aduan->kode_aduan = 'ADUAN-' . str_pad($aduan->id, 4, '0', STR_PAD_LEFT);
+            $aduan->kode_aduan = 'PPKPT'
+            . $aduan->id
+            . date('dy')
+            . rand(10, 99);
+
             $aduan->save();
 
             $validatedData1['aduan_id'] = $aduan->id;
