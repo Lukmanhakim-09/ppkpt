@@ -745,7 +745,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div x-data="{ hasil: false }">
+                        <div x-data="{ hasil: false, selectedAduan: null, searchTerm: '' }">
                             <button @click="hasil = !hasil" class="flex items-center gap-6 font-rubik font-medium tracking-wider bg-transparent outline-solid text-gray-50 text-lg px-10 py-4 rounded-full w-60 mx-auto mt-4 hover:bg-[#3B6BA2]" ><i class="fa-regular fa-bell"></i> Lihat Aduan</button>
                             <div x-show="hasil">
                             <div class="bg-[#000000]/50 absolute top-0 left-0 right-0 bottom-0 lg:h-[1900px] md:h-[2820px] sm:h-[2730px] h-[2830px] lg:p-50 md:px-25 px-10 py-50 z-40">
@@ -756,21 +756,27 @@
                                     </h1>  
                                     <div class="bg-[#E0DEDE] mt-2 p-6 w-full h-auto flex flex-col lg:flex-row gap-5">
                                         <div class="p-2 lg:w-3/7">
-                                            <form action="#" method="post" class="flex items-center">
-                                                <input type="text" placeholder="Kode Aduan" class="bg-white w-full lg:px-6 px-2 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-[#F08619]">
-                                                <button type="submit" class="bg-[#F08619] text-white px-6 py-2 rounded-r-lg hover:bg-[#3B6BA2] ">
-                                                    Cari
-                                                </button>
-                                            </form>
+                                            <!-- Pencarian -->
+                                            <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white w-full md:w-auto">
+                                                <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Cari Aduan..."
+                                                    class="outline-none w-full"
+                                                    id="searchInput"
+                                                    x-model="searchTerm">
+                                            </div>
                                             <div class="lg:max-h-[450px] overflow-y-auto mt-4 p-2">
                                                 @forelse ($aduans as $aduan)
-                                                <div class="flex gap-4 items-center bg-white lg:p-4 md:p-2 p-2 rounded-lg shadow-sm mb-2 cursor-pointer hover:bg-gray-100">
+                                                <div x-show="!searchTerm || '{{ $aduan->kode_aduan }}'.toLowerCase().includes(searchTerm.toLowerCase())" 
+                                                     class="flex gap-4 items-center bg-white lg:p-4 md:p-2 p-2 rounded-lg shadow-sm mb-2 cursor-pointer hover:bg-gray-100" 
+                                                     @click="selectedAduan = selectedAduan === {{ $aduan->id }} ? null : {{ $aduan->id }}"
+                                                     :class="selectedAduan === {{ $aduan->id }} ? 'ring-2 ring-[#F08619]' : ''">
                                                     <div class="justify-center">
-                                                        <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
+                                                        <i class="{{ $aduan->icon }} text-[#F08619] text-5xl"></i>
                                                     </div>
                                                     <div>
                                                         <h4 class="font-bold">{{$aduan->kode_aduan}}</h4>
-                                                        <p class="text-gray-600">Status: <span class="font-medium text-green-600">Diterima</span></p>
                                                         <p class="text-gray-500 text-sm">{{ $aduan->created_at->translatedFormat('d F Y') }}</p>
                                                     </div>
                                                 </div>
@@ -782,47 +788,61 @@
                                         <div class="mt-2 lg:w-3/5">
                                             <h3 class="bg-[#F08619] text-white px-8 py-2 rounded-full font-semibold w-[200px] text-center">Status Aduan</h3>
                                             <div class="relative border-l-4 border-[#F08619] pl-2 space-y-6 mt-6">
-                                                <div class="relative flex gap-2 items-center">
-                                                    <i class="fa-solid fa-circle text-[#1E8535]"></i>
-                                                    <div>
-                                                        <h4 class="font-semibold text-[#1E8535]">Laporan Selesai</h4>
-                                                        <p class="text-sm text-gray-600">[12/06/2025][12:00] - Laporan selesai</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="relative flex gap-2 items-center">
-                                                    <i class="fa-solid fa-circle text-gray-500"></i>
-                                                    <div>
-                                                        <h4 class="font-semibold">Laporan Diproses</h4>
-                                                        <p class="text-sm text-gray-600">[12/06/2025][12:00] - Laporan Anda sedang ditangani oleh satgas. Proses ini mungkin membutuhkan waktu</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="relative flex gap-2 items-center">
-                                                    <i class="fa-solid fa-circle text-gray-500"></i>
-                                                    <div>
-                                                        <h4 class="font-semibold">Diterima oleh Satgas</h4>
-                                                        <p class="text-sm text-gray-600">[12/06/2025][12:00] - Satgas telah menerima laporan Anda. Mohon tunggu konfirmasi selanjutnya
-                                                        </p>
-                                                    </div>
+                                                <div x-show="!selectedAduan" class="text-gray-500 italic">
+                                                    
                                                 </div>
                                                 
-                                                <div class="relative flex gap-2 items-center">
-                                                    <i class="fa-solid fa-circle text-gray-500"></i>
-                                                    <div>
-                                                        <h4 class="font-semibold">Ditinjau oleh Admin</h4>
-                                                        <p class="text-sm text-gray-600">[12/06/2025][12:00] - Admin sedang meninjau laporan Anda untuk diteruskan ke satgas
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                @forelse ($aduans as $aduan)
+                                                <div x-show="selectedAduan === {{ $aduan->id }}" x-transition>
+                                                    @php
+                                                        $steps = [];
+                                                        $status = null;
+                                                        
+                                                        // Handle different types of status relationships
+                                                        if ($aduan->statuses) {
+                                                            if (is_iterable($aduan->statuses)) {
+                                                                // If it's a collection, get the first item
+                                                                $status = $aduan->statuses->first();
+                                                            } else {
+                                                                // If it's already a single object
+                                                                $status = $aduan->statuses;
+                                                            }
+                                                        }
+                                                        
+                                                        if ($status) {
+                                                            $steps = [
+                                                                ['label' => $status->label5 ?? null, 'value' => $status->status5 ?? null],
+                                                                ['label' => $status->label4 ?? null, 'value' => $status->status4 ?? null],
+                                                                ['label' => $status->label3 ?? null, 'value' => $status->status3 ?? null],
+                                                                ['label' => $status->label2 ?? null, 'value' => $status->status2 ?? null],
+                                                                ['label' => $status->label1 ?? null, 'value' => $status->status1 ?? null],
+                                                            ];
+                                                            
+                                                            // Ambil hanya yang ada isinya
+                                                            $steps = array_filter($steps, fn($s) => !empty($s['value']));
+                                                        }
+                                                    @endphp
 
-                                                <div class="relative flex gap-2 items-center">
-                                                    <i class="fa-solid fa-circle text-gray-500"></i>
-                                                    <div>
-                                                        <h4 class="font-semibold">Diterima oleh Admin</h4>
-                                                        <p class="text-sm text-gray-600">[12/06/2025][12:00] - Laporan Anda berhasil dikirim dan diterima oleh admin.</p>
-                                                    </div>
+                                                    @if(empty($steps))
+                                                        <p class="text-gray-500 italic">Belum ada status untuk aduan ini.</p>
+                                                    @else
+                                                        @foreach ($steps as $step)
+                                                            <div class="relative flex gap-2 items-center">
+                                                                <i class="fa-solid fa-circle-check {{ $loop->first ? 'text-[#1E8535]' : 'text-gray-500' }}"></i>
+                                                                <div>
+                                                                    <h4 class="font-semibold {{ $loop->first ? 'text-[#1E8535]' : 'text-gray-500' }}">
+                                                                        {{ $step['label'] }}
+                                                                    </h4>
+                                                                    <p class="text-sm {{ $loop->first ? 'text-gray-600' : 'text-gray-500' }}">
+                                                                        {{ $step['value'] }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
+                                                @empty
+                                                @endforelse
                                             </div>
                                         </div>
                                     </div>

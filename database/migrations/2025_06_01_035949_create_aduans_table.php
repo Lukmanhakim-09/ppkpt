@@ -40,6 +40,7 @@ return new class extends Migration
             $table->text('chronology');
             $table->string('bukti_pelaporan')->nullable();
             $table->string('lokasi');
+            $table->string('icon');
             $table->timestamps();
         });
     }

@@ -8,6 +8,8 @@ class BeritaController extends Controller
 {
     public function index()
     {
+        
+        
         $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
         return view('home', compact('beritas'));
     }
@@ -18,4 +20,6 @@ class BeritaController extends Controller
         $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
         return view('berita', compact('berita', 'beritas'));
     }
+
+    
 }

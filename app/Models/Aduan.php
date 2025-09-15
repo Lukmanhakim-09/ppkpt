@@ -34,6 +34,7 @@ class Aduan extends Model
         'chronology',
         'bukti_pelaporan',
         'lokasi',
+        'icon'
     ];
 
     public function statuses()

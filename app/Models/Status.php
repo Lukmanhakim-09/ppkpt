@@ -8,9 +8,17 @@ class Status extends Model
 {
     protected $table = 'statuses';
     protected $fillable = [
-        'judul',
-        'deskripsi',
-        'status',
+        'aduan_id',
+        'label1',
+        'status1',
+        'label2',
+        'status2',
+        'label3',
+        'status3',
+        'label4',
+        'status4',
+        'label5',
+        'status5'
     ];
 
     public function aduan()

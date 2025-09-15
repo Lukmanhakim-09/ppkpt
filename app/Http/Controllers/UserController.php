@@ -10,6 +10,7 @@ use App\Models\Verify;
 use App\Mail\OtpMail;
 use App\Models\Berita;
 use App\Models\Aduan;
+use App\Models\Status;
 use App\Models\Message;
 use Illuminate\Validation\ValidationException;
 
@@ -92,11 +93,21 @@ class UserController extends Controller
             }
             $userId = Auth::id();
             $validatedData['user_id'] = $userId;
+
+            $validatedData['icon'] = 'fa-solid fa-file-circle-check';
+
+           
             
             // Simpan ke database
             $aduan = Aduan::create($validatedData);
             $aduan->kode_aduan = 'ADUAN-' . str_pad($aduan->id, 4, '0', STR_PAD_LEFT);
             $aduan->save();
+
+            $validatedData1['aduan_id'] = $aduan->id;
+            $validatedData1['label1'] = 'Diterima oleh Admin';
+            $validatedData1['status1'] = '[12/06/2025][12:00] - Laporan Anda berhasil dikirim dan diterima oleh admin.';
+            
+            $status = Status::create($validatedData1);
 
             return redirect()->route('aduan.store')->with('success', 'Aduan berhasil dikirim');
     }    
@@ -105,12 +116,15 @@ class UserController extends Controller
     {   
         \Carbon\Carbon::setLocale('id');
 
-        $aduans = Aduan::with('statuses')
-        ->where('user_id', auth()->id())
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $aduans = Aduan::with('statuses') // ambil aduan + statusnya
+            ->where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
+        $beritas = Berita::where('status', 'publish')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
         return view('user.home', compact('beritas', 'aduans'));
     }
 

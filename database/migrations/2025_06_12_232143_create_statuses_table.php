@@ -14,9 +14,16 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('aduan_id')->constrained('aduans')->cascadeOnDelete();
-            $table->string('judul');
-            $table->text('deskripsi');
-            $table->string('status');
+            $table->string('label1')->nullable();
+            $table->string('status1')->nullable();
+            $table->string('label2')->nullable();
+            $table->string('status2')->nullable();
+            $table->string('label3')->nullable();
+            $table->string('status3')->nullable();
+            $table->string('label4')->nullable();
+            $table->string('status4')->nullable();
+            $table->string('label5')->nullable();
+            $table->string('status5')->nullable();
             $table->timestamps();
         });
     }

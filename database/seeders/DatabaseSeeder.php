@@ -31,17 +31,17 @@ class DatabaseSeeder extends Seeder
             'status' => null,
         ]);
 
-        // $user = User::create([
-        //     'username' => '221031066',
-        //     'password' => '221031066',
-        //     'role' => 'pelapor',
-        //     'fullname' => 'Andi Riah Zahirah',
-        //     'profile' => 'profiluser/user.webp',
-        //     'status_verify' => '0', 
-        //     'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
-        //     'nim_nidn' => '221031066',
-        //     'status' => 'Mahasiswa',
-        // ]);
+        $user = User::create([
+            'username' => '221031066',
+            'password' => '221031066',
+            'role' => 'pelapor',
+            'fullname' => 'Andi Riah Zahirah',
+            'profile' => 'profiluser/user.webp',
+            'status_verify' => '1', 
+            'email' => 'andiriahzahirah.221031066@mahasiswa.ith.ac.id',
+            'nim_nidn' => '221031066',
+            'status' => 'Mahasiswa',
+        ]);
 
         $user = User::create([
             'username' => '221031003',

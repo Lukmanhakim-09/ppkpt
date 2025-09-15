@@ -42,16 +42,27 @@
                                         <i @click="hasil = false" class="fa-solid fa-angle-left absolute left-4 top-1/2 -translate-y-1/2"></i>
                                         Hasil Aduan
                                     </h1>  
-                                    <div class="bg-[#E0DEDE] mt-2 w-full h-auto flex flex-col md:flex-row items-center justify-center">
-                                    <form action="#" method="post" class="flex items-center">
+                                    <div class="bg-[#E0DEDE] mt-2 w-full h-auto flex lg:flex-col flex-col md:flex-row items-center justify-center">
+                                    <form action="#" method="post" class="flex items-center m-2">
                                         <input type="text" placeholder="Masukkan Kode Aduan" class="bg-white px-6 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-[#F08619]">
                                         <button type="submit" class="bg-[#F08619] text-white px-6 py-2 rounded-r-lg hover:bg-[#3B6BA2]">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                             Cari
                                         </button>
                                     </form>
-                                    
+                                    <div class="items-center justify-center flex flex-col">
+                                        <h3 class="bg-[#F08619] text-white px-8 py-2 rounded-full font-semibold w-[200px] text-center">Status Aduan</h3>
+                                        <div class="bg-white p-5 px-10  m-2 rounded-lg flex flex-row items-center justify-center gap-2">
+                                            <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
+                                            <div class="flex flex-col">
+                                                <h3 class="font-bold">ADUAN-0001</h3>
+                                                <p class="text-gray-500">15 September 2025</p>
+                                            </div>
+                                        </div>
+                                       
                                     </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             </div>
