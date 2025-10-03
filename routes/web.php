@@ -11,12 +11,13 @@ Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'auth']);
 Route::get('/logout', [loginController::class, 'logout']);
 
-Route::get('/', [BeritaController::class, 'index'])->name('home');
+Route::match(['get', 'post'], '/', [BeritaController::class, 'index'])->name('home');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita');
 Route::get('/editprofil', [ProfilController::class, 'index']);
 Route::post('/editprofil', [ProfilController::class, 'update'])->name('editprofil.update');
+Route::get('/', [BeritaController::class, 'search'])->name('home');
 
-Route::post('/', [UserController::class, 'store'])->name('messages.store');
+Route::post('/store', [UserController::class, 'store'])->name('messages.store');
 
 Route::get('/verify', [UserController::class, 'verify'])->name('verify');
 Route::post('/verify', [UserController::class, 'verifyOtp'])->name('verify.otp');

@@ -43,23 +43,34 @@
                                         Hasil Aduan
                                     </h1>  
                                     <div class="bg-[#E0DEDE] mt-2 w-full h-auto flex lg:flex-col flex-col md:flex-row items-center justify-center">
-                                    <form action="#" method="post" class="flex items-center m-2">
-                                        <input type="text" placeholder="Masukkan Kode Aduan" class="bg-white px-6 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-[#F08619]">
-                                        <button type="submit" class="bg-[#F08619] text-white px-6 py-2 rounded-r-lg hover:bg-[#3B6BA2]">
+                                    <form method="GET" class="flex items-center m-2">
+                                        <input type="text" name="kode" placeholder="Masukkan Kode Aduan" value="{{ request('kode') }}" 
+                                            class="bg-white px-6 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-[#F08619]">
+                                        <button type="submit" 
+                                                class="bg-[#F08619] text-white px-6 py-2 rounded-r-lg hover:bg-[#3B6BA2]">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                             Cari
                                         </button>
                                     </form>
                                     <div class="items-center justify-center flex flex-col">
                                         <h3 class="bg-[#F08619] text-white px-8 py-2 rounded-full font-semibold w-[200px] text-center">Status Aduan</h3>
-                                        <div class="bg-white p-5 px-10  m-2 rounded-lg flex flex-row items-center justify-center gap-2">
-                                            <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
-                                            <div class="flex flex-col">
-                                                <h3 class="font-bold">ADUAN-0001</h3>
-                                                <p class="text-gray-500">15 September 2025</p>
+                                        @if(request('kode') && !$aduan)
+                                            <div class="p-5 px-10 m-2 rounded-lg">
+                                                <p class="text-red-500 italic text-center">Kode Aduan tidak ditemukan</p>
                                             </div>
-                                        </div>
-                                       
+                                        @elseif($aduan)
+                                            <div class="bg-white p-5 px-10 m-2 rounded-lg flex flex-row items-center justify-center gap-2">
+                                                <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
+                                                <div class="flex flex-col">
+                                                    <h3 class="font-bold">{{ $aduan->kode_aduan }}</h3>
+                                                    <p class="text-gray-500">{{ $aduan->created_at->translatedFormat('d F Y') }}</p>
+                                                </div>  
+                                            </div>
+                                        @else
+                                            <div class="p-5 px-10 m-2 rounded-lg">
+                                                <p class="text-gray-500 italic text-center">Masukkan kode Aduan untuk melihat status</p>
+                                            </div>
+                                        @endif
                                     </div>
                                     </div>
                                     
