@@ -26,12 +26,16 @@ class BeritaController extends Controller
         $kode = $request->get('kode');
         $aduan = null;
         $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
+        $aduans = collect();
 
         if ($kode) {
             $aduan = Aduan::where('kode_aduan', $kode)->first();
+            if ($aduan) {
+                $aduans = collect([$aduan]);
+            }
         }
 
-        return view('home', compact('aduan', 'beritas'));
+        return view('home', compact('aduan', 'beritas', 'aduans'));
     }
     
 }
