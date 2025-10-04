@@ -26,8 +26,8 @@
                   
                 </div>
                 <div class="flex flex-col gap-4 items-center justify-center">
-                  <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-envelope"></i>Kelola Formilir</a>
-                  <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-file"></i>Kelola Dokumen</a>
+                  <a href="/admin/kelolaformulir" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-envelope"></i>Kelola Formilir</a>
+                  <a href="/admin/dokumen/keloladokumen" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-file"></i>Kelola Dokumen</a>
                   <a href="/admin/pengguna/kelolapengguna" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-users"></i>Kelola Pengguna</a>
                   <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-square-check"></i>Laporan Selesai</a>
                 </div>

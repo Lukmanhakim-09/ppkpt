@@ -6,7 +6,7 @@
                 <i class="fa-solid fa-house"></i>
                 <h5 class="font-semibold">Beranda</h5>
             </a>
-            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'formulir' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+            <a href="/admin/kelolaformulir" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'formulir' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-envelope"></i>
                 <h5 class="font-semibold">Kelola Formulir</h5>
             </a>

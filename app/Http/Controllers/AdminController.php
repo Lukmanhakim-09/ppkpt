@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Berita;
+use App\Models\Aduan;
 use App\Models\Document;
 use App\Models\Message;
 
@@ -356,4 +357,10 @@ class AdminController extends Controller
 
         return redirect()->route('admin.kelolaberita')->with('success', 'Berita berhasil dihapus.');
     }       
+
+    public function kelolaformulir()
+    {
+        $aduans = Aduan::orderBy('tanggal_peristiwa', 'desc')->get();
+        return view('admin.kelolaformulir', compact('aduans'));
+    }
 }

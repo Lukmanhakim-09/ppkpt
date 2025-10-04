@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PPKPT ITH</title>
+    @vite('resources/css/app.css')
+    <link
+      rel="stylesheet"  
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+<body>
+    <x-nav-baar></x-nav-baar>
+    <div class="flex mt-31">
+      <!-- Sidebar -->
+      <div class="h-[520px] w-[300px] bg-[#F08619] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
+        <x-sidebar :active="'formulir'"></x-sidebar>
+        <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[400px] lg:h-[520px] h-auto flex flex-col">
+          <div class="px-6 pt-4 pb-3 sticky top-0 z-10">
+              <!-- Pencarian -->
+              <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm w-full">
+                <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
+                <input type="text" placeholder="Cari Aduan..." class="outline-none w-full" id="searchInput">
+              </div>
+          </div>
+          
+          <!--Aduan-->
+          <div class="px-6 pb-4 overflow-y-auto flex-1">
+              <div class="flex flex-col gap-2 pt-2">
+                @forelse($aduans as $aduan)
+                <div class="flex gap-2 bg-white p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                  <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
+                  <div class="flex flex-col">
+                    <h1 class="font-bold">{{ $aduan->kode_aduan }}</h1>
+                    <p>{{ $aduan->created_at->translatedFormat('d F Y') }}</p>
+                  </div>
+                </div>
+                @empty
+                <div class="text-center py-4 text-gray-500">
+                  Tidak ada data aduan
+                </div>
+                @endforelse
+              </div>
+          </div>
+        </div>  
+        <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mr-4 mr-2 w-[890px] lg:h-[520px] h-auto px-2 py-6 lg:overflow-y-auto">
+          <div class="px-6 pb-4">
+            <p class="font-bold tracking-wider text-[#F08619]">IDENTITAS PELAPOR</p>
+            <table class="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td class="font-bold">Nama Pelapor</td>
+                  <td class="px-2 w-4">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Alamat</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">File Pernyataan</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">
+                    <a href="#" class="text-[#0970A5] hover:underline">...</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Email</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">No. HP</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Hubungi</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS KORBAN</p>
+            <table class="w-full border-collapse">  
+              <tbody>
+                <tr>
+                  <td class="font-bold">Nama Korban</td>
+                  <td class="px-2 w-4">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Jenis Kelamin</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Alamat</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">No. HP</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Status Di Kampus</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS TERLAPOR</p>
+            <table class="w-full border-collapse">  
+              <tbody>
+                <tr>
+                  <td class="font-bold">Nama Terlapor</td>
+                  <td class="px-2 w-4">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Jenis Kelamin</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Alamat</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">No. HP</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Status Di Kampus</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Karakteristik</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="font-bold tracking-wider text-[#F08619] mt-4">PERISTIWA</p>
+            <table class="w-full border-collapse">  
+              <tbody>
+                <tr>
+                  <td class="font-bold">Tanggal Peristiwa</td>
+                  <td class="px-2 w-4">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Kategori</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Kronologi Peristiwa</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+                <tr>
+                  <td class="font-bold">File Bukti</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">
+                    <a href="#" class="text-[#0970A5] hover:underline">...</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold">Lokasi</td>
+                  <td class="px-2">:</td>
+                  <td class="w-100">...</td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+        </div>  
+      </div>
+    </div>
+    
+</body>
+</html>
