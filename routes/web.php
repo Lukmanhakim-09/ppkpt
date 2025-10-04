@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SatgasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\ProfilController;
@@ -53,6 +54,10 @@ Route::middleware('auth', 'role:admin')->group(function () {
 Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () { 
     Route::get('/user', [UserController::class, 'berita'])->name('user.home');
     Route::post('/user', [UserController::class, 'storeAduan'])->name('aduan.store');
+});
+
+Route::middleware('auth', 'role:satgas')->group(function () {
+    Route::get('/satgas', [SatgasController::class, 'berita'])->name('satgas.home');
 });
 
 

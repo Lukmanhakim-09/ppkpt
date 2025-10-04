@@ -22,6 +22,8 @@
             $url = route('admin.home');
         } elseif ($user->role === 'pelapor') {
             $url = route('user.home');
+        } elseif ($user->role === 'satgas') {
+            $url = route('satgas.home');
         }
     @endphp
         <a href="{{ $url }}" class="flex items-center gap-2 text-[#F08619] font-roboto font-semibold tracking-wider hover:text-[#3B6BA2] transition-colors">

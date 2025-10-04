@@ -14,9 +14,25 @@
           </div>
           <div class="hidden lg:flex lg:items-center lg:gap-x-8 relative">
             <!-- Link Navigasi -->
-            <a href="@auth /user# @else /# @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
-            <a href="@auth /user#berita @else /#berita @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
-            <a href="@auth /user#tentang @else /#tentang @endauth" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.home') }}#beranda" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+                    <a href="{{ route('admin.home') }}#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+                    <a href="{{ route('admin.home') }}#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+                @elseif(auth()->user()->role === 'satgas')
+                    <a href="{{ route('satgas.home') }}#beranda" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+                    <a href="{{ route('satgas.home') }}#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+                    <a href="{{ route('satgas.home') }}#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+                @else
+                    <a href="{{ route('user.home') }}#beranda" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+                    <a href="{{ route('user.home') }}#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+                    <a href="{{ route('user.home') }}#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+                @endif
+            @else
+                <a href="{{ route('home') }}#beranda" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label1 }}</a>
+                <a href="{{ route('home') }}#berita" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label2 }}</a>
+                <a href="{{ route('home') }}#tentang" class="text-lg font-normal text-gray-900 hover:text-[#F08619] font-roboto transition-colors">{{ $label3 }}</a>
+            @endauth
 
             <!-- Dropdown Dokumen -->
             <div class="relative" x-data="{ isOpen: false }">
@@ -38,7 +54,7 @@
             $user = Auth::user();
             @endphp
             @auth
-            @if (request()->routeIs('admin.home') || request()->routeIs('user.home') || request()->routeIs('berita'))
+            @if (request()->routeIs('admin.home') || request()->routeIs('user.home') || request()->routeIs('berita') || request()->routeIs('satgas.home'))
             <div x-data="{ showProfileMenu: false }" class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3 relative">
               <!-- Info Pengguna -->
               <div class="flex flex-col text-right">
