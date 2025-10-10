@@ -10,7 +10,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-<body>
+<body x-data="{ selectedAduan: null, showRejectForm: false }">
     <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
       <!-- Sidebar -->
@@ -29,8 +29,10 @@
           <div class="px-6 pb-4 overflow-y-auto flex-1">
               <div class="flex flex-col gap-2 pt-2">
                 @forelse($aduans as $aduan)
-                <div class="flex gap-2 bg-white p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer">
-                  <i class="fa-solid fa-file-circle-check text-[#F08619] text-5xl"></i>
+                <div @click="selectedAduan = {{ $aduan->id }}; showRejectForm = false" 
+                     :class="selectedAduan === {{ $aduan->id }} ? 'bg-[#F08619] text-white' : 'bg-white'"
+                     class="flex gap-2 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer">
+                  <i class="fa-solid fa-file-circle-check text-5xl" :class="selectedAduan === {{ $aduan->id }} ? 'text-white' : 'text-[#F08619]'"></i>
                   <div class="flex flex-col">
                     <h1 class="font-bold">{{ $aduan->kode_aduan }}</h1>
                     <p>{{ $aduan->created_at->translatedFormat('d F Y') }}</p>
@@ -46,144 +48,184 @@
         </div>  
         <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mr-4 mr-2 w-[890px] lg:h-[520px] h-auto px-2 py-6 lg:overflow-y-auto">
           <div class="px-6 pb-4">
-            <p class="font-bold tracking-wider text-[#F08619]">IDENTITAS PELAPOR</p>
-            <table class="w-full border-collapse">
-              <tbody>
-                <tr>
-                  <td class="font-bold">Nama Pelapor</td>
-                  <td class="px-2 w-4">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Alamat</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">File Pernyataan</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">
-                    <a href="#" class="text-[#0970A5] hover:underline">...</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Email</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">No. HP</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Hubungi</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-              </tbody>
-            </table>
+            <template x-if="selectedAduan">
+              <div>
+                @foreach($aduans as $aduan)
+                <div x-show="selectedAduan === {{ $aduan->id }}">
+                  <p class="font-bold tracking-wider text-[#F08619]">IDENTITAS PELAPOR</p>
+                  <table class="w-full border-collapse">
+                    <tbody>
+                      <tr>
+                        <td class="font-bold">Nama Pelapor</td>
+                        <td class="px-2 w-4">:</td>
+                        <td class="w-100">{{ $aduan->nama_pelapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Alamat</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->alamat_pelapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">File Pernyataan</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">
+                          @if($aduan->pernyataan_pelapor)
+                          <a href="{{ asset('storage/' . $aduan->pernyataan_pelapor) }}" target="_blank" class="text-[#0970A5] hover:underline">Lihat File</a>
+                          @else
+                          -
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Email</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->email_pelapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">No. HP</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->phone_pelapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Hubungi</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->hubungi ?? '-' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-            <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS KORBAN</p>
-            <table class="w-full border-collapse">  
-              <tbody>
-                <tr>
-                  <td class="font-bold">Nama Korban</td>
-                  <td class="px-2 w-4">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Jenis Kelamin</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Alamat</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">No. HP</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Status Di Kampus</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-              </tbody>
-            </table>
+                  <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS KORBAN</p>
+                  <table class="w-full border-collapse">  
+                    <tbody>
+                      <tr>
+                        <td class="font-bold">Nama Korban</td>
+                        <td class="px-2 w-4">:</td>
+                        <td class="w-100">{{ $aduan->nama_korban ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Jenis Kelamin</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->jenis_kelamin_korban ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Alamat</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->alamat_korban ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">No. HP</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->phone_korban ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Status Di Kampus</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->status_korban ?? '-' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-            <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS TERLAPOR</p>
-            <table class="w-full border-collapse">  
-              <tbody>
-                <tr>
-                  <td class="font-bold">Nama Terlapor</td>
-                  <td class="px-2 w-4">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Jenis Kelamin</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Alamat</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">No. HP</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Status Di Kampus</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Karakteristik</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-              </tbody>
-            </table>
+                  <p class="font-bold tracking-wider text-[#F08619] mt-4">IDENTITAS TERLAPOR</p>
+                  <table class="w-full border-collapse">  
+                    <tbody>
+                      <tr>
+                        <td class="font-bold">Nama Terlapor</td>
+                        <td class="px-2 w-4">:</td>
+                        <td class="w-100">{{ $aduan->nama_terlapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Jenis Kelamin</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->jenis_kelamin_terlapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Alamat</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->alamat_terlapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">No. HP</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->phone_terlapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Status Di Kampus</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->status_terlapor ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Karakteristik</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->karakteristik_terlapor ?? '-' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-            <p class="font-bold tracking-wider text-[#F08619] mt-4">PERISTIWA</p>
-            <table class="w-full border-collapse">  
-              <tbody>
-                <tr>
-                  <td class="font-bold">Tanggal Peristiwa</td>
-                  <td class="px-2 w-4">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Kategori</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Kronologi Peristiwa</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-                <tr>
-                  <td class="font-bold">File Bukti</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">
-                    <a href="#" class="text-[#0970A5] hover:underline">...</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-bold">Lokasi</td>
-                  <td class="px-2">:</td>
-                  <td class="w-100">...</td>
-                </tr>
-              </tbody>
-            </table>
+                  <p class="font-bold tracking-wider text-[#F08619] mt-4">PERISTIWA</p>
+                  <table class="w-full border-collapse">  
+                    <tbody>
+                      <tr>
+                        <td class="font-bold">Tanggal Peristiwa</td>
+                        <td class="px-2 w-4">:</td>
+                        <td class="w-100">{{ $aduan->tanggal_peristiwa ? \Carbon\Carbon::parse($aduan->tanggal_peristiwa)->translatedFormat('d F Y') : '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Kategori</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->category ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Kronologi Peristiwa</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->chronology ?? '-' }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">File Bukti</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">
+                          @if($aduan->bukti_pelaporan)
+                          <a href="{{ asset('storage/' . $aduan->bukti_pelaporan) }}" target="_blank" class="text-[#0970A5] hover:underline">Lihat File</a>
+                          @else
+                          -
+                          @endif
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-bold">Lokasi</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->lokasi ?? '-' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                  <!-- Tombol Awal -->
+                  <div x-show="!showRejectForm" class="flex gap-2 mt-4">
+                    <button class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Kirim Ke Satgas</button>
+                    <button @click="showRejectForm = true" class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Tolak Aduan</button>
+                  </div>
+
+                  <!-- Form Penolakan -->
+                  <div x-show="showRejectForm" class="mt-4">
+                    <label class="block font-bold mb-2">Alasan Penolakan:</label>
+                    <textarea 
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] resize-none" 
+                      rows="4" 
+                      placeholder="Masukkan alasan penolakan aduan..."></textarea>
+                    <div class="flex gap-2 mt-3">
+                      <button @click="showRejectForm = false" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Batal</button>
+                      <button class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Kirim</button>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </template>
             
+            <template x-if="!selectedAduan">
+              <div class="text-center py-20 text-gray-500">
+                <p class="text-lg font-semibold">Pilih salah satu aduan untuk melihat detail</p>
+              </div>
+            </template>
           </div>
         </div>  
       </div>

@@ -360,7 +360,7 @@ class AdminController extends Controller
 
     public function kelolaformulir()
     {
-        $aduans = Aduan::orderBy('tanggal_peristiwa', 'desc')->get();
+        $aduans = Aduan::orderBy('created_at', 'desc')->get();
         return view('admin.kelolaformulir', compact('aduans'));
     }
 }

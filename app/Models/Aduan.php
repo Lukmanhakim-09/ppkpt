@@ -9,6 +9,7 @@ class Aduan extends Model
 
     protected $fillable = [
         'user_id',
+        'kode_aduan',
         'nama_pelapor',
         'alamat_pelapor',
         'pernyataan_pelapor',
@@ -36,6 +37,15 @@ class Aduan extends Model
         'lokasi',
         'icon'
     ];
+
+    protected $casts = [
+        'tanggal_peristiwa' => 'date',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function statuses()
     {
