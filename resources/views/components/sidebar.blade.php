@@ -20,7 +20,7 @@
             </a>
             <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-square-check"></i>
-                <h5 class="font-semibold">Hasil Aduan</h5>
+                <h5 class="font-semibold">Laporan Selesai</h5>
             </a>
             <a href="/admin/berita/kelolaberita" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>

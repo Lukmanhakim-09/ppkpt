@@ -10,7 +10,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-<body x-data="{ selectedAduan: null, showRejectForm: false }">
+<body x-data="{ selectedAduan: null, showRejectForm: false, showConfirmModal: false, confirmAduanId: null }">
     <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
       <!-- Sidebar -->
@@ -48,6 +48,22 @@
         </div>  
         <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mr-4 mr-2 w-[890px] lg:h-[520px] h-auto px-2 py-6 lg:overflow-y-auto">
           <div class="px-6 pb-4">
+          @if(session('success'))
+                <div 
+                    x-data="{ show: true }" 
+                    x-init="setTimeout(() => show = false, 5000)" 
+                    x-show="show" 
+                    x-transition 
+                    class="fixed top-28 right-4 z-50"
+                >
+                    <div class="flex items-center px-6 py-4 rounded-lg shadow-lg bg-green-500 text-white">
+                        <i class="fas fa-check-circle mr-3"></i>
+                        <div class="text-md font-semibold">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <template x-if="selectedAduan">
               <div>
                 @foreach($aduans as $aduan)
@@ -200,7 +216,13 @@
                   
                   <!-- Tombol Awal -->
                   <div x-show="!showRejectForm" class="flex gap-2 mt-4">
-                    <button class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Kirim Ke Satgas</button>
+                    <form :id="'form-kirim-' + {{ $aduan->id }}" action="{{ route('admin.kirimKeSatgas', $aduan->id) }}" method="POST" class="inline">
+                      @csrf
+                    </form>
+                    <button @click="showConfirmModal = true; confirmAduanId = {{ $aduan->id }}" 
+                            class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">
+                      Kirim Ke Satgas
+                    </button>
                     <button @click="showRejectForm = true" class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Tolak Aduan</button>
                   </div>
 
@@ -230,6 +252,39 @@
         </div>  
       </div>
     </div>
+    
+    <!-- Modal Konfirmasi Kirim Ke Satgas -->
+    <div x-show="showConfirmModal" 
+         x-cloak
+         class="fixed inset-0 z-50 flex items-center justify-center"
+         @click.self="showConfirmModal = false">
+      <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4"
+           @click.stop>
+        <div class="flex items-center justify-center mb-4">
+          <div class="bg-[#F08619] rounded-full p-3">
+            <i class="fas fa-question text-white text-3xl"></i>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-center mb-2">Konfirmasi Pengiriman</h3>
+        <p class="text-gray-600 text-center mb-6">
+          Apakah Anda yakin ingin mengirim aduan ini ke Satgas?
+        </p>
+        <div class="flex gap-3 justify-center">
+          <button @click="showConfirmModal = false" 
+                  class="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">
+            Batal
+          </button>
+          <button @click="document.getElementById('form-kirim-' + confirmAduanId).submit()" 
+                  class="px-6 py-2 bg-[#F08619] text-white rounded-lg hover:bg-[#0970A5] transition">
+            Ya, Kirim
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [x-cloak] { display: none !important; }
+    </style>
     
 </body>
 </html>

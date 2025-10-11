@@ -8,6 +8,7 @@ use App\Models\Berita;
 use App\Models\Aduan;
 use App\Models\Document;
 use App\Models\Message;
+use App\Models\Status;
 
 class AdminController extends Controller
 {
@@ -360,7 +361,30 @@ class AdminController extends Controller
 
     public function kelolaformulir()
     {
-        $aduans = Aduan::orderBy('created_at', 'desc')->get();
+        // Hanya tampilkan aduan yang belum dikirim ke satgas (belum ada status dengan label2)
+        $aduans = Aduan::orderBy('created_at', 'desc')
+            ->whereDoesntHave('statuses', function($query) {
+                $query->whereNotNull('label2');
+            })
+            ->get();
         return view('admin.kelolaformulir', compact('aduans'));
+    }
+
+    public function kirimKeSatgas($id)
+    {
+        $aduan = Aduan::findOrFail($id);
+        
+        // Cek apakah sudah ada status untuk aduan ini
+        $status = Status::where('aduan_id', $id)->first();
+        
+        if ($status) {
+            // Update label2 dan status2 jika sudah ada
+            $status->update([
+                'label2' => 'Diteruskan Ke Satgas',
+                'status2' => 'Laporan Anda Telah Diverifikasi Admin dan Diteruskan Kepada Satgas untuk Ditindaklanjuti'
+            ]);
+        } 
+        
+        return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil dikirim ke Satgas.');
     }
 }
