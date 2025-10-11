@@ -138,10 +138,6 @@
                                                     <br>
                                                     @if(isset($aduan) && $aduan)
                                                         {{ $aduan->nama_pelapor ?? 'Nama tidak tersedia' }}
-                                                    @else
-                                                        Nama tidak tersedia
-                                                    @endif
-                                                    </p>
                                                     <p>Berdasarkan hasil pemeriksaan awal terhadap laporan yang Anda kirimkan,  
                                                         kami informasikan bahwa laporan tersebut <strong>belum dapat diproses lebih lanjut</strong> karena data yang diberikan tidak sesuai dengan ketentuan pelaporan.  
                                                         </p>

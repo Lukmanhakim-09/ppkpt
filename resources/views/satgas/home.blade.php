@@ -38,7 +38,10 @@
                     <div class="shadow-lg rounded-3xl bg-gray-50 flex p-6 lg:w-[550px] gap-4">  
                         <div class="flex flex-col lg:w-[300px] md:w-[200px]">
                             <h5 class="font-semibold break-all">{{ $aduan->kode_aduan }}</h5>
-                            <p>Tanggal Peristiwa : {{ $aduan->tanggal_peristiwa }}</p>
+                            <p>Tanggal Peristiwa : 
+                                {{ $aduan->tanggal_peristiwa ? \Carbon\Carbon::parse($aduan->tanggal_peristiwa)->format('d/m/Y') : '-' }}
+                            </p>
+
                             <p>Kategori : {{ $aduan->category }}</p>
                             <p>Kronologi : {{ Str::limit($aduan->chronology, 50, '...') }}</p>
                         </div>
