@@ -834,7 +834,7 @@
                                                                         {{ $step['label'] }}
                                                                     </h4>
                                                                     <p class="text-sm {{ $loop->first ? 'text-gray-600' : 'text-gray-500' }}">
-                                                                        {{ $step['value'] }}
+                                                                        {!! $step['value'] !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -843,6 +843,25 @@
                                                 </div>
                                                 @empty
                                                 @endforelse
+
+                                        
+                                                @foreach ($aduans as $aduan)
+                                                    <div id="penolakan-{{ $aduan->id }}" 
+                                                        class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 target:flex">
+                                                        <div class="bg-white p-6 rounded-lg w-[90%] md:w-[600px] relative">
+                                                            <h2 class="text-lg font-bold text-[#F08619] mb-2">Detail Penolakan</h2>
+                                                            <div class="text-gray-700 mb-4 text-justify">
+                                                                <p>Kepada Yth.<br>{{ $aduan->nama_pelapor ?? 'Nama tidak tersedia' }}</p>
+                                                                <p>{!! $aduan->statuses->first()->penolakan ?? 'Alasan penolakan tidak tersedia' !!}</p>
+                                                            </div>
+
+                                                            <a href="#" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+                                                                <i class="fa-solid fa-xmark text-xl"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+
                                             </div>
                                         </div>
                                     </div>

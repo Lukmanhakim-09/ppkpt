@@ -405,16 +405,11 @@ class AdminController extends Controller
         if ($status) {
             // Update kolom penolakan jika sudah ada
             $status->update([
-                'penolakan' => $request->alasan_penolakan
+                'penolakan' => $request->alasan_penolakan,
+                'label2' => 'Laporan Dikembalikan',
+                'status2' => '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') . '] - Laporan Anda dikembalikan karena informasi yang diberikan belum memenuhi ketentuan. Mohon lengkapi sesuai petunjuk dalam lampiran. <br> Lampiran: <a class="text-[#3B6BA2] font-semibold" href="#penolakan-' . $id . '">Lihat Detail</a>'
             ]);
-        } else {
-            // Buat record baru jika belum ada
-            Status::create([
-                'aduan_id' => $id,
-                'penolakan' => $request->alasan_penolakan
-            ]);
-        }
-
+        } 
         return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil ditolak.');
     }
 }

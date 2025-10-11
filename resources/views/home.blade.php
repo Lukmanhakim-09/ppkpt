@@ -112,14 +112,14 @@
                                                             <p class="text-gray-500 italic">Belum ada status untuk aduan ini.</p>
                                                         @else
                                                             @foreach ($steps as $step)
-                                                                <div class="relative flex gap-2 items-center">
+                                                                <div class="relative flex gap-2 items-center w-[600px]">
                                                                     <i class="fa-solid fa-circle-check {{ $loop->first ? 'text-[#1E8535]' : 'text-gray-500' }}"></i>
                                                                     <div>
                                                                         <h4 class="font-semibold {{ $loop->first ? 'text-[#1E8535]' : 'text-gray-500' }}">
                                                                             {{ $step['label'] }}
                                                                         </h4>
                                                                         <p class="text-sm {{ $loop->first ? 'text-gray-600' : 'text-gray-500' }}">
-                                                                            {{ $step['value'] }}
+                                                                            {!! $step['value'] !!}
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -128,6 +128,40 @@
                                                     </div>
                                                 @empty
                                                 @endforelse
+
+                                                <!-- Popup -->
+                                                <div id="penolakan-{{ isset($aduan) && $aduan ? $aduan->id : 'default' }}" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 target:flex">
+                                                <div class="bg-white p-6 rounded-lg w-[90%] md:w-[600px] relative">
+                                                    <h2 class="text-lg font-bold text-[#F08619] mb-2">Detail Penolakan</h2>
+                                                    <div class="text-gray-700 mb-4 text-justify">
+                                                    Kepada Yth.  
+                                                    <br>
+                                                    @if(isset($aduan) && $aduan)
+                                                        {{ $aduan->nama_pelapor ?? 'Nama tidak tersedia' }}
+                                                    @else
+                                                        Nama tidak tersedia
+                                                    @endif
+                                                    </p>
+                                                    <p>Berdasarkan hasil pemeriksaan awal terhadap laporan yang Anda kirimkan,  
+                                                        kami informasikan bahwa laporan tersebut <strong>belum dapat diproses lebih lanjut</strong> karena data yang diberikan tidak sesuai dengan ketentuan pelaporan.  
+                                                        </p>
+                                                    <p>Alasan penolakan: <br>
+                                                    @if(isset($aduan) && $aduan && $aduan->statuses && $aduan->statuses->first())
+                                                        {{ $aduan->statuses->first()->penolakan ?? 'Alasan penolakan tidak tersedia' }}
+                                                    @endif</p>
+                                                    <p>Anda dapat mengirimkan kembali laporan baru dengan memperbaiki data tersebut.  
+                                                    Terima kasih atas perhatian dan kerja samanya.  
+                                                    </p> <br>
+                                                    <p>Hormat kami, <br>
+                                                    <strong>Admin PPKPT ITH</strong></p>
+                                                    </div>
+
+
+                                                    <a href="#" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+                                                    <i class="fa-solid fa-xmark text-xl"></i>
+                                                    </a>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
