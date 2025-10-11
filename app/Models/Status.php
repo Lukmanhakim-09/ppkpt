@@ -18,7 +18,8 @@ class Status extends Model
         'label4',
         'status4',
         'label5',
-        'status5'
+        'status5',
+        'penolakan'
     ];
 
     public function aduan()

@@ -174,6 +174,11 @@
                         <td class="px-2">:</td>
                         <td class="w-100">{{ $aduan->karakteristik_terlapor ?? '-' }}</td>
                       </tr>
+                      <tr>
+                        <td class="font-bold">Peringatan</td>
+                        <td class="px-2">:</td>
+                        <td class="w-100">{{ $aduan->warning_detail ?? '-' }}</td>
+                      </tr>
                     </tbody>
                   </table>
 
@@ -228,15 +233,19 @@
 
                   <!-- Form Penolakan -->
                   <div x-show="showRejectForm" class="mt-4">
-                    <label class="block font-bold mb-2">Alasan Penolakan:</label>
-                    <textarea 
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] resize-none" 
-                      rows="4" 
-                      placeholder="Masukkan alasan penolakan aduan..."></textarea>
-                    <div class="flex gap-2 mt-3">
-                      <button @click="showRejectForm = false" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Batal</button>
-                      <button class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Kirim</button>
-                    </div>
+                    <form action="{{ route('admin.tolakAduan', $aduan->id) }}" method="POST">
+                      @csrf
+                      <label class="block font-bold mb-2">Alasan Penolakan:</label>
+                      <textarea
+                        name="alasan_penolakan"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F08619] resize-none"
+                        rows="4"
+                        placeholder="Masukkan alasan penolakan aduan..."></textarea>
+                      <div class="flex gap-2 mt-3">
+                        <button type="button" @click="showRejectForm = false" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Batal</button>
+                        <button type="submit" class="bg-[#F08619] text-white px-4 py-2 rounded-lg hover:bg-[#0970A5]">Kirim</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 @endforeach

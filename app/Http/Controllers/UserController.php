@@ -109,7 +109,7 @@ class UserController extends Controller
 
             $validatedData1['aduan_id'] = $aduan->id;
             $validatedData1['label1'] = 'Menunggu Verifikasi Admin';
-            $validatedData1['status1'] = '[12/06/2025][12:00] - Laporan Anda berhasil dikirim dan sedang menunggu verifikasi dari admin.';
+            $validatedData1['status1'] = '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') . '] - Laporan Anda berhasil dikirim dan sedang menunggu verifikasi dari admin.';
             
             $status = Status::create($validatedData1);
 

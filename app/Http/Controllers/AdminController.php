@@ -361,10 +361,11 @@ class AdminController extends Controller
 
     public function kelolaformulir()
     {
-        // Hanya tampilkan aduan yang belum dikirim ke satgas (belum ada status dengan label2)
+        // Hanya tampilkan aduan yang belum diproses (belum ada status dengan label2 atau penolakan)
         $aduans = Aduan::orderBy('created_at', 'desc')
             ->whereDoesntHave('statuses', function($query) {
-                $query->whereNotNull('label2');
+                $query->whereNotNull('label2')
+                      ->orWhereNotNull('penolakan');
             })
             ->get();
         return view('admin.kelolaformulir', compact('aduans'));
@@ -373,18 +374,47 @@ class AdminController extends Controller
     public function kirimKeSatgas($id)
     {
         $aduan = Aduan::findOrFail($id);
-        
+
         // Cek apakah sudah ada status untuk aduan ini
         $status = Status::where('aduan_id', $id)->first();
-        
+
         if ($status) {
             // Update label2 dan status2 jika sudah ada
             $status->update([
                 'label2' => 'Diteruskan Ke Satgas',
-                'status2' => 'Laporan Anda Telah Diverifikasi Admin dan Diteruskan Kepada Satgas untuk Ditindaklanjuti'
+                'status2' => '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') . '] - Laporan Anda Telah Diverifikasi Admin dan Diteruskan Kepada Satgas untuk Ditindaklanjuti'
             ]);
-        } 
-        
+        }
+
         return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil dikirim ke Satgas.');
+    }
+
+    public function tolakAduan(Request $request, $id)
+    {
+        $request->validate([
+            'alasan_penolakan' => 'required|string',
+        ], [
+            'alasan_penolakan.required' => 'Alasan penolakan wajib diisi',
+        ]);
+
+        $aduan = Aduan::findOrFail($id);
+
+        // Cek apakah sudah ada status untuk aduan ini
+        $status = Status::where('aduan_id', $id)->first();
+
+        if ($status) {
+            // Update kolom penolakan jika sudah ada
+            $status->update([
+                'penolakan' => $request->alasan_penolakan
+            ]);
+        } else {
+            // Buat record baru jika belum ada
+            Status::create([
+                'aduan_id' => $id,
+                'penolakan' => $request->alasan_penolakan
+            ]);
+        }
+
+        return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil ditolak.');
     }
 }

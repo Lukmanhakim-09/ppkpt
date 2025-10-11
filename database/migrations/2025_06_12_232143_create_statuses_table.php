@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('status4')->nullable();
             $table->string('label5')->nullable();
             $table->string('status5')->nullable();
+            $table->string('penolakan')->nullable();
             $table->timestamps();
         });
     }

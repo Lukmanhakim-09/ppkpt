@@ -29,6 +29,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     Route::get('/admin/kelolaformulir', [AdminController::class, 'kelolaformulir'])->name('admin.kelolaformulir');
     Route::post('/admin/kelolaformulir/kirim/{id}', [AdminController::class, 'kirimKeSatgas'])->name('admin.kirimKeSatgas');
+    Route::post('/admin/kelolaformulir/tolak/{id}', [AdminController::class, 'tolakAduan'])->name('admin.tolakAduan');
     
     Route::get('/admin/dokumen/keloladokumen', [AdminController::class, 'keloladokumen'])->name('admin.keloladokumen');
     Route::get('/admin/dokumen/tambahdokumen', [AdminController::class, 'showTambahDokumenForm'])->name('admin.tambahdokumen');
