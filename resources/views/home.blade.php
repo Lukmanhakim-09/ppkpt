@@ -144,12 +144,14 @@
                                                     <p>Alasan penolakan: <br>
                                                     @if(isset($aduan) && $aduan && $aduan->statuses && $aduan->statuses->first())
                                                         {{ $aduan->statuses->first()->penolakan ?? 'Alasan penolakan tidak tersedia' }}
-                                                    @endif</p>
+                                                    @endif
+                                                    </p>
                                                     <p>Anda dapat mengirimkan kembali laporan baru dengan memperbaiki data tersebut.  
                                                     Terima kasih atas perhatian dan kerja samanya.  
                                                     </p> <br>
                                                     <p>Hormat kami, <br>
                                                     <strong>Admin PPKPT ITH</strong></p>
+                                                    @endif
                                                     </div>
 
 
