@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\ProfilController;
 
+
 Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'auth']);
 Route::get('/logout', [loginController::class, 'logout']);
@@ -62,7 +63,17 @@ Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () {
 
 Route::middleware('auth', 'role:satgas')->group(function () {
     Route::get('/satgas', [SatgasController::class, 'berita'])->name('satgas.home');
+    Route::get('/satgas/investigasi', function () {
+        return view('satgas.investigasi');
+    })->name('satgas.investigasi');
+    
+    Route::get('/satgas/laporanditangani', [SatgasController::class, 'laporanditangani'])->name('satgas.laporanditangani');
+    Route::get('/satgas/detaillaporan/{id}', [SatgasController::class, 'detaillaporan'])->name('satgas.detaillaporan');
+    Route::post('/satgas/terimaaduan/{id}', [SatgasController::class, 'terimaaduan'])->name('satgas.terimaaduan');
+    
+    
 });
+
 
 
 

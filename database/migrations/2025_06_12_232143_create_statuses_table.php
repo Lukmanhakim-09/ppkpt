@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('label5')->nullable();
             $table->string('status5')->nullable();
             $table->string('penolakan')->nullable();
+            $table->string('diterima_oleh')->nullable();
             $table->timestamps();
         });
     }

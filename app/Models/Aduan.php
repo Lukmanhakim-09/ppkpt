@@ -51,4 +51,6 @@ class Aduan extends Model
     {
         return $this->hasMany(Status::class)->orderBy('created_at', 'asc');
     }
+
+    
 }

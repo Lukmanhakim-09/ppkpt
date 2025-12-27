@@ -159,7 +159,6 @@
                                                     <i class="fa-solid fa-xmark text-xl"></i>
                                                     </a>
                                                 </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

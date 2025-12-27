@@ -9,7 +9,7 @@
       rel="stylesheet"  
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  </head>
+</head>
 <body class="bg-[#E0DEDE]">
     <x-nav-barr>
         <x-slot name="label1">Beranda</x-slot>
@@ -27,10 +27,9 @@
                   
                 </div>
                 <div class="flex flex-col gap-4 items-center justify-center">
-                  <a href="#" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-folder-open"></i>Laporan Ditangani</a>
-                  <a href="#" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-handshake"></i>Tahap Mediasi</a>
-                  <a href="#" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-arrow-up-right-dots"></i>Tahap Eskalasi</a>
+                  <a href="{{ route('satgas.laporanditangani') }}" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-folder-open"></i>Laporan Ditangani</a>
                   <a href="#" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-square-check"></i>Laporan Selesai</a>
+
                 </div>
               </div>
                 <div class="flex flex-col gap-4 items-center justify-center">
@@ -47,12 +46,12 @@
                         </div>
                         <div class="flex flex-col items-end justify-between gap-2 ml-auto">
                             <span class="text-[#C53030] font-semibold text-right">Urgent</span>
-                            <a href="#" class="bg-[#F08619] hover:bg-[#3B6BA2] transition-colors text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap">Lihat Detail</a>
+                            <a href="{{ route('satgas.detaillaporan', $aduan->id) }}" class="bg-[#F08619] hover:bg-[#3B6BA2] transition-colors text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap">Lihat Detail</a>
                         </div>
                     </div>
                     @empty
                     <div class="text-center text-gray-500">
-                        Tidak ada aduan.
+                        Tidak ada aduan baru.
                     </div>
                     @endforelse
                     @if($aduans->count() > 3)

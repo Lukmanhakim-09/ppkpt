@@ -19,11 +19,13 @@ class Status extends Model
         'status4',
         'label5',
         'status5',
-        'penolakan'
+        'penolakan',
+        'diterima_oleh',
     ];
 
-    public function aduan()
+   
+    public function status()
     {
-        return $this->belongsTo(Aduan::class);
+        return $this->hasOne(Status::class, 'aduan_id');
     }
 }

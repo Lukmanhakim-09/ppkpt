@@ -20,15 +20,11 @@
             </a>
             <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-square-check"></i>
-                <h5 class="font-semibold">Data Laporan</h5>
+                <h5 class="font-semibold">Laporan Selesai</h5>
             </a>
             <a href="/admin/berita/kelolaberita" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Kelola Berita</h5>
-            </a>
-            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'gudang' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
-                <i class="fa-solid fa-warehouse"></i>
-                <h5 class="font-semibold">Gudang PPKPT</h5>
             </a>
         </div>
         <div x-data="{ sidebar: false }">
@@ -86,16 +82,13 @@
                 </a>
                 <a href="#" class="flex items-center gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28]' : '' }}">
                 <i class="fa-solid fa-square-check"></i>
-                <h5 class="font-semibold">Hasil Aduan</h5>
+                <h5 class="font-semibold">Laporan Selesai</h5>
                 </a>
                 <a href="/admin/berita/kelolaberita" class="flex items-center gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28]' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Kelola Berita</h5>
                 </a>
-                <a href="#" class="flex items-center gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'gudang' ? 'bg-[#D67F28]' : '' }}">
-                <i class="fa-solid fa-warehouse"></i>
-                <h5 class="font-semibold">Gudang PPKPT</h5>
-                </a>
+
                 <a href="/logout" class="flex items-center gap-2 text-[#F08619] bg-gray-50 my-6 rounded-lg px-4 py-1 {{ $active === 'keluar' ? 'bg-[#D67F28]' : '' }}">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <h5 class="font-semibold">Keluar</h5>
