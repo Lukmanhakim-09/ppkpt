@@ -87,7 +87,7 @@
                                     Detail
                                 </a>
                                 @if($currentStatus === 'Investigasi Lapangan')
-                                    <a href="{{ route ('satgas.investigasi') }}"
+                                    <a href="{{ route ('satgas.investigasi', $aduan->id) }}"
                                     class="inline-flex items-center gap-2
                                             px-4 py-2 rounded-lg
                                             bg-[#0970A5] text-white text-sm

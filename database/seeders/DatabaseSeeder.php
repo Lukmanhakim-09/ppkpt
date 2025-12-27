@@ -21,12 +21,24 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'username' => 'admin',
-            'password' => 'admin',
+            'password' => 'adminppkpt',
             'role' => 'admin',
             'fullname' => 'Admin',
             'profile' => 'profiluser/user.webp',
             'status_verify' => null, 
             'email' => 'admin@ith.ac.id',
+            'nim_nidn' => null,
+            'status' => null,
+        ]);
+
+        $user = User::create([
+            'username' => 'satgas',
+            'password' => 'satgasppkpt',
+            'role' => 'satgas',
+            'fullname' => 'Satgas',
+            'profile' => 'profiluser/user.webp',
+            'status_verify' => null, 
+            'email' => 'satgas@ith.ac.id',
             'nim_nidn' => null,
             'status' => null,
         ]);

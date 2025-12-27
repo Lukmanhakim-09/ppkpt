@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('status3')->nullable();
             $table->string('label4')->nullable();
             $table->string('status4')->nullable();
-            $table->string('label5')->nullable();
-            $table->string('status5')->nullable();
             $table->string('penolakan')->nullable();
             $table->string('diterima_oleh')->nullable();
             $table->timestamps();

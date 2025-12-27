@@ -12,6 +12,7 @@ use App\Models\Berita;
 use App\Models\Aduan;
 use App\Models\Status;
 use App\Models\Message;
+use App\Models\Investigation;
 use Illuminate\Validation\ValidationException;
 
 
@@ -268,5 +269,10 @@ class UserController extends Controller
         }
     }
 
+    public function hasilinvestigasi($kode_aduan)
+    {
+        $investigasi = Investigation::where('kode_aduan', $kode_aduan)->first();
+        return view('user.hasilinvestigasi', compact('investigasi'));
+    }
     
 }

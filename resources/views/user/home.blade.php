@@ -801,17 +801,14 @@
                                                         // Handle different types of status relationships
                                                         if ($aduan->statuses) {
                                                             if (is_iterable($aduan->statuses)) {
-                                                                // If it's a collection, get the first item
                                                                 $status = $aduan->statuses->first();
                                                             } else {
-                                                                // If it's already a single object
                                                                 $status = $aduan->statuses;
                                                             }
                                                         }
                                                         
                                                         if ($status) {
                                                             $steps = [
-                                                                ['label' => $status->label5 ?? null, 'value' => $status->status5 ?? null],
                                                                 ['label' => $status->label4 ?? null, 'value' => $status->status4 ?? null],
                                                                 ['label' => $status->label3 ?? null, 'value' => $status->status3 ?? null],
                                                                 ['label' => $status->label2 ?? null, 'value' => $status->status2 ?? null],

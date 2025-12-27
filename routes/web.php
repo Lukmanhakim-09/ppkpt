@@ -59,19 +59,18 @@ Route::middleware('auth', 'role:admin')->group(function () {
 Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () { 
     Route::get('/user', [UserController::class, 'berita'])->name('user.home');
     Route::post('/user', [UserController::class, 'storeAduan'])->name('aduan.store');
+    Route::get('/user/hasilinvestigasi/{kode_aduan}', [UserController::class, 'hasilinvestigasi'])->name('user.hasilinvestigasi');
 });
 
 Route::middleware('auth', 'role:satgas')->group(function () {
     Route::get('/satgas', [SatgasController::class, 'berita'])->name('satgas.home');
-    Route::get('/satgas/investigasi', function () {
-        return view('satgas.investigasi');
-    })->name('satgas.investigasi');
+    Route::get('/satgas/investigasi/{id}', [SatgasController::class, 'investigasi'])->name('satgas.investigasi');
     
     Route::get('/satgas/laporanditangani', [SatgasController::class, 'laporanditangani'])->name('satgas.laporanditangani');
     Route::get('/satgas/detaillaporan/{id}', [SatgasController::class, 'detaillaporan'])->name('satgas.detaillaporan');
     Route::post('/satgas/terimaaduan/{id}', [SatgasController::class, 'terimaaduan'])->name('satgas.terimaaduan');
-    
-    
+    Route::post('/satgas/investigasi/{id}', [SatgasController::class, 'investigasiStore'])->name('satgas.investigasiStore');
+
 });
 
 
