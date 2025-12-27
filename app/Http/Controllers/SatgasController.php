@@ -16,13 +16,23 @@ class SatgasController extends Controller
 {
     public function berita()
     {
-        $beritas = Berita::where('status', 'publish')->orderBy('tanggal', 'desc')->get();
-         $aduans = Aduan::whereDoesntHave('statuses', function ($query) {
-            $query->whereNotNull('label3')
-                  ->where('label3', '!=', '');
+        $beritas = Berita::where('status', 'publish')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        $aduans = Aduan::whereDoesntHave('statuses', function ($query) {
+            $query->where(function ($q) {
+                // label3 ada isinya
+                $q->whereNotNull('label3')
+                ->where('label3', '!=', '');
+            })->orWhere(function ($q) {
+                // label2 = 'Laporan Dikembalikan'
+                $q->where('label2', 'Laporan Dikembalikan');
+            });
         })
         ->orderBy('tanggal_peristiwa', 'desc')
         ->get();
+
         return view('satgas.home', compact('beritas', 'aduans'));
     }
 
