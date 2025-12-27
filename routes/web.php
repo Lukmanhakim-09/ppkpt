@@ -70,7 +70,7 @@ Route::middleware('auth', 'role:satgas')->group(function () {
     Route::get('/satgas/detaillaporan/{id}', [SatgasController::class, 'detaillaporan'])->name('satgas.detaillaporan');
     Route::post('/satgas/terimaaduan/{id}', [SatgasController::class, 'terimaaduan'])->name('satgas.terimaaduan');
     Route::post('/satgas/investigasi/{id}', [SatgasController::class, 'investigasiStore'])->name('satgas.investigasiStore');
-
+    Route::get('/satgas/detailinvestigasi/{kode_aduan}', [SatgasController::class, 'detailinvestigasi'])->name('satgas.detailinvestigasi');
 });
 
 

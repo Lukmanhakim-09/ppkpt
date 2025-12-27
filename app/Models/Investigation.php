@@ -37,4 +37,10 @@ class Investigation extends Model
     'proses' => 'array',
     'tindak_lanjut' => 'array',
 ];
+
+// In Investigation.php
+public function aduan()
+{
+    return $this->belongsTo(Aduan::class, 'kode_aduan', 'kode_aduan');
+}
 }

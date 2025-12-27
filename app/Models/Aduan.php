@@ -52,5 +52,8 @@ class Aduan extends Model
         return $this->hasMany(Status::class)->orderBy('created_at', 'asc');
     }
 
-    
+    public function investigation()
+    {
+        return $this->hasOne(Investigation::class, 'kode_aduan', 'kode_aduan');
+    }
 }

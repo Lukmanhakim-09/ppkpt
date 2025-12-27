@@ -195,7 +195,11 @@ class SatgasController extends Controller
             );
     }
 
-
+    public function detailinvestigasi($kode_aduan)
+    {
+        $investigasi = Investigation::where('kode_aduan', $kode_aduan)->first();
+        return view('satgas.detailinvestigasi', compact('investigasi'));
+    }
 
 
 }
