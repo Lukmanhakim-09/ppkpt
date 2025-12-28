@@ -20,22 +20,18 @@ class SatgasController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        $aduans = Aduan::whereDoesntHave('statuses', function ($query) {
-            $query->where(function ($q) {
-                // label3 ada isinya
-                $q->whereNotNull('label3')
-                ->where('label3', '!=', '');
-            })->orWhere(function ($q) {
-                // label2 = 'Laporan Dikembalikan'
-                $q->where('label2', 'Laporan Dikembalikan');
-            });
+        $aduans = Aduan::whereHas('statuses', function ($query) {
+            $query->where('label2', 'Diteruskan Ke Satgas')
+                  ->where(function ($q) {
+                      $q->whereNull('label3')
+                        ->orWhere('label3', '');
+                  });
         })
         ->orderBy('tanggal_peristiwa', 'desc')
         ->get();
 
         return view('satgas.home', compact('beritas', 'aduans'));
     }
-
 
     public function laporanditangani()
     {
@@ -216,15 +212,12 @@ class SatgasController extends Controller
 
     public function semualaporan()
     {
-        $aduans = Aduan::whereDoesntHave('statuses', function ($query) {
-            $query->where(function ($q) {
-                // label3 ada isinya
-                $q->whereNotNull('label3')
-                ->where('label3', '!=', '');
-            })->orWhere(function ($q) {
-                // label2 = 'Laporan Dikembalikan'
-                $q->where('label2', 'Laporan Dikembalikan');
-            });
+        $aduans = Aduan::whereHas('statuses', function ($query) {
+            $query->where('label2', 'Diteruskan Ke Satgas')
+                  ->where(function ($q) {
+                      $q->whereNull('label3')
+                        ->orWhere('label3', '');
+                  });
         })
         ->orderBy('tanggal_peristiwa', 'desc')
         ->get();
