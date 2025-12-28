@@ -26,7 +26,7 @@
     </div>
 
     <!-- Tombol Kembali (bawah kiri) -->
-    <a href="{{ route('home') }}"
+    <a href="{{ route('satgas.home') }}"
        class="absolute left-6 bottom-4 text-sm
               flex items-center gap-2
               bg-white/90 text-[#0970A5]
