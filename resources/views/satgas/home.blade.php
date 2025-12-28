@@ -28,7 +28,7 @@
                 </div>
                 <div class="flex flex-col gap-4 items-center justify-center">
                   <a href="{{ route('satgas.laporanditangani') }}" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-folder-open"></i>Laporan Ditangani</a>
-                  <a href="#" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-square-check"></i>Laporan Selesai</a>
+                  <a href="{{ route('satgas.laporanselesai') }}" class="bg-[#0970A5] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-square-check"></i>Laporan Selesai</a>
 
                 </div>
               </div>
@@ -55,7 +55,7 @@
                     </div>
                     @endforelse
                     @if($aduans->count() > 3)
-                    <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md">Semua Laporan</a>
+                    <a href="{{ route('satgas.semualaporan') }}" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md">Semua Laporan</a>
                     @endif
                 </div>       
             </div>

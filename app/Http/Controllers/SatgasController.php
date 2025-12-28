@@ -198,8 +198,36 @@ class SatgasController extends Controller
     public function detailinvestigasi($kode_aduan)
     {
         $investigasi = Investigation::where('kode_aduan', $kode_aduan)->first();
-        return view('satgas.detailinvestigasi', compact('investigasi'));
+        $aduan = Aduan::where('kode_aduan', $kode_aduan)->first();
+        return view('satgas.detailinvestigasi', compact('investigasi', 'aduan'));
     }
 
+    public function laporanselesai()
+    {
+        // Ambil aduan yang status terakhirnya 'Laporan Selesai'
+        $aduans = Aduan::whereHas('statuses', function($query) {
+            $query->where(function($q) {
+                $q->where('label4', 'Laporan Selesai');
+            });
+        })->orderBy('tanggal_peristiwa', 'desc')->get();
 
+        return view('satgas.laporanselesai', compact('aduans'));
+    }
+
+    public function semualaporan()
+    {
+        $aduans = Aduan::whereDoesntHave('statuses', function ($query) {
+            $query->where(function ($q) {
+                // label3 ada isinya
+                $q->whereNotNull('label3')
+                ->where('label3', '!=', '');
+            })->orWhere(function ($q) {
+                // label2 = 'Laporan Dikembalikan'
+                $q->where('label2', 'Laporan Dikembalikan');
+            });
+        })
+        ->orderBy('tanggal_peristiwa', 'desc')
+        ->get();
+        return view('satgas.semualaporan', compact('aduans'));
+    }
 }

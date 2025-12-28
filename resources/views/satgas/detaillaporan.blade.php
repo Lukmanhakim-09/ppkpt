@@ -17,7 +17,7 @@
         <!-- Header -->
         <div class="relative w-full mb-4 flex items-center">
             <!-- Tombol Kembali -->
-            <a href="{{ route('satgas.home') }}"
+            <a href="javascript:history.back()"
             class="absolute left-3 flex items-center justify-center
                     w-9 h-9 rounded-full bg-[#0970A5]
                     text-white hover:bg-[#085d88]
@@ -220,7 +220,7 @@
                     border-t border-gray-200">
 
             <!-- Tombol Kembali -->
-            <a href="{{ route('satgas.home') }}"
+            <a href="javascript:history.back()"
             class="inline-flex items-center gap-2
                     px-5 py-2.5 rounded-lg
                     bg-white border border-gray-300
@@ -232,7 +232,12 @@
             </a>
 
             <!-- Tombol Terima Aduan -->
-            <form action="{{ route('satgas.terimaaduan', $aduan->id) }}" method="POST" class="inline">
+             @php
+                $latestStatus = $aduan->statuses->first();
+            @endphp
+
+            @if(!$latestStatus || $latestStatus->diterima_oleh === null)
+                            <form action="{{ route('satgas.terimaaduan', $aduan->id) }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="inline-flex items-center gap-2
                     px-6 py-2.5 rounded-lg
@@ -249,6 +254,9 @@
                 Terima Aduan
                 </button>
             </form>
+            @endif
+
+
 
         </div>
 

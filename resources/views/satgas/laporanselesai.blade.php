@@ -1,11 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PPKPT ITH</title>
+    @vite('resources/css/app.css')
+    <link
+      rel="stylesheet"  
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <x-nav-baar></x-nav-baar>
     <div class="flex mt-31">
         <div class="h-[520px] w-[300px] bg-[#0970A5] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
-            <x-sidebarr :active="'laporan-ditangani'"></x-sidebarr>
+            <x-sidebarr :active="'laporan-selesai'"></x-sidebarr>
             <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] lg:h-[520px] h-screen p-2 overflow-y-auto">
                 <div class="px-6 py-4">
                     <!-- Judul -->
                     <h5 class="font-bold tracking-widest bg-[#0970A5] text-gray-50 text-center rounded-xl w-full py-3 text-xl flex items-center justify-center shadow-md">
-                        LAPORAN DITANGANI
+                        LAPORAN SELESAI
                     </h5>
 
                                         <!-- Controls -->
@@ -52,17 +66,9 @@
                             <td class="px-6 py-4">
                                 {{ $aduan->created_at->format('d M Y') }}
                             </td>
-                            @php
-                                $status = $aduan->statuses->first();
-
-                                $currentStatus = $status
-                                    ? ($status->label5 ?? $status->label4 ?? $status->label3)
-                                    : null;
-                            @endphp
-
 
                             <td class="px-6 py-4">
-                                {{ $currentStatus ?? '-' }}
+                                {{ $aduan->statuses->last()->label4 }}
                             </td>
 
 
@@ -72,20 +78,6 @@
                                         text-white bg-[#0970A5] rounded-lg hover:bg-[#065a84] transition">
                                     Detail
                                 </a>
-                                @if($currentStatus === 'Investigasi Lapangan')
-                                    <a href="{{ route ('satgas.investigasi', $aduan->id) }}"
-                                    class="inline-flex items-center gap-2
-                                            px-4 py-2 rounded-lg
-                                            bg-[#0970A5] text-white text-sm
-                                            hover:bg-[#075c86]
-                                            shadow transition">
-                                        Isi Investigasi
-                                    </a>
-                                @else
-                                    <span class="text-gray-400 text-sm italic">
-                                        -
-                                    </span>
-                                @endif
                             </td>
                         </tr>
                     @empty
@@ -103,3 +95,5 @@
             </div>
         </div>
     </div>
+</body>
+</html>

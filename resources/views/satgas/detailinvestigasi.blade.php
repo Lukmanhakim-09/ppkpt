@@ -13,11 +13,11 @@
     
     <div class="flex mt-31">
         <div class="h-[520px] w-[300px] bg-[#0970A5] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
-            <x-sidebarr :active="'laporan-ditangani'"></x-sidebarr>
+            <x-sidebarr :active="''"></x-sidebarr>
             <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] lg:h-[520px] h-screen p-2 overflow-y-auto">
                 <div class="px-6 py-4 relative w-full flex items-center">
                     <!-- Tombol Kembali -->
-                    <a href="{{ route('satgas.laporanditangani') }}"
+                    <a href="javascript:history.back()"
                        class="absolute left-8 flex items-center justify-center
                               w-9 h-9 rounded-full bg-[#0970A5]
                               text-white hover:bg-[#085d88]
@@ -43,13 +43,14 @@
                             <p><span class="font-medium">Jenis Kekerasan:</span> {{ $investigasi->jenis_kekerasan }}</p>
                             <p><span class="font-medium">Lokasi Kejadian:</span> {{ $investigasi->lokasi_kejadian }}</p>
                             <p><span class="font-medium">Tanggal Investigasi:</span> {{ \Carbon\Carbon::parse($investigasi->tanggal)->format('d F Y') }}</p>
+                            <a href="{{ route('satgas.detaillaporan', $aduan->id) }}" class="inline-block mt-2 text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium transition">Lihat Lebih</a>
                         </div>
                     </div>
 
                     <!-- Pihak Terkait -->
                     <div class="bg-white rounded-xl shadow-md p-4">
                         <h3 class="text-lg font-semibold text-gray-700 mb-3 border-b pb-2">Pihak Terkait</h3>
-                        <div class="space-y-2">
+                        <div class="space-y-2
                             <p><span class="font-medium">Nama Korban:</span> {{ $investigasi->nama_korban }}</p>
                             <p><span class="font-medium">Status Korban:</span> {{ $investigasi->status_korban }}</p>
                             <p><span class="font-medium">Nama Terlapor:</span> {{ $investigasi->nama_terlapor }}</p>

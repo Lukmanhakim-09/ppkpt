@@ -73,11 +73,14 @@
                                 @endphp
                                 <td class="px-6 py-4 statusPenanganan">{{ $currentStatus ?? '-' }}</td>
                                 <td class="px-6 py-4">
+                                    @if($currentStatus === 'Investigasi Lapangan')
+                                    @else
                                     <a href="{{ route('satgas.detailinvestigasi', $aduan->kode_aduan) }}"
                                     class="inline-flex items-center px-4 py-2 text-sm font-medium
                                             text-white bg-[#0970A5] rounded-lg hover:bg-[#065a84] transition">
                                         Detail
                                     </a>
+                                    @endif
                                     @if($currentStatus === 'Investigasi Lapangan')
                                         <a href="{{ route ('satgas.investigasi', $aduan->id) }}"
                                         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
@@ -85,7 +88,7 @@
                                             Isi Investigasi
                                         </a>
                                     @else
-                                        <span class="text-gray-400 text-sm italic">-</span>
+                                        
                                     @endif
                                 </td>
                             </tr>

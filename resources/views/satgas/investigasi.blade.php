@@ -42,6 +42,8 @@
                                     border-l-4 border-[#0970A5] pl-3">
                                 Informasi Aduan
                             </h2>
+                            <a href="{{ route('satgas.detaillaporan', $aduan->id) }}"
+                            class="inline-block text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium text-sm transition">Lihat Lebih</a>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
@@ -77,6 +79,7 @@
                                             rounded-lg px-3 py-2 cursor-not-allowed
                                             focus:outline-none">
                           </div>
+                          
                         </div>
                     </div>  
 

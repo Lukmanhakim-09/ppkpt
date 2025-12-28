@@ -71,6 +71,10 @@ Route::middleware('auth', 'role:satgas')->group(function () {
     Route::post('/satgas/terimaaduan/{id}', [SatgasController::class, 'terimaaduan'])->name('satgas.terimaaduan');
     Route::post('/satgas/investigasi/{id}', [SatgasController::class, 'investigasiStore'])->name('satgas.investigasiStore');
     Route::get('/satgas/detailinvestigasi/{kode_aduan}', [SatgasController::class, 'detailinvestigasi'])->name('satgas.detailinvestigasi');
+
+    Route::get('/satgas/laporanselesai', [SatgasController::class, 'laporanselesai'])->name('satgas.laporanselesai');
+
+    Route::get('/satgas/semualaporan', [SatgasController::class, 'semualaporan'])->name('satgas.semualaporan');
 });
 
 
