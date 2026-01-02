@@ -746,7 +746,7 @@
                             </div>
                         </div>
                         <div x-data="{ hasil: false, selectedAduan: null, searchTerm: '' }">
-                            <button @click="hasil = !hasil" class="flex items-center gap-6 font-rubik font-medium tracking-wider bg-transparent outline-solid text-gray-50 text-lg px-10 py-4 rounded-full w-60 mx-auto mt-4 hover:bg-[#3B6BA2]" ><i class="fa-regular fa-bell"></i> Lihat Aduan</button>
+                            <button @click="hasil = !hasil" class="flex items-center gap-6 font-rubik font-medium tracking-wider bg-transparent outline-solid text-gray-50 text-lg px-10 py-4 rounded-full w-60 mx-auto mt-4 hover:bg-[#3B6BA2]" ><i class="fa-regular fa-bell"></i> Hasil Aduan</button>
                             <div x-show="hasil">
                             <div class="bg-[#000000]/50 absolute top-0 left-0 right-0 bottom-0 lg:h-[1900px] md:h-[2820px] sm:h-[2730px] h-[2830px] lg:p-50 md:px-25 px-10 py-50 z-40">
                                 <div class="bg-white w-auto h-auto items-center justify-center p-4 rounded-lg">

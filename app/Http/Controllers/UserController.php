@@ -270,9 +270,10 @@ class UserController extends Controller
     }
 
     public function hasilinvestigasi($kode_aduan)
-    {
+    {   
+        $aduan = Aduan::where('kode_aduan', $kode_aduan)->first();
         $investigasi = Investigation::where('kode_aduan', $kode_aduan)->first();
-        return view('user.hasilinvestigasi', compact('investigasi'));
+        return view('user.hasilinvestigasi', compact('investigasi', 'aduan'));
     }
     
 }

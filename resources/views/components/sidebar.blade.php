@@ -8,7 +8,7 @@
             </a>
             <a href="/admin/kelolaformulir" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'formulir' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-envelope"></i>
-                <h5 class="font-semibold">Kelola Formulir</h5>
+                <h5 class="font-semibold">Kelola Aduan</h5>
             </a>
             <a href="/admin/dokumen/keloladokumen" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'dokumen' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-file"></i>
@@ -18,10 +18,7 @@
                 <i class="fa-solid fa-users"></i>
                 <h5 class="font-semibold">Kelola Pengguna</h5>
             </a>
-            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
-                <i class="fa-solid fa-square-check"></i>
-                <h5 class="font-semibold">Laporan Selesai</h5>
-            </a>
+
             <a href="/admin/berita/kelolaberita" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Kelola Berita</h5>
@@ -80,10 +77,7 @@
                 <i class="fa-solid fa-users"></i>
                 <h5 class="font-semibold">Kelola Pengguna</h5>
                 </a>
-                <a href="#" class="flex items-center gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'hasil' ? 'bg-[#D67F28]' : '' }}">
-                <i class="fa-solid fa-square-check"></i>
-                <h5 class="font-semibold">Laporan Selesai</h5>
-                </a>
+
                 <a href="/admin/berita/kelolaberita" class="flex items-center gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#D67F28]' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Kelola Berita</h5>

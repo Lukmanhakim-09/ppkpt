@@ -351,9 +351,9 @@
                                     <input
                                         type="checkbox"
                                         name="tindak_lanjut[]"
-                                        value="konseling"
+                                        value="Konseling"
                                         class="accent-[#0970A5]"
-                                        {{ in_array('konseling', $tindakLanjut) ? 'checked' : '' }}
+                                        {{ in_array('Konseling', $tindakLanjut) ? 'checked' : '' }}
                                     >
                                     Konseling
                                 </label>
@@ -362,9 +362,9 @@
                                     <input
                                         type="checkbox"
                                         name="tindak_lanjut[]"
-                                        value="pendampingan"
+                                        value="Pendampingan"
                                         class="accent-[#0970A5]"
-                                        {{ in_array('pendampingan', $tindakLanjut) ? 'checked' : '' }}
+                                        {{ in_array('Pendampingan', $tindakLanjut) ? 'checked' : '' }}
                                     >
                                     Pendampingan
                                 </label>
@@ -373,9 +373,9 @@
                                     <input
                                         type="checkbox"
                                         name="tindak_lanjut[]"
-                                        value="sanksi_administratif"
+                                        value="Sanksi Administratif"
                                         class="accent-[#0970A5]"
-                                        {{ in_array('sanksi_administratif', $tindakLanjut) ? 'checked' : '' }}
+                                        {{ in_array('Sanksi Administratif', $tindakLanjut) ? 'checked' : '' }}
                                     >
                                     Sanksi Administratif
                                 </label>
@@ -384,9 +384,9 @@
                                     <input
                                         type="checkbox"
                                         name="tindak_lanjut[]"
-                                        value="rujukan_lanjutan"
+                                        value="Rujukan Lanjutan"
                                         class="accent-[#0970A5]"
-                                        {{ in_array('rujukan_lanjutan', $tindakLanjut) ? 'checked' : '' }}
+                                        {{ in_array('Rujukan Lanjutan', $tindakLanjut) ? 'checked' : '' }}
                                     >
                                     Rujukan Lanjutan
                                 </label>
@@ -425,15 +425,15 @@
 
                                 <option value="">-- Pilih hasil akhir --</option>
 
-                                <option value="terbukti" {{ $hasilAkhir === 'terbukti' ? 'selected' : '' }}>
+                                <option value="Terbukti" {{ $hasilAkhir === 'Terbukti' ? 'selected' : '' }}>
                                     Terbukti
                                 </option>
 
-                                <option value="sebagian_terbukti" {{ $hasilAkhir === 'sebagian_terbukti' ? 'selected' : '' }}>
+                                <option value="Sebagian Terbukti" {{ $hasilAkhir === 'Sebagian Terbukti' ? 'selected' : '' }}>
                                     Sebagian Terbukti
                                 </option>
 
-                                <option value="tidak_terbukti" {{ $hasilAkhir === 'tidak_terbukti' ? 'selected' : '' }}>
+                                <option value="Tidak Terbukti" {{ $hasilAkhir === 'Tidak Terbukti' ? 'selected' : '' }}>
                                     Tidak Terbukti
                                 </option>
 

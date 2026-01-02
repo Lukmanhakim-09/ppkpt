@@ -14,7 +14,7 @@
     <x-nav-barr>
         <x-slot name="label1">Beranda</x-slot>
         <x-slot name="label2">Berita</x-slot>
-        <x-slot name="label3">Statistik</x-slot>
+        <x-slot name="label3"></x-slot>
     </x-nav-barr>
 
     <div class="mt-36">
@@ -65,12 +65,11 @@
           <x-berita :beritas="$beritas"></x-berita>
         </section>
 
-        <section id="tentang" class="m-12 scroll-mt-35">
+        <!-- <section id="tentang" class="m-12 scroll-mt-35">
           <div class="flex flex-col items-center justify-center text-center">
             <h1 class="font-bold text-4xl tracking-widest my-8">Statistik PPKPT</h1>
             <div class="flex flex-wrap gap-6 items-center justify-center max-w-4xl">
               
-              <!-- Kartu Statistik 1 -->
               <div class="flex flex-col items-center bg-[#F08619] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Masuk</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
@@ -78,7 +77,6 @@
                 </p>
               </div>
               
-              <!-- Kartu Statistik 2 -->
               <div class="flex flex-col items-center bg-[#3B6BA2] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Selesai</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
@@ -86,7 +84,6 @@
                 </p>
               </div>
               
-              <!-- Kartu Statistik 3 -->
               <div class="flex flex-col items-center bg-[#D9534F] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Ditolak</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
@@ -96,7 +93,7 @@
               
             </div>
           </div>
-        </section>
+        </section> -->
         <div class="text-center p-2 font-roboto tracking-wider text-base">Hak Cipta © Institut Teknologi Bacharuddin Jusuf Habibie</div>
     </div>
 </body>

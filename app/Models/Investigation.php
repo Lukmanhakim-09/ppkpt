@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Investigation extends Model
 {
      protected $fillable = [
+        'aduan_id',
         'kode_aduan',
         'tanggal',
         'jenis_kekerasan',

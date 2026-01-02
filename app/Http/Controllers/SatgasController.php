@@ -154,9 +154,15 @@ class SatgasController extends Controller
 
         
 
+        // Pastikan aduan_id ada di data
+        $data['aduan_id'] = $aduan->id;
+
         // 🔥 CREATE atau UPDATE
         Investigation::updateOrCreate(
-            ['kode_aduan' => $aduan->kode_aduan], // kunci pencarian
+            [
+                'aduan_id' => $aduan->id,
+                'kode_aduan' => $aduan->kode_aduan
+            ], // kunci pencarian
             $data
         );
 

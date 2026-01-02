@@ -14,7 +14,7 @@
     <x-nav-barr>
         <x-slot name="label1">Beranda</x-slot>
         <x-slot name="label2">Berita</x-slot>
-        <x-slot name="label3">Statistik</x-slot>
+        <x-slot name="label3"></x-slot>
     </x-nav-barr>
     <div class="mt-36">
         <section id="beranda" class="scroll-mt-35">
@@ -26,10 +26,10 @@
                   
                 </div>
                 <div class="flex flex-col gap-4 items-center justify-center">
-                  <a href="/admin/kelolaformulir" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-envelope"></i>Kelola Formilir</a>
+                  <a href="/admin/kelolaformulir" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-envelope"></i>Kelola Aduan</a>
                   <a href="/admin/dokumen/keloladokumen" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-file"></i>Kelola Dokumen</a>
                   <a href="/admin/pengguna/kelolapengguna" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-solid fa-users"></i>Kelola Pengguna</a>
-                  <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[320px] py-4 text-lg tracking-wider gap-2 flex items-center justify-center hover:bg-[#3B6BA2] font-medium"><i class="fa-regular fa-square-check"></i>Laporan Selesai</a>
+                  
                 </div>
               </div>
               <div class="flex flex-col items-center gap-4">
@@ -61,28 +61,24 @@
             <a href="/admin/berita/kelolaberita" class="bg-[#F08619] mt-5 text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md gap-2"><i class="fa-regular fa-newspaper"></i>Kelola Berita</a>
           </div>
         </section>
-        <section id="tentang" class="m-12 scroll-mt-35">
+        <!-- <section id="tentang" class="m-12 scroll-mt-35">
           <div class="flex flex-col items-center justify-center text-center">
             <h1 class="font-bold text-4xl tracking-widest my-8">Statistik PPKPT</h1>
             <div class="flex flex-wrap gap-6 items-center justify-center max-w-4xl">
               
-              <!-- Kartu Statistik 1 -->
               <div class="flex flex-col items-center bg-[#F08619] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Masuk</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
                   <i class="fa-solid fa-file-circle-plus"></i> 100
                 </p>
               </div>
-              
-              <!-- Kartu Statistik 2 -->
+            
               <div class="flex flex-col items-center bg-[#3B6BA2] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Selesai</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
                   <i class="fa-solid fa-file-circle-check"></i> 100
                 </p>
               </div>
-              
-              <!-- Kartu Statistik 3 -->
               <div class="flex flex-col items-center bg-[#D9534F] text-white shadow-xl rounded-2xl px-6 py-4 w-60 hover:scale-105 transition-transform duration-300">
                 <h6 class="font-semibold text-lg mb-2">Jumlah Aduan Ditolak</h6>
                 <p class="text-2xl font-bold flex items-center gap-2">
@@ -92,7 +88,7 @@
               
             </div>
           </div>
-        </section>
+        </section> -->
         <div class="text-center p-2 font-roboto tracking-wider text-base">Hak Cipta © Institut Teknologi Bacharuddin Jusuf Habibie</div>
     </div>
     
