@@ -7,6 +7,7 @@ use App\Http\Controllers\SatgasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\AhpController;
 
 
 Route::get('/login', [loginController::class, 'index'])->name('login');
@@ -29,6 +30,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'berita'])->name('admin.home');
 
     Route::get('/admin/kelolaformulir', [AdminController::class, 'kelolaformulir'])->name('admin.kelolaformulir');
+    Route::post('/admin/aduan/decrypt/{id}', [AdminController::class, 'decryptAduan']);
     Route::post('/admin/kelolaformulir/kirim/{id}', [AdminController::class, 'kirimKeSatgas'])->name('admin.kirimKeSatgas');
     Route::post('/admin/kelolaformulir/tolak/{id}', [AdminController::class, 'tolakAduan'])->name('admin.tolakAduan');
     
@@ -76,6 +78,8 @@ Route::middleware('auth', 'role:satgas')->group(function () {
 
     Route::get('/satgas/semualaporan', [SatgasController::class, 'semualaporan'])->name('satgas.semualaporan');
 });
+
+Route::get('/ahp', [AhpController::class, 'calculate']);
 
 
 

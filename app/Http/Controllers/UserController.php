@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\AesHelper;
 use App\Models\Verify;
 use App\Mail\OtpMail;
 use App\Models\Berita;
@@ -13,109 +14,118 @@ use App\Models\Aduan;
 use App\Models\Status;
 use App\Models\Message;
 use App\Models\Investigation;
+use App\Services\MARCOSService;
+use App\Models\Alternatif;
 use Illuminate\Validation\ValidationException;
 
 
 class UserController extends Controller
 {
+    
+
     public function storeAduan(Request $request)
     {
-            // Validate the request
-            $validatedData = $request->validate([
-                'nama_pelapor' => 'required|string|max:255',
-                'alamat_pelapor' => 'required|string|max:255',
-                'pernyataan_pelapor' => 'required|file|mimes:pdf,doc,docx|max:2048',
-                'email_pelapor' => 'required|email|max:255',
-                'phone_pelapor' => 'required|string|max:20',
-                'hubungi' => 'required|string|max:20',
-                'nama_korban' => 'required|string|max:255',
-                'jenis_kelamin_korban' => 'required|string|max:20',
-                'alamat_korban' => 'nullable|string|max:255',
-                'phone_korban' => 'nullable|string|max:20',
-                'status_korban' => 'required|string|max:20',
-                'nama_terlapor' => 'required|string|max:255',
-                'jenis_kelamin_terlapor' => 'required|string|max:20',
-                'alamat_terlapor' => 'nullable|string|max:255',
-                'phone_terlapor' => 'nullable|string|max:20',
-                'status_terlapor' => 'required|string|max:20',
-                'karakteristik_terlapor' => 'required|string|max:255',
-                'terlapor' => 'required|string|max:20',
-                'warning' => 'required|string|max:20',
-                'warning_detail' => 'nullable|string|max:255',
-                'tanggal_peristiwa' => 'required|date',
-                'category' => 'required|string|max:255',
-                'chronology' => 'required|string',
-                'bukti_pelaporan' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
-                'lokasi' => 'required|string|max:255',
-            ], [
-                'nama_pelapor.required' => 'Nama Pelapor wajib diisi.',
-                'alamat_pelapor.required' => 'Alamat wajib diisi.',
-                'pernyataan_pelapor.required'=> 'File Pernyataan wajib diisi',
-                'pernyataan_pelapor.max' => 'File Pernyataan tidak boleh lebih dari 2MB',
-                'email_pelapor.required' => 'Email wajib diisi.',
-                'phone_pelapor.required' => 'No Hp wajib diisi.',
-                'hubungi.required' => 'Harap pilih salah satu metode kontak.',
-                'nama_korban.required' => 'Nama Korban wajib diisi.',
-                'jenis_kelamin_korban.required' => 'Jenis Kelamin Korban wajib diisi.',
-                
-                
-                'status_korban.required' => 'Status Korban wajib diisi.',
-                'nama_terlapor.required' => 'Nama Terlapor wajib diisi.',
-                'jenis_kelamin_terlapor.required' => 'Jenis Kelamin Terlapor wajib diisi.',
-                
-                
-                'status_terlapor.required' => 'Status Terlapor wajib diisi.',
-                'karakteristik_terlapor.required' => 'Karakteristik Terlapor wajib diisi.',
-                'terlapor.required' => 'Harap pilih salah satu opsi.',
-                'warning.required' => 'Harap pilih salah satu opsi.',
-                'warning_detail.required_if' => 'Harap jelaskan tindakan atau peringatan sebelumnya.',
-                'tanggal_peristiwa.required' => 'Tanggal Peristiwa wajib diisi.',
-                'category.required' => 'Kategori wajib diisi.',
-                'chronology.required' => 'Kronologi wajib diisi.',
-                'bukti_pelaporan.max' => 'File Bukti Pelaporan tidak boleh lebih dari 2MB',
-                'lokasi.required' => 'Lokasi wajib diisi.',
-            ]);
+        $validatedData = $request->validate([
+            'nama_pelapor' => 'required|string|max:255',
+            'alamat_pelapor' => 'required|string|max:255',
+            'pernyataan_pelapor' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'email_pelapor' => 'required|email|max:255',
+            'phone_pelapor' => 'required|string|max:20',
+            'hubungi' => 'required|string|max:20',
+            'nama_korban' => 'required|string|max:255',
+            'jenis_kelamin_korban' => 'required|string|max:20',
+            'alamat_korban' => 'nullable|string|max:255',
+            'phone_korban' => 'nullable|string|max:20',
+            'status_korban' => 'required|string|max:20',
+            'nama_terlapor' => 'required|string|max:255',
+            'jenis_kelamin_terlapor' => 'required|string|max:20',
+            'alamat_terlapor' => 'nullable|string|max:255',
+            'phone_terlapor' => 'nullable|string|max:20',
+            'status_terlapor' => 'required|string|max:20',
+            'karakteristik_terlapor' => 'required|string|max:255',
+            'terlapor' => 'required|string|max:20',
+            'warning' => 'required|string|max:20',
+            'warning_detail' => 'nullable|string|max:255',
+            'tanggal_peristiwa' => 'required|date',
+            'category' => 'required|string|max:255',
+            'chronology' => 'required|string',
+            'bukti_pelaporan' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'lokasi' => 'required|string|max:255',
+        ]);
 
-            try {
-                // Simpan file pernyataan
-                if ($request->hasFile('pernyataan_pelapor')) {
-                    $pernyataanPath = $request->file('pernyataan_pelapor')->store('aduan/pernyataan', 'public');
-                    $validatedData['pernyataan_pelapor'] = $pernyataanPath;
-                }
-
-                // Simpan file bukti pelaporan
-                if ($request->hasFile('bukti_pelaporan')) {
-                    $buktiPath = $request->file('bukti_pelaporan')->store('aduan/bukti', 'public');
-                    $validatedData['bukti_pelaporan'] = $buktiPath;
-                }
-
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan file: ' . $e->getMessage());
+        try {
+            if ($request->hasFile('pernyataan_pelapor')) {
+                $validatedData['pernyataan_pelapor'] =
+                    $request->file('pernyataan_pelapor')->store('aduan/pernyataan', 'public');
             }
-            $userId = Auth::id();
-            $validatedData['user_id'] = $userId;
 
-            $validatedData['icon'] = 'fa-solid fa-file-circle-check';
+            if ($request->hasFile('bukti_pelaporan')) {
+                $validatedData['bukti_pelaporan'] =
+                    $request->file('bukti_pelaporan')->store('aduan/bukti', 'public');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal upload file: ' . $e->getMessage());
+        }
 
-           
-            
-            // Simpan ke database
-            $aduan = Aduan::create($validatedData);
-            $aduan->kode_aduan = 'PPKPT'
-            . $aduan->id
-            . date('dy')
-            . rand(10, 99);
+        $validatedData['user_id'] = Auth::id();
+        $validatedData['icon'] = 'fa-solid fa-file-circle-check';
 
-            $aduan->save();
+        $fieldsToEncrypt = [
+            'nama_pelapor',
+            'alamat_pelapor',
+            'email_pelapor',
+            'phone_pelapor',
+            'nama_korban',
+            'jenis_kelamin_korban',
+            'alamat_korban',
+            'phone_korban',
+            'status_korban',
+            'nama_terlapor',
+            'jenis_kelamin_terlapor',
+            'alamat_terlapor',
+            'phone_terlapor',
+            'status_terlapor',
+            'karakteristik_terlapor',
+            'terlapor',
+            'warning',
+            'warning_detail',
+            'chronology',
+            'lokasi'
+        ];
 
-            $validatedData1['aduan_id'] = $aduan->id;
-            $validatedData1['label1'] = 'Menunggu Verifikasi Admin';
-            $validatedData1['status1'] = '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') . '] - Laporan Anda berhasil dikirim dan sedang menunggu verifikasi dari admin.';
-            
-            $status = Status::create($validatedData1);
+        foreach ($fieldsToEncrypt as $field) {
+            if (isset($validatedData[$field])) {
+                $validatedData[$field] = AesHelper::encrypt($validatedData[$field]);
+            }
+        }
 
-            return redirect()->route('aduan.store')->with('success', 'Aduan berhasil dikirim');
-    }    
+        $aduan = Aduan::create($validatedData);
+        $service = new MARCOSService();
+
+        $nilai = $service->hitungNilaiAlternatif($request);
+
+        Alternatif::create([
+            'aduan_id' => $aduan->id,
+            'kriteria1' => $nilai['c1'],
+            'kriteria2' => $nilai['c2'],
+            'kriteria3' => $nilai['c3'],
+            'kriteria4' => $nilai['c4'],
+            'kriteria5' => $nilai['c5'],
+            'kriteria6' => $nilai['c6'],
+        ]);
+
+        $aduan->kode_aduan = 'PPKPT' . $aduan->id . date('dy') . rand(10, 99);
+        $aduan->save();
+
+        Status::create([
+            'aduan_id' => $aduan->id,
+            'label1'   => 'Menunggu Verifikasi Admin',
+            'status1'  => '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') .
+                '] - Laporan Anda berhasil dikirim dan sedang menunggu verifikasi dari admin.'
+        ]);
+
+        return redirect()->route('aduan.store')->with('success', 'Aduan berhasil dikirim');
+    } 
 
     public function berita()
     {   

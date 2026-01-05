@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\AesHelper;
 use App\Models\User;
 use App\Models\Berita;
 use App\Models\Aduan;
@@ -411,5 +412,42 @@ class AdminController extends Controller
             ]);
         } 
         return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil ditolak.');
+    }
+
+    public function decryptAduan(Request $request, $id)
+    {
+
+        $aduan = Aduan::findOrFail($id);
+
+        try {
+            $key = $request->input('key');
+
+            $decrypted = [
+                'nama_pelapor' => AesHelper::decrypt($aduan->nama_pelapor, $key),
+                'alamat_pelapor' => AesHelper::decrypt($aduan->alamat_pelapor, $key),
+                'email_pelapor' => AesHelper::decrypt($aduan->email_pelapor, $key),
+                'phone_pelapor' => AesHelper::decrypt($aduan->phone_pelapor, $key),
+                'nama_korban' => AesHelper::decrypt($aduan->nama_korban, $key),
+                'alamat_korban' => AesHelper::decrypt($aduan->alamat_korban, $key),
+                'phone_korban' => AesHelper::decrypt($aduan->phone_korban, $key),
+                'nama_terlapor' => AesHelper::decrypt($aduan->nama_terlapor, $key),
+                'alamat_terlapor' => AesHelper::decrypt($aduan->alamat_terlapor, $key),
+                'phone_terlapor' => AesHelper::decrypt($aduan->phone_terlapor, $key),
+                'chronology' => AesHelper::decrypt($aduan->chronology, $key),
+                'karakteristik_terlapor' => AesHelper::decrypt($aduan->karakteristik_terlapor, $key),
+                'terlapor' => AesHelper::decrypt($aduan->terlapor, $key),
+                'warning' => AesHelper::decrypt($aduan->warning, $key),
+                'warning_detail' => AesHelper::decrypt($aduan->warning_detail, $key),
+                'lokasi' => AesHelper::decrypt($aduan->lokasi, $key),
+                'jenis_kelamin_korban' => AesHelper::decrypt($aduan->jenis_kelamin_korban, $key),
+                'status_korban' => AesHelper::decrypt($aduan->status_korban, $key),
+                'jenis_kelamin_terlapor' => AesHelper::decrypt($aduan->jenis_kelamin_terlapor, $key),
+                'status_terlapor' => AesHelper::decrypt($aduan->status_terlapor, $key),
+            ];
+
+            return response()->json(['status' => 'success', 'data' => $decrypted]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Key salah atau gagal dekripsi']);
+        }
     }
 }
