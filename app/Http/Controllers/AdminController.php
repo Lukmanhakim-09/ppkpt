@@ -416,7 +416,7 @@ class AdminController extends Controller
 
     public function decryptAduan(Request $request, $id)
     {
-
+        
         $aduan = Aduan::findOrFail($id);
 
         try {

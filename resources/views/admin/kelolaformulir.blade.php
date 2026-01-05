@@ -65,9 +65,19 @@ x-data="{
                 <div class="px-6 pb-4 overflow-y-auto flex-1">
                     <div class="flex flex-col gap-2 pt-2">
                         @forelse($aduans as $aduan)
-                            <div @click="selectedAduan = {{ $aduan->id }}; showRejectForm = false"
+                            <div
+                                @click="
+                                    selectedAduan = {{ $aduan->id }};
+                                    showRejectForm = false;
+
+                                    // RESET decrypt setiap ganti aduan
+                                    isDecrypted = false;
+                                    decrypted = null;
+                                "
                                 :class="selectedAduan === {{ $aduan->id }} ? 'bg-[#F08619] text-white' : 'bg-white'"
-                                class="flex gap-2 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer">
+                                class="flex gap-2 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer"
+                            >
+
                                 <i class="fa-solid fa-file-circle-check text-5xl"
                                     :class="selectedAduan === {{ $aduan->id }} ? 'text-white' : 'text-[#F08619]'"></i>
                                 <div class="flex flex-col">
@@ -99,37 +109,44 @@ x-data="{
                     @endif
                     <template x-if="selectedAduan">
                         <div>
+
+                            <!-- tombol buka modal -->
                             <button
                                 @click="showModal = true"
                                 class="bg-blue-500 text-white px-4 py-2 rounded mb-4">
                                 Dekripsi Aduan
                             </button>
 
-                            @foreach ($aduans as $aduan)
-                                <div>
+                            <!-- MODAL — hanya SATU -->
+                            <div x-show="showModal"
+                                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 
-                                    <!-- Modal Input Key -->
-                                    <div x-show="showModal"
-                                        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                        <div class="bg-white p-6 rounded w-96 relative">
-                                            <h2 class="text-lg font-bold mb-4">Masukkan Key Dekripsi</h2>
+                                <div class="bg-white p-6 rounded w-96">
+                                    <h2 class="text-lg font-bold mb-4">Masukkan Key Dekripsi</h2>
 
-                                            <input type="password" x-model="key"
-                                                class="w-full border px-3 py-2 rounded mb-4"
-                                                placeholder="Masukkan key AES"
-                                                @keyup.enter="decryptAduan({{ $aduan->id }})">
+                                    <input type="password"
+                                        x-model="key"
+                                        class="w-full border px-3 py-2 rounded mb-4"
+                                        placeholder="Masukkan key AES"
+                                        @keyup.enter="decryptAduan(selectedAduan)">
 
-                                            <div class="flex justify-end gap-2">
-                                                <button @click="showModal = false; key=''"
-                                                    class="px-4 py-2 bg-gray-500 text-white rounded">Batal</button>
-                                                <button @click="decryptAduan({{ $aduan->id }})"
-                                                    class="px-4 py-2 bg-green-500 text-white rounded">Dekripsi</button>
-                                            </div>
-                                        </div>
+                                    <div class="flex justify-end gap-2">
+                                        <button @click="showModal=false; key=''"
+                                            class="px-4 py-2 bg-gray-500 text-white rounded">
+                                            Batal
+                                        </button>
+
+                                        <button @click="decryptAduan(selectedAduan)"
+                                            class="px-4 py-2 bg-green-500 text-white rounded">
+                                            Dekripsi
+                                        </button>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <!-- Tampilan Data (Encrypted atau Decrypted) -->
-                                    <div x-show="selectedAduan === {{ $aduan->id }}">
+                            <!-- DETAIL ADUAN -->
+                            @foreach($aduans as $aduan)
+                                <div x-show="selectedAduan === {{ $aduan->id }}">
                                         <p class="font-bold tracking-wider text-[#F08619]">IDENTITAS PELAPOR</p>
                                         <table class="w-full border-collapse">
                                             <tbody>
@@ -410,10 +427,11 @@ x-data="{
                                             </form>
                                         </div>
                                     </div>
-                                </div>
                             @endforeach
+
                         </div>
                     </template>
+
 
                     <template x-if="!selectedAduan">
                         <div class="text-center py-20 text-gray-500">
