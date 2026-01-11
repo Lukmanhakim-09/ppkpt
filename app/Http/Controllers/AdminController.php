@@ -409,19 +409,17 @@ class AdminController extends Controller
             $bobot->c6,
         ];
 
-    $alternatifs = Alternatif::with(['aduan.lastStatus'])
-        ->whereHas('aduan.lastStatus', function ($q) {
-            $q->where(function ($qq) {
-                $qq->where('label2', '!=', 'Laporan Dikembalikan')
-                ->orWhereNull('label2');
-            })
-            ->where(function ($qq) {
-                $qq->where('label4', '!=', 'Laporan Selesai')
-                ->orWhereNull('label4');
-            });
-        })
-        ->orderBy('id')
-        ->get();
+$alternatifs = Alternatif::with(['aduan.lastStatus'])
+    ->whereHas('aduan.lastStatus', function ($q) {
+        $q->where('label2', 'Diteruskan Ke Satgas')   // ⬅ hanya yang di Satgas
+          ->where(function ($qq) {
+              $qq->whereNull('label4')
+                 ->orWhere('label4', '!=', 'Laporan Selesai');
+          });
+    })
+    ->orderBy('aduan_id')
+    ->get();
+
 
         $L = [];
         $map = [];   // index MARCOS → aduan_id
