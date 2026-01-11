@@ -10,6 +10,10 @@ use App\Models\Aduan;
 use App\Models\Document;
 use App\Models\Message;
 use App\Models\Status;
+use App\Models\Bobot;
+use App\Models\Alternatif;
+use App\Services\MARCOSService;
+
 
 class AdminController extends Controller
 {
@@ -372,6 +376,13 @@ class AdminController extends Controller
         return view('admin.kelolaformulir', compact('aduans'));
     }
 
+        
+    public function alternatif()
+    {
+        return $this->hasOne(Alternatif::class, 'aduan_id');
+    }
+
+
     public function kirimKeSatgas($id)
     {
         $aduan = Aduan::findOrFail($id);
@@ -386,6 +397,105 @@ class AdminController extends Controller
                 'status2' => '[' . now()->format('d/m/Y') . '][' . now()->format('H:i') . '] - Laporan Anda Telah Diverifikasi Admin dan Diteruskan Kepada Satgas untuk Ditindaklanjuti'
             ]);
         }
+
+        $bobot = Bobot::first(); // karena cuma 1 baris
+
+        $w = [
+            $bobot->c1,
+            $bobot->c2,
+            $bobot->c3,
+            $bobot->c4,
+            $bobot->c5,
+            $bobot->c6,
+        ];
+
+    $alternatifs = Alternatif::with(['aduan.lastStatus'])
+        ->whereHas('aduan.lastStatus', function ($q) {
+            $q->where(function ($qq) {
+                $qq->where('label2', '!=', 'Laporan Dikembalikan')
+                ->orWhereNull('label2');
+            })
+            ->where(function ($qq) {
+                $qq->where('label4', '!=', 'Laporan Selesai')
+                ->orWhereNull('label4');
+            });
+        })
+        ->orderBy('id')
+        ->get();
+
+        $L = [];
+        $map = [];   // index MARCOS → aduan_id
+
+        foreach ($alternatifs as $i => $alt) {
+            $L[] = [
+                $alt->kriteria1,
+                $alt->kriteria2,
+                $alt->kriteria3,
+                $alt->kriteria4,
+                $alt->kriteria5,
+                $alt->kriteria6,
+            ];
+
+            $map[$i] = $alt->aduan_id;
+        }
+
+        
+        $type = [
+        'cost',    // C1
+        'benefit', // C2
+        'benefit', // C3
+        'benefit', // C4
+        'benefit', // C5
+        'benefit', // C6
+        ];
+
+            $marcos = new MARCOSService();
+
+        // Tahap 2: AI & AAI (Pers. 2-6)
+        [$AI, $AAI] = $marcos->idealAntiIdeal($L, $type);
+
+        // Tahap 3: Normalisasi (2-7, 2-8)
+        $N = $marcos->normalisasi($L, $AI, $type);
+
+        // Tahap 4: Normalisasi berbobot (2-9)
+        $WN = $marcos->normalisasiBerbobot($N, $w);
+
+        // Tahap 5: Nilai kegunaan
+        $S = $marcos->nilaiKegunaan($WN);
+
+        // Tahap 6: Derajat kegunaan (Ci+ & Ci-)
+        [$Cplus, $Cminus] = $marcos->derajatKegunaan($S);
+
+        // Tahap 7: Fungsi kegunaan & ranking
+        $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
+
+        $total = count($ranking);
+
+        $tinggi  = ceil($total * 0.33);
+        $menengah = ceil($total * 0.66);
+
+        $i = 1;
+        foreach ($ranking as $index => $score) {
+
+            if ($i <= $tinggi) {
+                $kategori = 'Tinggi';
+            } elseif ($i <= $menengah) {
+                $kategori = 'Menengah';
+            } else {
+                $kategori = 'Rendah';
+            }
+
+            $aduanId = $map[$index];
+
+            Aduan::where('id', $aduanId)->update([
+                'nilai'     => round($score, 4),
+                'peringkat' => $i,
+                'prioritas'  => $kategori,
+            ]);
+
+            $i++;
+        }
+
 
         return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil dikirim ke Satgas.');
     }

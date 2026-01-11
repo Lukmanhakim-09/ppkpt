@@ -65,4 +65,15 @@ class Aduan extends Model
         return $this->hasOne(Alternatif::class, 'aduan_id', 'id');
     }
 
+    public function bobot()
+    {
+        return $this->hasOne(Bobot::class, 'aduan_id', 'id');
+    }
+
+    public function lastStatus()
+    {
+        return $this->hasOne(Status::class)->latestOfMany();
+    }
+
+
 }
