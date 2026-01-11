@@ -15,13 +15,19 @@ use App\Models\Status;
 use App\Models\Message;
 use App\Models\Investigation;
 use App\Services\MARCOSService;
-use App\Models\Alternatif;
 use Illuminate\Validation\ValidationException;
+use App\Models\Bobot;
+use App\Models\Alternatif;
 
 
 class UserController extends Controller
 {
     
+    public function alternatif()
+    {
+        return $this->hasOne(Alternatif::class, 'aduan_id');
+    }
+
 
     public function storeAduan(Request $request)
     {
@@ -116,6 +122,92 @@ class UserController extends Controller
 
         $aduan->kode_aduan = 'PPKPT' . $aduan->id . date('dy') . rand(10, 99);
         $aduan->save();
+        
+        $bobot = Bobot::first(); // karena cuma 1 baris
+
+        $w = [
+            $bobot->c1,
+            $bobot->c2,
+            $bobot->c3,
+            $bobot->c4,
+            $bobot->c5,
+            $bobot->c6,
+        ];
+
+        $alternatifs = Alternatif::with('aduan')->orderBy('id')->get();
+
+        $L = [];
+        $map = [];   // index MARCOS → aduan_id
+
+        foreach ($alternatifs as $i => $alt) {
+            $L[] = [
+                $alt->kriteria1,
+                $alt->kriteria2,
+                $alt->kriteria3,
+                $alt->kriteria4,
+                $alt->kriteria5,
+                $alt->kriteria6,
+            ];
+
+            $map[$i] = $alt->aduan_id;
+        }
+
+        
+        $type = [
+        'cost',    // C1
+        'benefit', // C2
+        'benefit', // C3
+        'benefit', // C4
+        'benefit', // C5
+        'benefit', // C6
+        ];
+
+            $marcos = new MARCOSService();
+
+        // Tahap 2: AI & AAI (Pers. 2-6)
+        [$AI, $AAI] = $marcos->idealAntiIdeal($L, $type);
+
+        // Tahap 3: Normalisasi (2-7, 2-8)
+        $N = $marcos->normalisasi($L, $AI, $type);
+
+        // Tahap 4: Normalisasi berbobot (2-9)
+        $WN = $marcos->normalisasiBerbobot($N, $w);
+
+        // Tahap 5: Nilai kegunaan
+        $S = $marcos->nilaiKegunaan($WN);
+
+        // Tahap 6: Derajat kegunaan (Ci+ & Ci-)
+        [$Cplus, $Cminus] = $marcos->derajatKegunaan($S);
+
+        // Tahap 7: Fungsi kegunaan & ranking
+        $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
+
+        $total = count($ranking);
+
+        $tinggi  = ceil($total * 0.33);
+        $menengah = ceil($total * 0.66);
+
+        $i = 1;
+        foreach ($ranking as $index => $score) {
+
+            if ($i <= $tinggi) {
+                $kategori = 'Tinggi';
+            } elseif ($i <= $menengah) {
+                $kategori = 'Menengah';
+            } else {
+                $kategori = 'Rendah';
+            }
+
+            $aduanId = $map[$index];
+
+            Aduan::where('id', $aduanId)->update([
+                'nilai'     => round($score, 4),
+                'peringkat' => $i,
+                'prioritas'  => $kategori,
+            ]);
+
+            $i++;
+        }
 
         Status::create([
             'aduan_id' => $aduan->id,

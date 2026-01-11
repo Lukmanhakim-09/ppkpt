@@ -45,7 +45,16 @@
                             <p>Kronologi : {{ Str::limit($aduan->chronology, 50, '...') }}</p>
                         </div>
                         <div class="flex flex-col items-end justify-between gap-2 ml-auto">
-                            <span class="text-[#C53030] font-semibold text-right">Urgent</span>
+                          @php
+                              $warna = match(strtolower($aduan->prioritas)) {
+                                  'tinggi'  => 'bg-red-100 text-red-700',
+                                  'menengah' => 'bg-yellow-100 text-yellow-700',
+                                  'sedang'  => 'bg-yellow-100 text-yellow-700',
+                                  'rendah'  => 'bg-green-100 text-green-700',
+                                  default   => 'bg-gray-100 text-gray-700',
+                              };
+                          @endphp
+                            <span class="{{ $warna }} px-3 py-1 text-sm font-semibold rounded-full text-right">{{ $aduan->prioritas }} </span>
                             <a href="{{ route('satgas.detaillaporan', $aduan->id) }}" class="bg-[#F08619] hover:bg-[#3B6BA2] transition-colors text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap">Lihat Detail</a>
                         </div>
                     </div>

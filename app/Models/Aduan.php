@@ -35,7 +35,10 @@ class Aduan extends Model
         'chronology',
         'bukti_pelaporan',
         'lokasi',
-        'icon'
+        'icon',
+        'prioritas',
+        'peringkat',
+        'nilai'
     ];
 
     protected $casts = [
@@ -56,4 +59,10 @@ class Aduan extends Model
     {
         return $this->hasOne(Investigation::class, 'kode_aduan', 'kode_aduan');
     }
+    
+    public function alternatif()
+    {
+        return $this->hasOne(Alternatif::class, 'aduan_id', 'id');
+    }
+
 }

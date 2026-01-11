@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\AhpController;
+use App\Http\Controllers\MarcosController;
+
 
 
 Route::get('/login', [loginController::class, 'index'])->name('login');

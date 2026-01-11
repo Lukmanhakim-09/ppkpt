@@ -1,13 +1,39 @@
-<table border="1" cellpadding="6">
-    <tr>
-        <th>Kriteria</th>
-        <th>Bobot</th>
-    </tr>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hasil Grey AHP</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .info { background:#f3f4f6; padding:10px; border-radius:6px; margin-bottom:15px; }
+        .warning { background:#fff3cd; color:#856404; padding:10px; border-radius:6px; margin-bottom:15px; }
+        .success { background:#e7f7ee; color:#065f46; padding:10px; border-radius:6px; margin-bottom:15px; }
+    </style>
+</head>
+<body>
 
-    @foreach($weights as $index => $value)
-        <tr>
-            <td>C{{ $index+1 }}</td>
-            <td>{{ number_format($value, 3) }}</td>
-        </tr>
-    @endforeach
-</table>
+<h3>Hasil Perhitungan Grey AHP</h3>
+
+@if(isset($CR))
+    @if($CR < 0.1)
+        <div class="success">
+            <strong>Uji Konsistensi:</strong> CR = {{ number_format($CR,4) }} (Konsisten)
+        </div>
+    @else
+        <div class="warning">
+            <strong>Uji Konsistensi:</strong>
+            <br> CR = {{ number_format($CR,4) }} (Tidak konsisten)
+            <br> CI = {{ number_format($CI,4) }}
+            <br> Lambda Max = {{ number_format($lambda_max,4) }}
+        </div>
+    @endif
+@endif
+
+<h4>Bobot Kriteria</h4>
+<ul>
+@foreach($weights ?? [] as $k => $v)
+    <li>{{ $k }} : {{ number_format($v,4) }}</li>
+@endforeach
+</ul>
+
+</body>
+</html>

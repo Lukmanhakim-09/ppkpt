@@ -41,6 +41,9 @@ return new class extends Migration
             $table->text('bukti_pelaporan')->nullable();
             $table->text('lokasi');
             $table->text('icon');
+            $table->text('prioritas')->nullable();
+            $table->text('peringkat')->nullable();
+            $table->text('nilai')->nullable();
             $table->timestamps();
         });
     }

@@ -440,7 +440,7 @@ x-data="{
                     </template>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 
     <!-- Modal Konfirmasi Kirim Ke Satgas -->
