@@ -43,7 +43,7 @@
                             <p><span class="font-medium">Jenis Kekerasan:</span> {{ $investigasi->jenis_kekerasan }}</p>
                             <p><span class="font-medium">Lokasi Kejadian:</span> {{ $investigasi->lokasi_kejadian }}</p>
                             <p><span class="font-medium">Tanggal Investigasi:</span> {{ \Carbon\Carbon::parse($investigasi->tanggal)->format('d F Y') }}</p>
-                            <a href="{{ route('satgas.detaillaporan', $aduan->id) }}" class="inline-block mt-2 text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium transition">Lihat Lebih</a>
+                            <a href="{{ route('satgas.detaillaporan', $aduan->id) }}" class="inline-block mt-2 text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium transition">Lihat Detail</a>
                         </div>
                     </div>
 

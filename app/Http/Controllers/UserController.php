@@ -50,8 +50,9 @@ class UserController extends Controller
             'tanggal_peristiwa' => 'required|date',
             'category' => 'required|string|max:255',
             'chronology' => 'required|string',
-            'bukti_pelaporan' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'bukti_pelaporan' => 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,avi,mp3,wav,pdf,ogg|max:10240',
             'lokasi' => 'required|string|max:255',
+            'bersedia' => 'required|string|max:255',
         ]);
 
         try {
@@ -91,7 +92,8 @@ class UserController extends Controller
             'warning',
             'warning_detail',
             'chronology',
-            'lokasi'
+            'lokasi',
+            'bersedia'
         ];
 
         foreach ($fieldsToEncrypt as $field) {

@@ -429,14 +429,23 @@
                                                         </div>
                                                         <div class="flex flex-col gap-2">
                                                             <label class="font-semibold" for="">File Bukti </label>
-                                                            <input type="file" name="bukti_pelaporan" id="bukti_pelaporan" 
-                                                            class="lg:w-[500px] rounde  d-lg bg-white text-base border @error('bukti_pelaporan') border-red-500 @else border-gray-300 @enderror
+                                                            <input 
+                                                                type="file" 
+                                                                name="bukti_pelaporan" 
+                                                                id="bukti_pelaporan"
+                                                                accept="image/*,video/*,audio/*,.pdf"
+                                                                class="lg:w-[500px] rounded-lg bg-white text-base border 
+                                                                    @error('bukti_pelaporan') border-red-500 
+                                                                    @else border-gray-300 
+                                                                    @enderror
                                                                     file:mr-4 file:py-2 file:px-4
                                                                     file:rounded-md file:border-0
                                                                     file:text-sm file:font-semibold
                                                                     file:bg-[#F08619] file:text-white
                                                                     hover:file:bg-[#d97706]
-                                                                    focus:outline-none focus:ring-2 focus:ring-[#F08619]">
+                                                                    focus:outline-none focus:ring-2 focus:ring-[#F08619]"
+>
+
                                                         </div> 
                                                         <div class="flex flex-col gap-2">
                                                             <label class="font-semibold" for="">Lokasi <span class="text-[#F08619]">*</span></label>
@@ -692,25 +701,25 @@
                                                             <label class="font-semibold" for="">Apakah korban bersedia bekerja sama dengan pihak berwenang untuk menyelesaikan kasus ini? <span class="text-[#F08619]">*</span></label>
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
-                                                                    <input type="radio" name="bersedia" value="1" 
+                                                                    <input type="radio" name="bersedia" value="Siap klarifikasi" 
                                                                     class="w-5 h-5 text-[#F08619] bg-white ">
                                                                     <span class="font-semibold">Ya, sangat bersedia</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
-                                                                    <input type="radio" name="bersedia" value="2"
+                                                                    <input type="radio" name="bersedia" value="Perlu pendekatan bertahap"
                                                                     class="w-5 h-5 text-[#F08619] bg-white">
                                                                     <span class="font-semibold">Ya, tetapi ragu-ragu</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
-                                                                    <input type="radio" name="bersedia" value="3"
+                                                                    <input type="radio" name="bersedia" value="Fokus perlindungan korban"
                                                                     class="w-5 h-5 text-[#F08619] bg-white">
                                                                     <span class="font-semibold">Tidak bersedia</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
-                                                                    <input type="radio" name="bersedia" value="4"
+                                                                    <input type="radio" name="bersedia" value="Fokus perlindungan korban"
                                                                     class="w-5 h-5 text-[#F08619] bg-white">
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>

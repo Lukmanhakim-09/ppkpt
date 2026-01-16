@@ -78,6 +78,7 @@ class SatgasController extends Controller
         $aduan->chronology = AesHelper::decrypt($aduan->chronology, $key);
         $aduan->warning = AesHelper::decrypt($aduan->warning, $key);
         $aduan->warning_detail = AesHelper::decrypt($aduan->warning_detail, $key);
+        $aduan->bersedia = AesHelper::decrypt($aduan->bersedia, $key);
 
         return view('satgas.detaillaporan', compact('aduan'));
     }

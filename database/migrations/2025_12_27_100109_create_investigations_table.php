@@ -32,6 +32,7 @@ return new class extends Migration
             $table->text('wawancara_saksi')->nullable();
             $table->text('fakta_terbukti')->nullable();
             $table->text('fakta_tidak_terbukti')->nullable();
+            $table->text('file_terbukti')->nullable();
             $table->json('tindak_lanjut')->nullable();
             $table->text('catatan_tindak_lanjut')->nullable();
             $table->string('hasil_akhir')->nullable();

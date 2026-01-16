@@ -41,6 +41,7 @@ return new class extends Migration
             $table->text('bukti_pelaporan')->nullable();
             $table->text('lokasi');
             $table->text('icon');
+            $table->text('bersedia', ['Siap klarifikasi', 'Perlu pendekatan bertahap', 'Fokus perlindungan korban', 'Tidak yakin']);
             $table->text('prioritas')->nullable();
             $table->text('peringkat')->nullable();
             $table->text('nilai')->nullable();

@@ -70,85 +70,94 @@ class MARCOSService
         return compact('c1','c2','c3','c4','c5','c6');
     }
 
-function idealAntiIdeal(array $L, array $type): array
-{
-    $AI = $AAI = [];
-    $n = count($L[0]);
+    // Step 2 — AI & AAI
+    public function idealAntiIdeal(array $L, array $type): array
+    {
+        $AI = $AAI = [];
+        $n = count($L[0]);
 
-    for ($j = 0; $j < $n; $j++) {
-        $col = array_column($L, $j);
+        for ($j = 0; $j < $n; $j++) {
+            $col = array_column($L, $j);
 
-        if ($type[$j] === 'benefit') {
-            $AI[$j]  = max($col);
-            $AAI[$j] = min($col);
-        } else {
-            $AI[$j]  = min($col);
-            $AAI[$j] = max($col);
-        }
-    }
-    return [$AI, $AAI];
-}
-
-function normalisasi(array $L, array $AI, array $type): array
-{
-    $N = [];
-
-    foreach ($L as $i => $row) {
-        foreach ($row as $j => $val) {
             if ($type[$j] === 'benefit') {
-                $N[$i][$j] = $val / $AI[$j];
+                $AI[$j]  = max($col);
+                $AAI[$j] = min($col);
             } else {
-                $N[$i][$j] = $AI[$j] / $val;
+                $AI[$j]  = min($col);
+                $AAI[$j] = max($col);
             }
         }
+        return [$AI, $AAI];
     }
-    return $N;
-}
 
-function normalisasiBerbobot(array $N, array $w): array
-{
-    $WN = [];
-
-    foreach ($N as $i => $row) {
-        foreach ($row as $j => $val) {
-            $WN[$i][$j] = $val * $w[$j];
+    // Step 3 — Normalization (Extended Matrix)
+    public function normalisasi(array $L_ext, array $AI, array $type): array
+    {
+        $N = [];
+        foreach ($L_ext as $i => $row) {
+            foreach ($row as $j => $xij) {
+                if ($type[$j] === 'benefit') {
+                    $N[$i][$j] = $xij / $AI[$j];
+                } else {
+                    $N[$i][$j] = $AI[$j] / $xij;
+                }
+            }
         }
-    }
-    return $WN;
-}
-
-function nilaiKegunaan(array $WN): array
-{
-    return array_map('array_sum', $WN);
-}
-
-function derajatKegunaan(array $S): array
-{
-    $S_AI  = max($S);
-    $S_AAI = min($S);
-
-    $Cplus = $Cminus = [];
-
-    foreach ($S as $i => $val) {
-        $Cplus[$i]  = $val / $S_AI;
-        $Cminus[$i] = $val / $S_AAI;
-    }
-    return [$Cplus, $Cminus];
-}
-
-function fungsiKegunaan(array $Cplus, array $Cminus): array
-{
-    $f = [];
-
-    foreach ($Cplus as $i => $cp) {
-        $cm = $Cminus[$i];
-
-        $f[$i] = ($cp + $cm) /
-            (1 + ((1 - $cp) / $cp) + ((1 - $cm) / $cm));
+        return $N;
     }
 
-    arsort($f); // ranking
-    return $f;
-}
+    // Step 4 — Weighted normalization
+    public function normalisasiBerbobot(array $N, array $w): array
+    {
+        $WN = [];
+        foreach ($N as $i => $row) {
+            foreach ($row as $j => $nij) {
+                $WN[$i][$j] = $nij * $w[$j];
+            }
+        }
+        return $WN;
+    }
+
+    // Step 5 — Si
+    public function nilaiKegunaan(array $WN): array
+    {
+        return array_map('array_sum', $WN);
+    }
+
+    // Step 6 — Ki+ and Ki-
+    public function derajatKegunaan(array $S_all, int $m): array
+    {
+        $S_AAI = $S_all[0];
+        $S_AI  = $S_all[count($S_all)-1];
+
+        $Cplus = $Cminus = [];
+
+        for ($i = 1; $i <= $m; $i++) {
+            $Cplus[$i-1]  = $S_all[$i] / $S_AI;
+            $Cminus[$i-1] = $S_all[$i] / $S_AAI;
+        }
+
+        return [$Cplus, $Cminus];
+    }
+
+    // Step 7 — f(Ki)
+    public function fungsiKegunaan(array $Cplus, array $Cminus): array
+    {
+        $f = [];
+
+        foreach ($Cplus as $i => $cp) {
+            $cm = $Cminus[$i];
+
+            $f_plus  = $cm / ($cp + $cm);
+            $f_minus = $cp / ($cp + $cm);
+
+            $f[$i] = ($cp + $cm) /
+                     (1 + ((1 - $f_plus) / $f_plus) +
+                          ((1 - $f_minus) / $f_minus));
+        }
+
+        arsort($f);
+        return $f;
+    }
 
 }

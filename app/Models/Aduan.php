@@ -36,6 +36,7 @@ class Aduan extends Model
         'bukti_pelaporan',
         'lokasi',
         'icon',
+        'bersedia',
         'prioritas',
         'peringkat',
         'nilai'

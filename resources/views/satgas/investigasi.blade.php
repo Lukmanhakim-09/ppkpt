@@ -43,7 +43,7 @@
                                 Informasi Aduan
                             </h2>
                             <a href="{{ route('satgas.detaillaporan', $aduan->id) }}"
-                            class="inline-block text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium text-sm transition">Lihat Lebih</a>
+                            class="inline-block text-white bg-[#0970A5] hover:bg-[#065a84] px-4 py-2 rounded-lg font-medium text-sm transition">Lihat Detail</a>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">

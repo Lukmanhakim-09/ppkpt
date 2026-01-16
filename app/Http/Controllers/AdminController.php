@@ -409,16 +409,16 @@ class AdminController extends Controller
             $bobot->c6,
         ];
 
-$alternatifs = Alternatif::with(['aduan.lastStatus'])
-    ->whereHas('aduan.lastStatus', function ($q) {
-        $q->where('label2', 'Diteruskan Ke Satgas')   // ⬅ hanya yang di Satgas
-          ->where(function ($qq) {
-              $qq->whereNull('label4')
-                 ->orWhere('label4', '!=', 'Laporan Selesai');
-          });
-    })
-    ->orderBy('aduan_id')
-    ->get();
+        $alternatifs = Alternatif::with(['aduan.lastStatus'])
+            ->whereHas('aduan.lastStatus', function ($q) {
+                $q->where('label2', 'Diteruskan Ke Satgas')   // ⬅ hanya yang di Satgas
+                ->where(function ($qq) {
+                    $qq->whereNull('label4')
+                        ->orWhere('label4', '!=', 'Laporan Selesai');
+                });
+            })
+            ->orderBy('aduan_id')
+            ->get();
 
 
         $L = [];
@@ -447,25 +447,32 @@ $alternatifs = Alternatif::with(['aduan.lastStatus'])
         'benefit', // C6
         ];
 
-            $marcos = new MARCOSService();
+$type = array_values($type);
+$w    = array_values($w);
+$L    = array_values($L);
 
-        // Tahap 2: AI & AAI (Pers. 2-6)
-        [$AI, $AAI] = $marcos->idealAntiIdeal($L, $type);
+$marcos = new MARCOSService();
 
-        // Tahap 3: Normalisasi (2-7, 2-8)
-        $N = $marcos->normalisasi($L, $AI, $type);
+// Step 2
+[$AI, $AAI] = $marcos->idealAntiIdeal($L, $type);
 
-        // Tahap 4: Normalisasi berbobot (2-9)
-        $WN = $marcos->normalisasiBerbobot($N, $w);
+// Step 3 — Extended matrix
+$L_ext = array_merge([$AAI], $L, [$AI]);
 
-        // Tahap 5: Nilai kegunaan
-        $S = $marcos->nilaiKegunaan($WN);
+// Step 4
+$N  = $marcos->normalisasi($L_ext, $AI, $type);
+$WN = $marcos->normalisasiBerbobot($N, $w);
 
-        // Tahap 6: Derajat kegunaan (Ci+ & Ci-)
-        [$Cplus, $Cminus] = $marcos->derajatKegunaan($S);
+// Step 5
+$S_all = $marcos->nilaiKegunaan($WN);
 
-        // Tahap 7: Fungsi kegunaan & ranking
-        $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
+// Step 6
+[$Cplus, $Cminus] = $marcos->derajatKegunaan($S_all, count($L));
+
+// Step 7
+$ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
+
+// Selanjutnya proses ranking dan update data seperti yang sudah kamu lakukan sebelumnya.
 
         $total = count($ranking);
 

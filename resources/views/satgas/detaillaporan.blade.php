@@ -40,8 +40,8 @@
                             border-l-4 border-[#0970A5] pl-3">
                         Informasi Aduan
                     </h2>
-
-                    @php
+                    <div class="flex items-center gap-2">
+                        @php
                         $warna = match(strtolower($aduan->prioritas)) {
                             'tinggi'  => 'bg-red-100 text-red-700',
                             'menengah' => 'bg-yellow-100 text-yellow-700',
@@ -50,10 +50,17 @@
                             default   => 'bg-gray-100 text-gray-700',
                         };
                     @endphp
-
+                    
+                    <span class="px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 text-gray-700">
+                        {{ $aduan->bersedia ?? '-' }}
+                    </span>
                     <span class="px-3 py-1 text-sm font-semibold rounded-full {{ $warna }}">
                         {{ $aduan->prioritas ?? '-' }}
                     </span>
+                    
+                    </div>
+                    
+                    
                 </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
