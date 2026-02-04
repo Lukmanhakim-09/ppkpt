@@ -82,6 +82,12 @@ Route::middleware('auth', 'role:satgas')->group(function () {
 });
 
 Route::get('/ahp', [AhpController::class, 'calculate']);
+Route::get('/download-pernyataan', function () {
+    return response()->download(
+        public_path('img/surat_pernyataan.pdf'),
+        'Surat_Pernyataan_Lapor_Aman_ITH.pdf'
+    );
+});
 
 
 

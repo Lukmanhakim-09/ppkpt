@@ -31,7 +31,7 @@
             <div class="text-gray-50">
                 <h1 class="font-bold tracking-widest text-4xl sm:text-5xl text-left">KONTAK</h1>
                 <h4 class="font-semibold tracking-widest text-lg sm:text-xl pt-8"><i class="fa-solid fa-phone"></i> 0895-7923-6768</h4>
-                <h4 class="font-semibold tracking-widest text-lg sm:text-xl pt-2"><i class="fa-solid fa-envelope"></i> satgash4pksith@gmail.com</h4>
+                <h4 class="font-semibold tracking-widest text-lg sm:text-xl pt-2"><i class="fa-solid fa-envelope"></i> satgas.ppks@ith.ac.id</h4>
                 <h4 class="font-semibold tracking-widest text-lg sm:text-xl pt-2"><i class="fa-brands fa-instagram"></i> ppkpt.ith</h4>
 
                 <form class="space-y-3 mt-6" action="{{ route('messages.store') }}" method="POST">

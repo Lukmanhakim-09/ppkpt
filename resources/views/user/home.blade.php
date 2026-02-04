@@ -142,7 +142,7 @@
                                                             @error('pernyataan_pelapor')
                                                                 <div class="text-red-500 font-semibold -mt-2">{{ $message }}</div>
                                                             @enderror
-                                                            <a href="#" class="italic underline text-[#008CFF] hover:text-[#005596] pl-20">Klik Unduh File Pernyataan</a>
+                                                            <a href="/download-pernyataan" download class="italic underline text-[#008CFF] hover:text-[#005596] pl-20">Klik Unduh File Pernyataan</a>
                                                             
                                                         </div>
                                                         <div class="flex flex-col gap-2">
