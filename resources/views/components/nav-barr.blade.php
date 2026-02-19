@@ -105,11 +105,29 @@
 
         <!-- Mobile Dropdown Menu -->
         <div x-show="isOpen" x-transition class="lg:hidden px-6 py-4 bg-white shadow-md space-y-2 rounded-lg" x-data="{ showDocuments: false }">
-          <!-- Navigasi Utama -->
-          <a @click="isOpen = false" href="#" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
-          <a @click="isOpen = false" href="#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
-          <a @click="isOpen = false" href="#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
         
+          @auth
+          @if(auth()->user()->role === 'admin')
+            <!-- Navigasi Utama -->
+          <a @click="isOpen = false" href="{{ route('admin.home') }}#beranda" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
+          <a @click="isOpen = false" href="{{ route('admin.home') }}#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
+          <a @click="isOpen = false" href="{{ route('admin.home') }}#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
+          @elseif(auth()->user()->role === 'satgas')
+          <!-- Navigasi Utama -->
+          <a @click="isOpen = false" href="{{ route('satgas.home') }}#beranda" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
+          <a @click="isOpen = false" href="{{ route('satgas.home') }}#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
+          <a @click="isOpen = false" href="{{ route('satgas.home') }}#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
+          @else
+          <a @click="isOpen = false" href="{{ route('user.home') }}#beranda" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
+          <a @click="isOpen = false" href="{{ route('user.home') }}#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
+          <a @click="isOpen = false" href="{{ route('user.home') }}#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
+          @endif
+          @else
+          <!-- Navigasi Utama -->
+          <a @click="isOpen = false" href="{{ route('home') }}#beranda" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label1 }}</a>
+          <a @click="isOpen = false" href="{{ route('home') }}#berita" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label2 }}</a>
+          <a @click="isOpen = false" href="{{ route('home') }}#tentang" class="block text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md">{{ $label3 }}</a>
+          @endauth
           <!-- Dropdown Dokumen -->
           <button @click="showDocuments = !showDocuments" class="w-full text-left text-base text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md flex items-center justify-between">
               Dokumen
