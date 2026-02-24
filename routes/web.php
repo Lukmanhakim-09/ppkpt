@@ -57,7 +57,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::delete('/admin/berita/kelolaberita/{id}', [AdminController::class, 'deleteBerita'])->name('admin.kelolaberita.delete');
     Route::post('/admin/berita/tambahberita', [AdminController::class, 'storeBerita'])->name('admin.kelolaberita.store');
     
-
+    Route::get('/admin/komentar', [AdminController::class, 'komentar'])->name('admin.komentar');
 });
 
 Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () { 

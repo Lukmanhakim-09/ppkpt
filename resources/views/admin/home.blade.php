@@ -50,7 +50,7 @@
               @endforelse
 
               @if($messages->count() > 3)
-              <a href="#" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md">Selengkapnya</a>
+              <a href="{{ route('admin.komentar') }}" class="bg-[#F08619] text-gray-50 text-center rounded-full w-[200px] py-2 text-lg tracking-wider flex items-center justify-center hover:bg-[#3B6BA2] font-medium text-md">Selengkapnya</a>
               @endif
               </div>
             </div>

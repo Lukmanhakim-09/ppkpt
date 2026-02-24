@@ -529,6 +529,12 @@ $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
         return redirect()->route('admin.kelolaformulir')->with('success', 'Aduan berhasil ditolak.');
     }
 
+    public function komentar()
+    {
+        $messages = Message::orderBy('id', 'desc')->get();
+        return view('admin.komentar', compact('messages'));
+    }
+
     public function decryptAduan(Request $request, $id)
     {
         
@@ -565,4 +571,5 @@ $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
             return response()->json(['status' => 'error', 'message' => 'Key salah atau gagal dekripsi']);
         }
     }
+
 }
