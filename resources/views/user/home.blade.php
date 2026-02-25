@@ -478,25 +478,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berpotensi" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('berpotensi') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Sangat berpotensi</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berpotensi" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berpotensi') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Berpotensi</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berpotensi" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berpotensi') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak berpotensi</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berpotensi" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berpotensi') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -506,25 +510,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_fisik" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_fisik') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Luka berat (membutuhkan perawatan medis intensif)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_fisik" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_fisik') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Luka ringan (tidak memerlukan perawatan intensif)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_fisik" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_fisik') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak ada luka fisik</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_fisik" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_fisik') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -534,25 +542,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_psikologis" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('dampak_psikologis') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Trauma berat (gangguan fungsi harian)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_psikologis" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_psikologis') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Gangguan psikologis sedang (stres/cemas)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_psikologis" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_psikologis') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak ada dampak psikologis</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="dampak_psikologis" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('dampak_psikologis') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -562,25 +574,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berulang" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('berulang') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Sudah sering terjadi (lebih dari 5 kali)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berulang" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berulang') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Beberapa kali terjadi (2-5 kali)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berulang" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berulang') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Baru pertama kali terjadi (1-2 kali)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="berulang" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('berulang') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -590,25 +606,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="hubungan_sosial" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('hubungan_sosial') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Gangguan hubungan yang parah (isolasi sosial total)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="hubungan_sosial" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('hubungan_sosial') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Gangguan hubungan yang sedang (isolasi sosial parah)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="hubungan_sosial" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('hubungan_sosial') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak ada gangguan hubungan sosial</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="hubungan_sosial" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('hubungan_sosial') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -618,25 +638,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="kinerja" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('kinerja') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Sangat mempengaruhi (absen panjang, penurunan signifikan)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="kinerja" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                     {{ old('kinerja') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Sedikit mempengaruhi (gangguan sementara)</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="kinerja" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                     {{ old('kinerja') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak ada pengaruh terhadap kinerja</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="kinerja" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                     {{ old('kinerja') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -646,25 +670,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="keseriusan" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                     {{ old('keseriusan') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Sangat serius</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="keseriusan" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                     {{ old('keseriusan') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Serius</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="keseriusan" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('keseriusan') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Ringan</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="keseriusan" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('keseriusan') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -674,25 +702,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="lingkungan" value="10" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('lingkungan') == '10' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Ya, terjadi di lingkungan langsung korban</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="lingkungan" value="7"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('lingkungan') == '7' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Ya, terjadi di lingkungan lain tetapi berhubungan dengan korban</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="lingkungan" value="4"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('lingkungan') == '4' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak terkait dengan lingkungan korban</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="lingkungan" value="1"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('lingkungan') == '1' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
@@ -702,25 +734,29 @@
                                                             <div class="space-y-0.5">
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="bersedia" value="Siap klarifikasi" 
-                                                                    class="w-5 h-5 text-[#F08619] bg-white ">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white "
+                                                                    {{ old('bersedia') == 'Siap klarifikasi' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Ya, sangat bersedia</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="bersedia" value="Perlu pendekatan bertahap"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('bersedia') == 'Perlu pendekatan bertahap' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Ya, tetapi ragu-ragu</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="bersedia" value="Fokus perlindungan korban"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('bersedia') == 'Fokus perlindungan korban' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak bersedia</span>
                                                                 </label>
 
                                                                 <label class="flex items-center space-x-3 cursor-pointer">
                                                                     <input type="radio" name="bersedia" value="Fokus perlindungan korban"
-                                                                    class="w-5 h-5 text-[#F08619] bg-white">
+                                                                    class="w-5 h-5 text-[#F08619] bg-white"
+                                                                    {{ old('bersedia') == 'Fokus perlindungan korban' ? 'checked' : '' }}>
                                                                     <span class="font-semibold">Tidak yakin</span>
                                                                 </label>
                                                             </div>
