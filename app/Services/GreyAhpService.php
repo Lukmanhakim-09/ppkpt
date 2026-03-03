@@ -106,75 +106,55 @@ class GreyAHPService
         return compact('CI', 'CR');
     }
 
-    /* ===============================
-     * 6. PIPELINE GREY AHP
-     * =============================== */
+
 /* ===============================
- * 6. PIPELINE GREY AHP (FIX MULTI RESPONDEN)
+ * 6. PIPELINE GREY AHP (SINGLE RESPONDENT)
  * =============================== */
-public function process(array $judgements, array $crispAHP): array
+public function process($crispAHP)
 {
-    // ============================
-    // STEP 1: AGREGASI CRISP RESPONDEN
-    // ============================
-
-    $responden = count($crispAHP);
-    $n = count($crispAHP[0]);
-
-    $crispCombined = [];
-
-    for ($i = 0; $i < $n; $i++)
-    {
-        for ($j = 0; $j < $n; $j++)
-        {
-            $sum = 0;
-
-            for ($r = 0; $r < $responden; $r++)
-            {
-                $sum += $crispAHP[$r][$i][$j];
-            }
-
-            $crispCombined[$i][$j] = $sum / $responden;
-        }
-    }
+    $n = count($crispAHP); // jumlah kriteria
 
     // ============================
-    // STEP 2: HITUNG CR DARI CRISP GABUNGAN
+    // STEP 1: HITUNG CRISP EIGENVECTOR & CONSISTENCY
     // ============================
-
-    $weights_crisp = $this->eigenvector($crispCombined);
-
-    $lambda = $this->lambdaMax($crispCombined, $weights_crisp);
-
+    $weights_crisp = $this->eigenvector($crispAHP);
+    $lambda = $this->lambdaMax($crispAHP, $weights_crisp);
     $consistency = $this->consistency($lambda, $n);
 
 
-    // ============================
-    // STEP 3: GREY AHP
-    // ============================
-
-    $grey = $this->aggregate($judgements);
-
-    $crispGrey = $this->defuzzify($grey);
-
-    $weights = $this->eigenvector($crispGrey);
-
-
-    // ============================
-    // STEP 4: NORMALISASI (AMAN)
-    // ============================
-
-    $sumWeights = array_sum($weights);
-
-    foreach ($weights as &$w)
-        $w /= $sumWeights;
 
     return [
-        'weights' => $weights,
+        // 'weights' => $weights,
         'lambda_max' => $lambda,
         'CI' => $consistency['CI'],
         'CR' => $consistency['CR'],
     ];
+}
+
+public function processGrey(array $judgements): array
+{
+    if (empty($judgements)) {
+        return ['weights' => []]; // aman kalau kosong
+    }
+
+    // Agregasi geometric mean
+    $grey = $this->aggregate($judgements);
+
+    // Defuzzifikasi
+    $crispGrey = $this->defuzzify($grey);
+
+    // Hitung eigenvector
+    $weights = $this->eigenvector($crispGrey);
+
+    // Normalisasi
+    $sumWeights = array_sum($weights);
+    if ($sumWeights > 0) {
+        foreach ($weights as &$w) {
+            $w /= $sumWeights;
+        }
+    }
+
+    return ['weights' => $weights];
 }
 
 
