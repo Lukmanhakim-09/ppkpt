@@ -29,11 +29,10 @@
                     </h5>
                 </div>
                 <div class="overflow-x-auto rounded-lg shadow-md mx-6">
-                {{-- Container utama --}}
 
 
                 {{-- Card utama --}}
-                <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="bg-white h-auto rounded-2xl shadow-lg p-6 ">
 
                     {{-- Table --}}
                     @if($messages->count() > 0)

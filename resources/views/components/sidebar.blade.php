@@ -91,6 +91,15 @@
                 <h5 class="font-semibold">Kelola Berita</h5>
                 </a>
 
+                <a href="/admin/arsip" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'arsip' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+                <i class="fa-solid fa-box-archive"></i>
+                <h5 class="font-semibold">Arsip</h5>
+                </a>
+                <a href="/admin/komentar" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#D67F28] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'komentar' ? 'bg-[#D67F28] rounded-lg px-2 py-1' : '' }}">
+                    <i class="fa-solid fa-comments"></i>
+                    <h5 class="font-semibold">Komentar</h5>
+                </a>
+
                 <a href="/logout" class="flex items-center gap-2 text-[#F08619] bg-gray-50 my-6 rounded-lg px-4 py-1 {{ $active === 'keluar' ? 'bg-[#D67F28]' : '' }}">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <h5 class="font-semibold">Keluar</h5>

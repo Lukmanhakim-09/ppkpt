@@ -18,6 +18,10 @@
                 <i class="fa-solid fa-square-check"></i>
                 <h5 class="font-semibold">Laporan Selesai</h5>
             </a>
+            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 transition-colors duration-200 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
+                <i class="fa-solid fa-newspaper"></i>
+                <h5 class="font-semibold">Berita</h5>
+            </a>
 
         </div>
         <div x-data="{ sidebar: false }">
@@ -61,7 +65,7 @@
                 <i class="fa-solid fa-house"></i>
                 <h5 class="font-semibold">Beranda</h5>
                 </a>
-                <a href="#"class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'laporan-masuk' ? 'bg-[#0a5a8c]' : '' }}">
+                <a href="{{ route ('satgas.laporanmasuk') }}"class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'laporan-masuk' ? 'bg-[#0a5a8c]' : '' }}">
                     <i class="fa-solid fa-file"></i>
                 <h5 class="font-semibold">Laporan Masuk</h5>
                 </a>
@@ -72,6 +76,10 @@
                 <a href="{{ route('satgas.laporanselesai') }}" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'laporan-selesai' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-square-check"></i>
                 <h5 class="font-semibold">Laporan Selesai</h5>
+                </a>
+                <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
+                <i class="fa-solid fa-newspaper"></i>
+                <h5 class="font-semibold">Berita</h5>
                 </a>
                
                 <a href="/logout" class="flex items-center gap-2 text-[#0970A5] bg-gray-50 my-6 rounded-lg px-4 py-1 {{ $active === 'keluar' ? 'bg-[#0a5a8c]' : '' }}">
