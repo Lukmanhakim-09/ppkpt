@@ -16,7 +16,10 @@
 @if(isset($CR))
     @if($CR < 0.1)
         <div class="success">
-            <strong>Uji Konsistensi:</strong> CR = {{ number_format($CR,4) }} (Konsisten)
+            <strong>Uji Konsistensi:</strong> 
+            <br> CR = {{ number_format($CR,4) }} (Konsisten)
+            <br> CI = {{ number_format($CI,4) }}
+            <br> Lambda Max = {{ number_format($lambda_max,4) }}
         </div>
     @else
         <div class="warning">

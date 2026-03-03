@@ -572,4 +572,39 @@ $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
         }
     }
 
+    public function arsip()
+    {
+        $aduans = Aduan::orderBy('created_at', 'desc')->get();
+        return view('admin.arsip', compact('aduans'));
+    }
+    
+    public function detailaduan($id)
+    {
+        $aduan = Aduan::findOrFail($id);
+        $status = Status::where('aduan_id', $id)->first();
+        $key = 'PPKPTith';
+        $aduan->lokasi = AesHelper::decrypt($aduan->lokasi, $key);
+        $aduan->nama_pelapor = AesHelper::decrypt($aduan->nama_pelapor, $key);
+        $aduan->alamat_pelapor = AesHelper::decrypt($aduan->alamat_pelapor, $key);
+        $aduan->email_pelapor = AesHelper::decrypt($aduan->email_pelapor, $key);
+        $aduan->phone_pelapor = AesHelper::decrypt($aduan->phone_pelapor, $key);
+        $aduan->nama_korban = AesHelper::decrypt($aduan->nama_korban, $key);
+        $aduan->alamat_korban = AesHelper::decrypt($aduan->alamat_korban, $key);
+        $aduan->phone_korban = AesHelper::decrypt($aduan->phone_korban, $key);
+        $aduan->status_korban = AesHelper::decrypt($aduan->status_korban, $key);
+        $aduan->jenis_kelamin_korban = AesHelper::decrypt($aduan->jenis_kelamin_korban, $key);
+        $aduan->nama_terlapor = AesHelper::decrypt($aduan->nama_terlapor, $key);
+        $aduan->alamat_terlapor = AesHelper::decrypt($aduan->alamat_terlapor, $key);
+        $aduan->phone_terlapor = AesHelper::decrypt($aduan->phone_terlapor, $key);
+        $aduan->status_terlapor = AesHelper::decrypt($aduan->status_terlapor, $key);
+        $aduan->karakteristik_terlapor = AesHelper::decrypt($aduan->karakteristik_terlapor, $key);
+        $aduan->jenis_kelamin_terlapor = AesHelper::decrypt($aduan->jenis_kelamin_terlapor, $key);
+        $aduan->chronology = AesHelper::decrypt($aduan->chronology, $key);
+        $aduan->warning = AesHelper::decrypt($aduan->warning, $key);
+        $aduan->warning_detail = AesHelper::decrypt($aduan->warning_detail, $key);
+        $aduan->bersedia = AesHelper::decrypt($aduan->bersedia, $key);
+
+        return view('admin.detailaduan', compact('aduan', 'status'));
+    }
+
 }

@@ -321,7 +321,7 @@
                                                             @enderror
                                                         </div>
                                                         <div class="flex flex-col gap-2">
-                                                            <label class="font-semibold" for="">Karakteristik <span class="text-[#F08619]">*</span></label>
+                                                            <label class="font-semibold" for="">Karakteristik Fisik<span class="text-[#F08619]">*</span></label>
                                                             <textarea name="karakteristik_terlapor" id="karakteristik_terlapor"
                                                             class="lg:w-[500px] h-[100px] rounded-lg bg-white px-5 py-2 text-base border @error('karakteristik_terlapor') border-red-500 @else border-gray-300 @enderror focus:outline-none focus:ring-2 focus:ring-[#F08619] resize-none">{{ old('karakteristik_terlapor') }}</textarea>
                                                             @error('karakteristik_terlapor')

@@ -58,6 +58,8 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::post('/admin/berita/tambahberita', [AdminController::class, 'storeBerita'])->name('admin.kelolaberita.store');
     
     Route::get('/admin/komentar', [AdminController::class, 'komentar'])->name('admin.komentar');
+    Route::get('/admin/arsip', [AdminController::class, 'arsip'])->name('admin.arsip');
+    Route::get('/admin/detailaduan/{id}', [AdminController::class, 'detailaduan'])->name('admin.detailaduan');
 });
 
 Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () { 
@@ -89,6 +91,9 @@ Route::get('/download-pernyataan', function () {
     );
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
 
 
 
