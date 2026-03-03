@@ -57,7 +57,7 @@ class SatgasController extends Controller
 
     public function detaillaporan($id)
     {
-        $aduan = Aduan::findOrFail($id);
+        $aduan = Aduan::where('kode_aduan', $id)->firstOrFail();
         $key = 'PPKPTith';
         $aduan->lokasi = AesHelper::decrypt($aduan->lokasi, $key);
         $aduan->nama_pelapor = AesHelper::decrypt($aduan->nama_pelapor, $key);
@@ -252,7 +252,7 @@ class SatgasController extends Controller
         return view('satgas.laporanselesai', compact('aduans'));
     }
 
-    public function semualaporan()
+    public function laporanmasuk()
     {
         $aduans = Aduan::whereHas('statuses', function ($query) {
             $query->where('label2', 'Diteruskan Ke Satgas')
@@ -269,6 +269,6 @@ class SatgasController extends Controller
             $aduan->chronology = AesHelper::decrypt($aduan->chronology, $key);
         }
 
-        return view('satgas.semualaporan', compact('aduans'));
+        return view('satgas.laporanmasuk', compact('aduans'));
     }
 }

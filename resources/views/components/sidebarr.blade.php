@@ -6,6 +6,10 @@
                 <i class="fa-solid fa-house"></i>
                 <h5 class="font-semibold">Beranda</h5>
             </a>
+            <a href="{{ route ('satgas.laporanmasuk') }}" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 transition-colors duration-200 {{ $active === 'laporan-masuk' ? 'bg-[#0a5a8c]' : '' }}">
+                <i class="fa-solid fa-file-arrow-down"></i>
+                <h5 class="font-semibold">Laporan Masuk</h5>
+                </a>
             <a href="{{ route('satgas.laporanditangani') }}" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 transition-colors duration-200 {{ $active === 'laporan-ditangani' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-folder-open"></i>
                 <h5 class="font-semibold">Laporan Ditangani</h5>
@@ -56,6 +60,10 @@
                 <a href="{{ route('satgas.home') }}" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'beranda' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-house"></i>
                 <h5 class="font-semibold">Beranda</h5>
+                </a>
+                <a href="#"class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'laporan-masuk' ? 'bg-[#0a5a8c]' : '' }}">
+                    <i class="fa-solid fa-file"></i>
+                <h5 class="font-semibold">Laporan Masuk</h5>
                 </a>
                 <a href="{{ route('satgas.laporanditangani') }}" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'laporan-ditangani' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-folder-open"></i>

@@ -72,6 +72,7 @@ Route::middleware('auth', 'role:satgas')->group(function () {
     Route::get('/satgas', [SatgasController::class, 'berita'])->name('satgas.home');
     Route::get('/satgas/investigasi/{id}', [SatgasController::class, 'investigasi'])->name('satgas.investigasi');
     
+    Route::get('/satgas/laporanmasuk', [SatgasController::class, 'laporanmasuk'])->name('satgas.laporanmasuk');
     Route::get('/satgas/laporanditangani', [SatgasController::class, 'laporanditangani'])->name('satgas.laporanditangani');
     Route::get('/satgas/detaillaporan/{id}', [SatgasController::class, 'detaillaporan'])->name('satgas.detaillaporan');
     Route::post('/satgas/terimaaduan/{id}', [SatgasController::class, 'terimaaduan'])->name('satgas.terimaaduan');
@@ -80,7 +81,7 @@ Route::middleware('auth', 'role:satgas')->group(function () {
 
     Route::get('/satgas/laporanselesai', [SatgasController::class, 'laporanselesai'])->name('satgas.laporanselesai');
 
-    Route::get('/satgas/semualaporan', [SatgasController::class, 'semualaporan'])->name('satgas.semualaporan');
+    // Route::get('/satgas/semualaporan', [SatgasController::class, 'semualaporan'])->name('satgas.semualaporan');
 });
 
 Route::get('/ahp', [AhpController::class, 'calculate']);
