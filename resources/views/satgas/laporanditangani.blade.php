@@ -93,12 +93,17 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr id="noResultsRow">
+                            <tr>
                                 <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
                                     Belum ada laporan yang sedang ditangani
                                 </td>
                             </tr>
                         @endforelse
+                        <tr id="noResultsRow" style="display: none;">
+                            <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
+                                Laporan tidak ditemukan
+                            </td>
+                        </tr>
                     </tbody>
 
                     

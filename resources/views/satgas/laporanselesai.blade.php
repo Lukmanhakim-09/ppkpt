@@ -50,32 +50,14 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     @forelse ($aduans as $index => $aduan)
-                        <tr class="hover:bg-gray-50 transition">
+                        <tr class="hover:bg-gray-50 transition aduanRow">
+                            <td class="px-6 py-4">{{ $index + 1 }}</td>
+                            <td class="px-6 py-4 font-semibold text-gray-800 kodeAduan">{{ $aduan->kode_aduan ?? '-' }}</td>
+                            <td class="px-6 py-4">{{ $aduan->category ?? '-' }}</td>
+                            <td class="px-6 py-4">{{ $aduan->created_at->format('d M Y') }}</td>
+                            <td class="px-6 py-4">{{ $aduan->statuses->last()->label4 ?? '-' }}</td>
                             <td class="px-6 py-4">
-                                {{ $index + 1 }}
-                            </td>
-
-                            <td class="px-6 py-4 font-semibold text-gray-800">
-                                {{ $aduan->kode_aduan }}
-                            </td>
-
-                            <td class="px-6 py-4">
-                                {{ $aduan->category }}
-                            </td>
-
-                            <td class="px-6 py-4">
-                                {{ $aduan->created_at->format('d M Y') }}
-                            </td>
-
-                            <td class="px-6 py-4">
-                                {{ $aduan->statuses->last()->label4 }}
-                            </td>
-
-
-                            <td class="px-6 py-4">
-                                <a href="{{ route('satgas.detailinvestigasi', $aduan->kode_aduan) }}"
-                                class="inline-flex items-center px-4 py-2 text-sm font-medium
-                                        text-white bg-[#0970A5] rounded-lg hover:bg-[#065a84] transition">
+                                <a href="{{ route('satgas.detailinvestigasi', $aduan->kode_aduan) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#0970A5] rounded-lg hover:bg-[#065a84] transition">
                                     Detail
                                 </a>
                             </td>
@@ -83,10 +65,15 @@
                     @empty
                         <tr>
                             <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
-                                Belum ada laporan yang sedang ditangani
+                                Belum ada laporan yang sedang selesai
                             </td>
                         </tr>
                     @endforelse
+                    <tr id="noResultsRow" style="display: none;">
+                            <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
+                                Laporan tidak ditemukan
+                            </td>
+                        </tr>
                 </tbody>
 
                     
@@ -95,5 +82,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+const searchInput = document.getElementById('searchInput');
+const rows = document.querySelectorAll('.aduanRow');
+const noResultsRow = document.getElementById('noResultsRow');
+
+function filterAduans() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    let found = false;
+
+    rows.forEach(row => {
+        const kodeAduan = row.querySelector('.kodeAduan').textContent.trim().toLowerCase();
+        
+        const matchesSearch = searchTerm === '' || kodeAduan.includes(searchTerm);
+
+        if (matchesSearch) {
+            row.style.display = '';
+            found = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    noResultsRow.style.display = found ? 'none' : '';
+}
+
+searchInput.addEventListener('input', filterAduans);
+</script>
 </body>
 </html>

@@ -21,7 +21,7 @@
                         LAPORAN MASUK
                     </h5>
 
-                                        <!-- Controls -->
+                    <!-- Controls -->
                     <div class="flex flex-col md:flex-row gap-1 mt-6 items-center">
                         <!-- Pencarian -->
                         <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white shadow-sm w-full md:w-auto">
@@ -90,13 +90,17 @@
                                 </td>
                             </tr>
                         @empty
-
-                            <tr id="noResultsRow">
-                                <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
-                                    Belum ada laporan yang masuk
-                                </td>
-                            </tr>
-                        @endforelse
+                        <tr>
+                            <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
+                                Belum ada laporan yang sedang selesai
+                            </td>
+                        </tr>
+                    @endforelse
+                    <tr id="noResultsRow" style="display: none;">
+                            <td colspan="6" class="px-6 py-6 text-center text-gray-500 italic">
+                                Laporan tidak ditemukan
+                            </td>
+                        </tr>
                     </tbody>
 
                     
@@ -106,5 +110,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+const rows = document.querySelectorAll('.aduanRow');
+const noResultsRow = document.getElementById('noResultsRow');
+
+function filterAduans() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    let found = false;
+
+    rows.forEach(row => {
+        const kodeAduan = row.querySelector('.kodeAduan').textContent.trim().toLowerCase();
+        
+        const matchesSearch = searchTerm === '' || kodeAduan.includes(searchTerm);
+
+        if (matchesSearch) {
+            row.style.display = '';
+            found = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    noResultsRow.style.display = found ? 'none' : '';
+}
+
+searchInput.addEventListener('input', filterAduans);
+</script>
+    </script>
 </body>
 </html>
