@@ -69,7 +69,7 @@ Route::middleware('auth', 'role:pelapor', 'checkStatus')->group(function () {
 });
 
 Route::middleware('auth', 'role:satgas')->group(function () {
-    Route::get('/satgas', [SatgasController::class, 'berita'])->name('satgas.home');
+    Route::get('/satgas', [SatgasController::class, 'home'])->name('satgas.home');
     Route::get('/satgas/investigasi/{id}', [SatgasController::class, 'investigasi'])->name('satgas.investigasi');
     
     Route::get('/satgas/laporanmasuk', [SatgasController::class, 'laporanmasuk'])->name('satgas.laporanmasuk');

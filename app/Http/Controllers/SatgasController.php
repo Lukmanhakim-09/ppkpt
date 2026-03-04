@@ -15,6 +15,11 @@ use App\Helpers\AesHelper;
 
 class SatgasController extends Controller
 {
+    public function home()
+    {
+        return view('satgas.home');
+    }
+    
     public function berita()
     {
         $beritas = Berita::where('status', 'publish')
