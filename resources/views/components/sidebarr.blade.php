@@ -18,7 +18,7 @@
                 <i class="fa-solid fa-square-check"></i>
                 <h5 class="font-semibold">Laporan Selesai</h5>
             </a>
-            <a href="#" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 transition-colors duration-200 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
+            <a href="{{ route('satgas.berita') }}" class="flex items-center my-1 mb-2 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 transition-colors duration-200 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Berita</h5>
             </a>
@@ -77,7 +77,7 @@
                 <i class="fa-solid fa-square-check"></i>
                 <h5 class="font-semibold">Laporan Selesai</h5>
                 </a>
-                <a href="#" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
+                <a href="{{ route('satgas.berita') }}" class="flex items-center my-1 gap-2 text-gray-50 hover:bg-[#0a5a8c] rounded-lg px-2 py-1 hover:mx-2 {{ $active === 'berita' ? 'bg-[#0a5a8c]' : '' }}">
                 <i class="fa-solid fa-newspaper"></i>
                 <h5 class="font-semibold">Berita</h5>
                 </a>

@@ -80,6 +80,8 @@ Route::middleware('auth', 'role:satgas')->group(function () {
     Route::get('/satgas/detailinvestigasi/{kode_aduan}', [SatgasController::class, 'detailinvestigasi'])->name('satgas.detailinvestigasi');
 
     Route::get('/satgas/laporanselesai', [SatgasController::class, 'laporanselesai'])->name('satgas.laporanselesai');
+    Route::get('/satgas/berita', [SatgasController::class, 'berita'])->name('satgas.berita');
+    Route::get('/satgas/berita/{id}', [SatgasController::class, 'beritaDetail'])->name('satgas.beritaDetail');
 });
 
 Route::get('/ahp', [AhpController::class, 'calculate']);
@@ -90,9 +92,6 @@ Route::get('/download-pernyataan', function () {
     );
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
 
 
 

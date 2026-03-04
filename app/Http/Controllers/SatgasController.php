@@ -21,22 +21,14 @@ class SatgasController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        $aduans = Aduan::whereHas('statuses', function ($query) {
-            $query->where('label2', 'Diteruskan Ke Satgas')
-                  ->where(function ($q) {
-                      $q->whereNull('label3')
-                        ->orWhere('label3', '');
-                  });
-        })
-        ->orderBy('peringkat', 'asc')
-        ->get();
 
-        $key = 'PPKPTith';
-        foreach ($aduans as $aduan) {
-            $aduan->chronology = AesHelper::decrypt($aduan->chronology, $key);
-        }
+        return view('satgas.berita', compact('beritas'));
+    }
 
-        return view('satgas.home', compact('beritas', 'aduans'));
+    public function beritaDetail($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('satgas.selengkapnya', compact('berita'));
     }
 
     public function laporanditangani()
@@ -271,4 +263,6 @@ class SatgasController extends Controller
 
         return view('satgas.laporanmasuk', compact('aduans'));
     }
+
+  
 }
