@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\AesHelper;
+use App\Helpers\UrutanHelper;
 use App\Models\User;
 use App\Models\Berita;
 use App\Models\Aduan;
@@ -398,7 +399,7 @@ class AdminController extends Controller
             ]);
         }
 
-        $bobot = Bobot::first(); // karena cuma 1 baris
+        $bobot = Bobot::first(); 
 
         $w = [
             $bobot->c1,
@@ -476,26 +477,16 @@ $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
 
         $total = count($ranking);
 
-        $tinggi  = ceil($total * 0.33);
-        $menengah = ceil($total * 0.66);
-
         $i = 1;
-        foreach ($ranking as $index => $score) {
 
-            if ($i <= $tinggi) {
-                $kategori = 'Tinggi';
-            } elseif ($i <= $menengah) {
-                $kategori = 'Menengah';
-            } else {
-                $kategori = 'Rendah';
-            }
+        foreach ($ranking as $index => $score) {
 
             $aduanId = $map[$index];
 
             Aduan::where('id', $aduanId)->update([
                 'nilai'     => round($score, 4),
                 'peringkat' => $i,
-                'prioritas'  => $kategori,
+                'prioritas' => angkaKeUrutan($i), // ⬅ ini yang diganti
             ]);
 
             $i++;

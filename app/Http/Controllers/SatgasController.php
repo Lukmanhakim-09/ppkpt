@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use App\Models\Aduan;
 use App\Models\Status;
+use App\Models\Bobot;
+use App\Models\Alternatif;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Helpers\AesHelper;
+use App\Services\MARCOSService;
+
 
 
 
@@ -98,6 +102,102 @@ class SatgasController extends Controller
                 'diterima_oleh' => $userId
             ]);
         }
+
+        $bobot = Bobot::first(); 
+
+        $w = [
+            $bobot->c1,
+            $bobot->c2,
+            $bobot->c3,
+            $bobot->c4,
+            $bobot->c5,
+            $bobot->c6,
+        ];
+
+        $alternatifs = Alternatif::with(['aduan.lastStatus'])
+    ->where('aduan_id', '!=', $id) // ⬅ aduan yang diterima tidak ikut dihitung
+    ->whereHas('aduan.lastStatus', function ($q) {
+        $q->where('label2', 'Diteruskan Ke Satgas')
+        ->where(function ($qq) {
+            $qq->whereNull('label4')
+                ->orWhere('label4', '!=', 'Laporan Selesai');
+        });
+    })
+    ->orderBy('aduan_id')
+    ->get();
+
+
+        $L = [];
+        $map = [];   // index MARCOS → aduan_id
+
+        foreach ($alternatifs as $i => $alt) {
+            $L[] = [
+                $alt->kriteria1,
+                $alt->kriteria2,
+                $alt->kriteria3,
+                $alt->kriteria4,
+                $alt->kriteria5,
+                $alt->kriteria6,
+            ];
+
+            $map[$i] = $alt->aduan_id;
+        }
+
+        
+        $type = [
+        'cost',    // C1
+        'benefit', // C2
+        'benefit', // C3
+        'benefit', // C4
+        'benefit', // C5
+        'benefit', // C6
+        ];
+
+$type = array_values($type);
+$w    = array_values($w);
+$L    = array_values($L);
+
+$marcos = new MARCOSService();
+
+// Step 2
+[$AI, $AAI] = $marcos->idealAntiIdeal($L, $type);
+
+// Step 3 — Extended matrix
+$L_ext = array_merge([$AAI], $L, [$AI]);
+
+// Step 4
+$N  = $marcos->normalisasi($L_ext, $AI, $type);
+$WN = $marcos->normalisasiBerbobot($N, $w);
+
+// Step 5
+$S_all = $marcos->nilaiKegunaan($WN);
+
+// Step 6
+[$Cplus, $Cminus] = $marcos->derajatKegunaan($S_all, count($L));
+
+// Step 7
+$ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
+
+// Selanjutnya proses ranking dan update data seperti yang sudah kamu lakukan sebelumnya.
+
+        $total = count($ranking);
+
+        $i = 1;
+
+        foreach ($ranking as $index => $score) {
+
+            $aduanId = $map[$index];
+
+            Aduan::where('id', $aduanId)->update([
+                'nilai'     => round($score, 4),
+                'peringkat' => $i,
+                'prioritas' => angkaKeUrutan($i), // ⬅ ini yang diganti
+            ]);
+
+            $i++;
+        }
+
+
         
         return redirect()->route('satgas.laporanditangani')->with('success', 'Aduan berhasil diterima dan sedang dalam proses investigasi lapangan');
     }

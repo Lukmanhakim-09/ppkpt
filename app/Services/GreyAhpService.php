@@ -48,26 +48,43 @@ class GreyAHPService
     /* ===============================
      * 3. HITUNG EIGENVECTOR
      * =============================== */
-    public function eigenvector(array $matrix, int $iter = 1000): array
-    {
-        $n = count($matrix);
-        $w = array_fill(0, $n, 1 / $n);
+public function eigenvectorUntilStable(array $matrix, float $tolerance = 0.0001, int $maxIter = 1000): array
+{
+    $n = count($matrix);
+    $w = array_fill(0, $n, 1);
+    $history = [];
 
-        for ($k = 0; $k < $iter; $k++) {
-            $new = array_fill(0, $n, 0);
-            for ($i = 0; $i < $n; $i++) {
-                for ($j = 0; $j < $n; $j++) {
-                    $new[$i] += $matrix[$i][$j] * $w[$j];
-                }
+    for ($k = 0; $k < $maxIter; $k++) {
+        $new = array_fill(0, $n, 0);
+
+        for ($i = 0; $i < $n; $i++) {
+            for ($j = 0; $j < $n; $j++) {
+                $new[$i] += $matrix[$i][$j] * $w[$j];
             }
-            $sum = array_sum($new);
-            for ($i = 0; $i < $n; $i++) {
-                $new[$i] /= $sum;
-            }
-            $w = $new;
         }
-        return $w;
+
+        $sum = array_sum($new);
+        for ($i = 0; $i < $n; $i++) {
+            $new[$i] /= $sum;
+        }
+
+        $history[] = $new;
+
+        // cek konvergensi
+        $diff = 0;
+        for ($i = 0; $i < $n; $i++) {
+            $diff += abs($new[$i] - $w[$i]);
+        }
+
+        if ($diff < $tolerance) {
+            break;
+        }
+
+        $w = $new;
     }
+
+    return $history;
+}
 
     /* ===============================
      * 4. LAMBDA MAX
@@ -110,21 +127,23 @@ class GreyAHPService
 /* ===============================
  * 6. PIPELINE GREY AHP (SINGLE RESPONDENT)
  * =============================== */
-public function process($crispAHP)
+public function process(array $crispAHP, float $tolerance = 0.0001, int $maxIter = 1000): array
 {
-    $n = count($crispAHP); // jumlah kriteria
+    $n = count($crispAHP);
 
-    // ============================
-    // STEP 1: HITUNG CRISP EIGENVECTOR & CONSISTENCY
-    // ============================
-    $weights_crisp = $this->eigenvector($crispAHP);
+    // hitung eigenvector sampai stabil
+    $weights_history = $this->eigenvectorUntilStable($crispAHP, $tolerance, $maxIter);
+
+    // ambil vektor terakhir sebagai bobot akhir
+    $weights_crisp = end($weights_history);
+
+    // hitung lambda max & konsistensi
     $lambda = $this->lambdaMax($crispAHP, $weights_crisp);
     $consistency = $this->consistency($lambda, $n);
 
-
-
     return [
-        // 'weights' => $weights,
+        'weights_history' => $weights_history,
+        'weights_crisp' => $weights_crisp,
         'lambda_max' => $lambda,
         'CI' => $consistency['CI'],
         'CR' => $consistency['CR'],
@@ -134,7 +153,12 @@ public function process($crispAHP)
 public function processGrey(array $judgements): array
 {
     if (empty($judgements)) {
-        return ['weights' => []]; // aman kalau kosong
+        return [
+            'aggregated' => [],
+            'defuzzified' => [],
+            'eigenvector' => [],
+            'weights' => []
+        ]; // aman kalau kosong
     }
 
     // Agregasi geometric mean
@@ -143,18 +167,28 @@ public function processGrey(array $judgements): array
     // Defuzzifikasi
     $crispGrey = $this->defuzzify($grey);
 
-    // Hitung eigenvector
-    $weights = $this->eigenvector($crispGrey);
+    //Eigenvector sampai stabil
+    $eigenHistory = $this->eigenvectorUntilStable($crispGrey);
 
-    // Normalisasi
-    $sumWeights = array_sum($weights);
+    // Ambil iterasi terakhir (stabil)
+    $finalEigen = end($eigenHistory);
+
+    // 4️⃣ Normalisasi akhir (aman)
+    $sumWeights = array_sum($finalEigen);
+    $weights = [];
+
     if ($sumWeights > 0) {
-        foreach ($weights as &$w) {
-            $w /= $sumWeights;
+        foreach ($finalEigen as $w) {
+            $weights[] = $w / $sumWeights;
         }
     }
 
-    return ['weights' => $weights];
+    return [
+        'aggregated'   => $grey,
+        'defuzzified'  => $crispGrey,
+        'eigenvector'  => $eigenHistory,
+        'weights'      => $weights
+    ];
 }
 
 

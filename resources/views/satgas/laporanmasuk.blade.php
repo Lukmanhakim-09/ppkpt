@@ -14,7 +14,7 @@
     <div class="flex mt-31">
         <div class="h-screen w-[300px] bg-[#0970A5] px-4 py-15 shadow-lg rounded-lg lg:block hidden">
             <x-sidebarr :active="'laporan-masuk'"></x-sidebarr>
-            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] h-screen p-5 overflow-y-auto">
+            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] lg:md:h-[calc(100vh-120px) p-5 overflow-y-auto">
                 <div class="px-6 py-4">
                     <!-- Judul -->
                     <h5 class="font-bold tracking-widest bg-[#0970A5] text-gray-50 text-center rounded-xl w-full py-3 text-xl flex items-center justify-center shadow-md">
@@ -32,6 +32,10 @@
                                 class="outline-none w-full"
                                 id="searchInput">
                         </div>
+                        <a href="{{ route('satgas.perhitungan') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium
+                                            text-white bg-[#0970A5] rounded-lg hover:bg-[#065a84] transition">
+                            Detail Perhitungan SPK
+                        </a>
 
                     </div>
                 </div>
@@ -59,7 +63,7 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    {{ $aduan->category }}
+                                    {{  ucfirst($aduan->category) }}
                                 </td>
 
                                 <td class="px-6 py-4">
@@ -73,8 +77,26 @@
                                         : null;
                                 @endphp
 
+                                @php
+                                    $total = $aduans->count();
+                                    $ratio = 1 - (($aduan->peringkat - 1) / max($total - 1, 1));
+                                    // rank 1 = 1
+                                    // rank terakhir = 0
+
+                                    // RGB merah ke hijau
+                                    $red   = intval(239 * $ratio);              // dari 239 → 0
+                                    $green = intval(68 + (150 * (1 - $ratio))); // dari 68 → 218
+                                    $blue  = 68;                                
+
+                                    $bgColor = "rgb($red, $green, $blue)";
+                                @endphp
+
                                 <td class="px-6 py-4">
-                                    {{ $aduan->prioritas ?? '-' }}
+                                    <span 
+                                        class="px-4 py-1.5 rounded-xl text-white font-medium"
+                                        style="background-color: {{ $bgColor }};">
+                                        {{ ucfirst($aduan->prioritas) ?? '-' }}
+                                    </span>
                                 </td>
 
                                 <td class="px-6 py-4">

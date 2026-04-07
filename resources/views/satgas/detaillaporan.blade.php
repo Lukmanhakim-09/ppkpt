@@ -35,23 +35,30 @@
                                 Informasi Aduan
                             </h2>
                             <div class="flex items-center gap-2">
-                                @php
-                        $warna = match(strtolower($aduan->prioritas)) {
-                                'tinggi'  => 'bg-red-100 text-red-700',
-                                'menengah' => 'bg-yellow-100 text-yellow-700',
-                                'sedang'  => 'bg-yellow-100 text-yellow-700',
-                                'rendah'  => 'bg-green-100 text-green-700',
-                                default   => 'bg-gray-100 text-gray-700',
-                            };
-                        @endphp
-                    
-                    <span class="px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 text-gray-700">
-                        {{ $aduan->bersedia ?? '-' }}
-                    </span>
-                    <span class="px-3 py-1 text-sm font-semibold rounded-full {{ $warna }}">
-                        {{ $aduan->prioritas ?? '-' }}
-                    </span>
-                            </div>
+    @php
+        $total = $aduan->count();
+
+        // hitung rasio ranking
+        $ratio = 1 - (($aduan->peringkat - 1) / max($total - 1, 1));
+
+        // warna merah ke hijau (lebih enak dilihat)
+        $red   = intval(200 * $ratio);
+        $green = intval(90 + (130 * (1 - $ratio)));
+        $blue  = 80;
+
+        $warna = "background-color: rgb($red, $green, $blue); color: white;";
+    @endphp
+
+    <span class="px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 text-gray-700">
+        {{ $aduan->bersedia ?? '-' }}
+    </span>
+
+    <span 
+        class="px-3 py-1 text-sm font-semibold rounded-full"
+        style="{{ $warna }}">
+        {{ ucfirst($aduan->prioritas) ?? '-' }}
+    </span>
+</div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">

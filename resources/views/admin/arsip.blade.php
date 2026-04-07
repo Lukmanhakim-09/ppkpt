@@ -21,7 +21,7 @@
             <x-sidebar :active="'arsip'"></x-sidebar>
 
             <!-- Wrapper kanan -->
-            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] h-screen p-2 overflow-y-auto">
+            <div class="bg-[#E0DEDE] rounded-lg shadow-lg lg:mx-4 mx-2 w-[100%] lg:md:h-[calc(100vh-120px)] p-2 overflow-y-auto">
                 <div class="px-6 py-4">
                     <!-- Judul -->
                     <h5 class="font-bold tracking-widest bg-[#3B6BA2] text-gray-50 text-center rounded-xl w-full py-3 text-xl flex items-center justify-center shadow-md">
