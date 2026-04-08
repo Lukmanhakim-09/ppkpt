@@ -526,42 +526,59 @@ $ranking = $marcos->fungsiKegunaan($Cplus, $Cminus);
         return view('admin.komentar', compact('messages'));
     }
 
-    public function decryptAduan(Request $request, $id)
-    {
-        
-        $aduan = Aduan::findOrFail($id);
+public function decryptAduan(Request $request, $id)
+{
+    $start = microtime(true); // ⏱️ mulai hitung waktu
 
-        try {
-            $key = $request->input('key');
+    $aduan = Aduan::findOrFail($id);
 
-            $decrypted = [
-                'nama_pelapor' => AesHelper::decrypt($aduan->nama_pelapor, $key),
-                'alamat_pelapor' => AesHelper::decrypt($aduan->alamat_pelapor, $key),
-                'email_pelapor' => AesHelper::decrypt($aduan->email_pelapor, $key),
-                'phone_pelapor' => AesHelper::decrypt($aduan->phone_pelapor, $key),
-                'nama_korban' => AesHelper::decrypt($aduan->nama_korban, $key),
-                'alamat_korban' => AesHelper::decrypt($aduan->alamat_korban, $key),
-                'phone_korban' => AesHelper::decrypt($aduan->phone_korban, $key),
-                'nama_terlapor' => AesHelper::decrypt($aduan->nama_terlapor, $key),
-                'alamat_terlapor' => AesHelper::decrypt($aduan->alamat_terlapor, $key),
-                'phone_terlapor' => AesHelper::decrypt($aduan->phone_terlapor, $key),
-                'chronology' => AesHelper::decrypt($aduan->chronology, $key),
-                'karakteristik_terlapor' => AesHelper::decrypt($aduan->karakteristik_terlapor, $key),
-                'terlapor' => AesHelper::decrypt($aduan->terlapor, $key),
-                'warning' => AesHelper::decrypt($aduan->warning, $key),
-                'warning_detail' => AesHelper::decrypt($aduan->warning_detail, $key),
-                'lokasi' => AesHelper::decrypt($aduan->lokasi, $key),
-                'jenis_kelamin_korban' => AesHelper::decrypt($aduan->jenis_kelamin_korban, $key),
-                'status_korban' => AesHelper::decrypt($aduan->status_korban, $key),
-                'jenis_kelamin_terlapor' => AesHelper::decrypt($aduan->jenis_kelamin_terlapor, $key),
-                'status_terlapor' => AesHelper::decrypt($aduan->status_terlapor, $key),
-            ];
+    try {
+        $key = $request->input('key');
 
-            return response()->json(['status' => 'success', 'data' => $decrypted]);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'Key salah atau gagal dekripsi']);
-        }
+        $decrypted = [
+            'nama_pelapor' => AesHelper::decrypt($aduan->nama_pelapor, $key),
+            'alamat_pelapor' => AesHelper::decrypt($aduan->alamat_pelapor, $key),
+            'email_pelapor' => AesHelper::decrypt($aduan->email_pelapor, $key),
+            'phone_pelapor' => AesHelper::decrypt($aduan->phone_pelapor, $key),
+            'nama_korban' => AesHelper::decrypt($aduan->nama_korban, $key),
+            'alamat_korban' => AesHelper::decrypt($aduan->alamat_korban, $key),
+            'phone_korban' => AesHelper::decrypt($aduan->phone_korban, $key),
+            'nama_terlapor' => AesHelper::decrypt($aduan->nama_terlapor, $key),
+            'alamat_terlapor' => AesHelper::decrypt($aduan->alamat_terlapor, $key),
+            'phone_terlapor' => AesHelper::decrypt($aduan->phone_terlapor, $key),
+            'chronology' => AesHelper::decrypt($aduan->chronology, $key),
+            'karakteristik_terlapor' => AesHelper::decrypt($aduan->karakteristik_terlapor, $key),
+            'terlapor' => AesHelper::decrypt($aduan->terlapor, $key),
+            'warning' => AesHelper::decrypt($aduan->warning, $key),
+            'warning_detail' => AesHelper::decrypt($aduan->warning_detail, $key),
+            'lokasi' => AesHelper::decrypt($aduan->lokasi, $key),
+            'jenis_kelamin_korban' => AesHelper::decrypt($aduan->jenis_kelamin_korban, $key),
+            'status_korban' => AesHelper::decrypt($aduan->status_korban, $key),
+            'jenis_kelamin_terlapor' => AesHelper::decrypt($aduan->jenis_kelamin_terlapor, $key),
+            'status_terlapor' => AesHelper::decrypt($aduan->status_terlapor, $key),
+        ];
+
+        $end = microtime(true); // ⏱️ selesai
+        $executionTime = $end - $start;
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $decrypted,
+            'execution_time' => $executionTime // 🔥 kirim ke frontend
+        ]);
+
+    } catch (\Exception $e) {
+
+        $end = microtime(true);
+        $executionTime = $end - $start;
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Key salah atau gagal dekripsi',
+            'execution_time' => $executionTime // tetap kirim biar bisa dianalisis
+        ]);
     }
+}
 
     public function arsip()
     {

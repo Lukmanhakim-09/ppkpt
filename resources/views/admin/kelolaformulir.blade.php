@@ -43,6 +43,8 @@ x-data="{
     decrypted:null,
     isDecrypted:false,
 
+    executionTime: 0,
+
     decryptAduan(id){
         fetch(`/admin/aduan/decrypt/${id}`,{
             method:'POST',
@@ -54,15 +56,16 @@ x-data="{
         })
         .then(r=>r.json())
         .then(r=>{
-            if(r.status === 'success'){
-                this.decrypted = r.data
-                this.isDecrypted = true
-                this.key=''
-                this.showModal=false
-            }else{
-                alert(r.message)
-            }
-        })
+        if(r.status === 'success'){
+            this.decrypted = r.data
+            this.executionTime = r.execution_time
+            this.isDecrypted = true
+            this.key=''
+            this.showModal=false
+        }else{
+            alert(r.message)
+        }
+    })
         .catch(()=>alert('Gagal dekripsi'))
     }
 }">
@@ -178,6 +181,12 @@ overflow-hidden">
                                 class="bg-blue-500 text-white px-4 py-2 rounded mb-4">
                                 Dekripsi Aduan
                             </button>
+
+                            <p class="text-sm text-gray-600 mb-2"
+                                x-show="executionTime">
+                                ⏱️ Waktu proses dekripsi: 
+                                <span x-text="executionTime.toFixed(4)"></span> detik
+                                </p>
 
                             <!-- MODAL — hanya SATU -->
                             <div x-show="showModal"
@@ -545,5 +554,4 @@ overflow-hidden">
     </style>
 
 </body>
-
 </html>
