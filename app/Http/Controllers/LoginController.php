@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Verify;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpMail;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -24,7 +30,24 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect('/admin');
         } elseif ($user->role === 'pelapor') {
+            if ($user->status_verify == 0) {
+                $otp = rand(1000, 9999);
+                $verify = Verify::create([
+                    'user_id' => $user->id,
+                    'otp' => md5($otp),
+                    'expired_at' => now()->addMinutes(2),
+                ]);
+
+                Mail::to($user->email)->send(new OtpMail($otp));
+                
+                // Simpan expired timestamp ke session (milidetik)
+                session(['otpTargetTime' => now()->addMinutes(2)->timestamp * 1000]);
+
+                return redirect('/verify')->with('otpTargetTime', now()->addMinutes(2)->timestamp * 1000);
+            } 
             return redirect('/user');
+        } elseif ($user->role === 'satgas') {
+            return redirect('/satgas');
         } else {
             // Jika role tidak dikenal, arahkan ke halaman default
             return redirect('/');
@@ -33,4 +56,10 @@ class LoginController extends Controller
 
     return redirect('/login')->with('error', 'Username atau password yang Anda masukkan salah.');
     }   
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
 }
